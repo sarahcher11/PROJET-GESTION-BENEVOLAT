@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request
+from CreateDb import search_volunteer_by_name
 import json
 
 app = Flask(__name__)
@@ -17,8 +18,6 @@ def index():
 def login():
     return render_template('login.html')
 
-
-
 @app.get('/signup')
 def signup():
     return render_template('signup.html')
@@ -33,27 +32,22 @@ def registerVolunteer():
 
 
 
-
-'''
-# Route for search functionality
 @app.route('/search')
-def search_benevoles():
-    # Get search query from request parameters
-    search_query = request.args.get('q', '').lower()
+def search_volunteers():
+    # Récupérer le terme de recherche depuis les paramètres de la requête
+    search_query = request.args.get('name', '')
     
-    # List to store matching volunteers
-    matching_benevoles = []
+    # Rechercher les bénévoles correspondant au nom
+    matching_volunteers = search_volunteer_by_name(search_query)
+    print("Résultats de la recherche :", matching_volunteers)
 
-    # Search for matching volunteers
-    for benevole in data['benevoles']:
-        # Make search case-insensitive
-        if search_query in benevole['nom'].lower() or any(interest.lower() == search_query for interest in benevole['interets']):
-            matching_benevoles.append(benevole)
-    
-    # Render template with matching volunteers
-    return render_template('resultats.html', benevoles=matching_benevoles)
 
-'''
+    # Retourner les résultats de la recherche sous forme de page HTML "resultat.html"
+    return render_template('resultat.html', volunteers=matching_volunteers)
+
+
+
+
 
 
 
