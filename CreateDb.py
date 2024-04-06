@@ -130,8 +130,29 @@ def add_volunteer(user_id, full_name, date_of_birth, address, skills, phone_numb
     return volunteer_id
 
 
+
+
+
+
 load_users()
 load_volunteers()
+volunteer_id = add_volunteer(
+    user_id=1,
+    full_name="John Doe",
+    date_of_birth="1990-01-15",
+    address="123 Main St, City, Country",
+    skills=["Programming", "Communication"],
+    phone_number="123-456-7890",
+    sexe="Male",
+    interests=["Music", "Reading"]
+)
+
+if volunteer_id:
+    print("Volontaire ajouté avec succès. ID:", volunteer_id)
+else:
+    print("Erreur lors de l'ajout du volontaire.")
+
+
 
 
 
