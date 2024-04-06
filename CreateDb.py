@@ -144,7 +144,9 @@ def get_volunteers(db_name=DBFILENAME):
     
     return volunteers
 
-
+#test
+load_users()
+load_volunteers()
 
 def search_volunteer_by_name(name, db_name=DBFILENAME):
     select_query = '''SELECT * FROM volunteer WHERE full_name LIKE ?'''
@@ -160,9 +162,22 @@ def search_volunteer_by_name(name, db_name=DBFILENAME):
     return matching_volunteers
 
 
-#test
-load_users()
-load_volunteers()
+
+#Test get_volunteers
+volunteers = get_volunteers()
+if volunteers:
+    print("Liste des bénévoles disponibles:")
+    for volunteer in volunteers:
+        print(volunteer)
+else:
+    print("Erreur lors de la récupération des bénévoles.")
+
+
+
+
+
+
+
 
 
 
