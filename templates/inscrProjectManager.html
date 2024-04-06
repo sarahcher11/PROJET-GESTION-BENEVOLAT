@@ -6,7 +6,7 @@
         <title>Become a project manager</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-        <link rel="stylesheet" href="styles/inscripProjectmanager.css">
+        <link rel="stylesheet" href="/static/inscripProjectmanager.css">
     </head>
     
 <body>
@@ -71,9 +71,8 @@
    </section> 
    <script>
     flatpickr("#birthdate", {
-        dateFormat: "Y-m-d", // You can adjust the date format as needed
-        maxDate: new Date(), // Optionally set maximum date
-        // Other configurations as needed
+        dateFormat: "Y/m/d", 
+        maxDate: new Date(),
     });
 </script>
 </body>
