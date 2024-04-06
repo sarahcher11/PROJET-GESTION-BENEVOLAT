@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats de la recherche</title>
+</head>
+<body>
+    <h1>Résultats de la recherche</h1>
+    <ul>
+        {% for benevole in benevoles %}
+            <li>
+                <strong>Nom:</strong> {{ benevole.nom }}<br>
+                <strong>email:</strong> {{ benevole.email }}<br>
+                <strong>ville:</strong> {{ benevole.ville }}<br>>
+                <strong>Intérêts:</strong> {{ ', '.join(benevole.interets) }}<br>
+                <!-- Add any other relevant information about the volunteer here -->
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
