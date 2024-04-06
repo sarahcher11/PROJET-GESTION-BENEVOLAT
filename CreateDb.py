@@ -1,5 +1,6 @@
 import sqlite3
 import json
+from datetime import datetime
 
 
 
@@ -29,6 +30,17 @@ def load_users(fname=JSONFILENAMEUSER, db_name=DBFILENAME):
   for id, user in enumerate(users):
     user['id'] = id
     db_run(insert1, user)
+
+
+  
+
+def add_user(username,password,email):
+  insert = 'INSERT INTO user (username,password,email) VALUES (?, ?, ?)'
+  password_hash=generate_password_hash(password)
+  db_run(insert,(username,password_hash,email))
+
+
+
   
 
 
@@ -49,22 +61,33 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
                  interests TEXT
               )''')
 
-    
     insert_query = 'INSERT INTO volunteer (user_id, full_name, date_of_birth, address, skills, phone_number, sexe, interests) \
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+
 
     with open(fname, 'r') as fh:
         volunteers = json.load(fh)
 
-    # Insérer les données des bénévoles dans la table volunteer
+    # Convertir les dates de naissance en format "YYYY-MM-DD"
     for volunteer in volunteers:
-        # Convertir la liste de compétences en une chaîne de caractères
-        skills_str = ', '.join(volunteer['skills'])
-        volunteer['skills'] = skills_str
-        db_run(insert_query, volunteer)
+        volunteer['date_of_birth'] = datetime.strptime(volunteer['date_of_birth'], '%Y-%m-%d').strftime('%Y-%m-%d')
 
-  
+    # Préparer les données à insérer sous forme de liste de tuples
+    data_to_insert = [(volunteer['user_id'], volunteer['full_name'], volunteer['date_of_birth'], volunteer['address'],
+                       ', '.join(volunteer['skills']), volunteer['phone_number'], volunteer['sexe'],
+                       ', '.join(volunteer['interests'])) for volunteer in volunteers]
+
+    
+    with sqlite3.connect(db_name) as conn:
+            conn.executemany(insert_query, data_to_insert)
+
+
 load_volunteers()
+load_users()
+add_user("sarah","12345",'sarah@exemple.com')
+add_user("ines","hamiche",'ines@gmail.com')
+add_user("souso","azerty",'soso@gmail.com')
+
 
 
 
