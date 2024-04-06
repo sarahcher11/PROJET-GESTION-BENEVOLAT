@@ -131,26 +131,38 @@ def add_volunteer(user_id, full_name, date_of_birth, address, skills, phone_numb
 
 
 
+def get_volunteers(db_name=DBFILENAME):
+    select_query = '''SELECT * FROM volunteer'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query)
+            volunteers = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la récupération des bénévoles depuis la base de données:", e)
+        return None
+    
+    return volunteers
 
 
-
+#test
 load_users()
 load_volunteers()
-volunteer_id = add_volunteer(
-    user_id=1,
-    full_name="John Doe",
-    date_of_birth="1990-01-15",
-    address="123 Main St, City, Country",
-    skills=["Programming", "Communication"],
-    phone_number="123-456-7890",
-    sexe="Male",
-    interests=["Music", "Reading"]
-)
 
-if volunteer_id:
-    print("Volontaire ajouté avec succès. ID:", volunteer_id)
-else:
-    print("Erreur lors de l'ajout du volontaire.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
