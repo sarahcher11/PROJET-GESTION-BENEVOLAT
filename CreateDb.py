@@ -174,6 +174,15 @@ else:
 
 
 
+#Test search_volunteer_by_name
+search_name = "so"
+volunteer = search_volunteer_by_name(search_name)
+if volunteer:
+    print(f"Bénévole trouvé avec le nom '{search_name}': {volunteer}")
+else:
+    print(f"Aucun bénévole trouvé avec le nom '{search_name}'.")
+
+
 
 
 
