@@ -145,6 +145,21 @@ def get_volunteers(db_name=DBFILENAME):
     return volunteers
 
 
+
+def search_volunteer_by_name(name, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM volunteer WHERE full_name LIKE ?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, ('%' + name + '%',))
+            matching_volunteers = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la recherche du bénévole dans la base de données:", e)
+        return None
+    
+    return matching_volunteers
+
+
 #test
 load_users()
 load_volunteers()
