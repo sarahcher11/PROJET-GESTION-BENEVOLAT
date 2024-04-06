@@ -34,10 +34,6 @@ def load_users(fname=JSONFILENAMEUSER, db_name=DBFILENAME):
 
   
 
-def add_user(username,password,email):
-  insert = 'INSERT INTO user (username,password,email) VALUES (?, ?, ?)'
-  password_hash=generate_password_hash(password)
-  db_run(insert,(username,password_hash,email))
 
 
 
@@ -82,11 +78,70 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
             conn.executemany(insert_query, data_to_insert)
 
 
-load_volunteers()
+
+
+
+
+
+
+
+def add_volunteer(user_id, full_name, date_of_birth, address, skills, phone_number, sexe, interests, db_name=DBFILENAME):
+    insert_query = '''INSERT INTO volunteer (user_id, full_name, date_of_birth, address, skills, phone_number, sexe, interests)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
+
+    # Convertir la liste de compétences et d'intérêts en chaînes de caractères séparées par des virgules
+    skills_str = ', '.join(skills)
+    interests_str = ', '.join(interests)
+
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(insert_query, (user_id, full_name, date_of_birth, address, skills_str, phone_number, sexe, interests_str))
+            conn.commit()
+            volunteer_id = cursor.lastrowid 
+    except sqlite3.Error as e:
+        print("Erreur lors de l'ajout du volontaire à la base de données:", e)
+        return None
+    
+    # Mettre à jour le fichier JSON
+    volunteer_data = {
+        "id": volunteer_id,
+        "user_id": user_id,
+        "full_name": full_name,
+        "date_of_birth": date_of_birth,
+        "address": address,
+        "skills": skills,
+        "phone_number": phone_number,
+        "sexe": sexe,
+        "interests": interests
+    }
+    
+    try:
+        with open(JSONFILENAMEVOLUNTEER, 'r') as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        data = []
+    
+    data.append(volunteer_data)
+    
+    with open(JSONFILENAMEVOLUNTEER, 'w') as file:
+        json.dump(data, file, indent=4)
+    
+    return volunteer_id
+
+
 load_users()
-add_user("sarah","12345",'sarah@exemple.com')
-add_user("ines","hamiche",'ines@gmail.com')
-add_user("souso","azerty",'soso@gmail.com')
+load_volunteers()
+
+
+
+
+
+
+
+
+
+
 
 
 
