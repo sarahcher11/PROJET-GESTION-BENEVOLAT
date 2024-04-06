@@ -19,6 +19,11 @@ def login():
 def signup():
     return render_template('signup.html')
 
+
+@app.route('/loginn')
+def signup():
+    return render_template('signup.html')
+
 @app.route('/inscrProjectManager')
 def inscrProjectManager():
     return render_template('inscrProjectManager.html')
