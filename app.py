@@ -29,6 +29,8 @@ def registerVolunteer():
 
 
 
+
+
 # Route for search functionality
 @app.route('/search')
 def search_benevoles():
