@@ -259,7 +259,7 @@ circle {
     stroke: url(#GradientColor);
     stroke-dasharray: 472;
     stroke-dashoffset: 472;
-    animation: anim 4s linear forwards;
+    animation: anim 7s linear forwards;
 
 }
 
@@ -319,22 +319,16 @@ svg {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); 
 }
 
-
-
-
-
-
   .searchBen {
     text-align: center;
     margin-top: 20px;
     margin-left: 40px;
-  }
+}
 
-  .searchProj {
+.searchProj {
     text-align: center;
-    margin-top: 20px;
-   
-  }
+    margin-top: 20px;  
+}
   
 
 .search-bar {

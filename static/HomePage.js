@@ -19,5 +19,33 @@ setInterval(()=>{
         number2.innerHTML="+ "+counter2;
     }
 },25);
+// Function to handle form submission
+function searchBenevoles(event) {
+    // Prevent default form submission
+    event.preventDefault();
+
+    // Get the search query from the input field
+    var searchQuery = document.querySelector('.search-bar input').value;
+
+    // Fetch the search results from the server
+    fetch('/search?q=' + searchQuery)
+        .then(response => {
+            // Check if the response is successful
+            if (response.ok) {
+                // If successful, reload the page to show the search results
+                window.location.href = '/search?q=' + searchQuery;
+            } else {
+                // If not successful, display an error message
+                console.error('Error:', response.status);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+
+// Add event listener to the form submission
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("search-form").addEventListener('submit', searchBenevoles);
+});
 
 
