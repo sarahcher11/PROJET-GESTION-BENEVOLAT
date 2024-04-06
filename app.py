@@ -2,40 +2,39 @@ from flask import Flask, render_template, jsonify, request
 import json
 
 app = Flask(__name__)
-
+'''
 # Load data from JSON file
 with open('data.json') as f:
     data = json.load(f)
+'''
+
 
 @app.route('/')
 def index():
     return render_template('HomePage.html')
 
-@app.route('/login')
+@app.get('/login')
 def login():
     return render_template('login.html')
 
-@app.route('/signup')
+
+
+@app.get('/signup')
 def signup():
     return render_template('signup.html')
 
-
-@app.route('/loginn')
-def signup():
-    return render_template('signup.html')
-
-@app.route('/inscrProjectManager')
+@app.get('/inscrProjectManager')
 def inscrProjectManager():
     return render_template('inscrProjectManager.html')
 
-@app.route('/registerVolunteer')
+@app.get('/registerVolunteer')
 def registerVolunteer():
     return render_template('registerVolunteer.html')
 
 
 
 
-
+'''
 # Route for search functionality
 @app.route('/search')
 def search_benevoles():
@@ -54,7 +53,7 @@ def search_benevoles():
     # Render template with matching volunteers
     return render_template('resultats.html', benevoles=matching_benevoles)
 
-
+'''
 
 
 
