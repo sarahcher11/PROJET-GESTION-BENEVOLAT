@@ -4,10 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Résultats de la recherche</title>
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/resultat.css') }}">
 </head>
 
 <body>
+    <div class="image-container">
+        
+        <div class="content">
+            <h1> Retrouvez des benevoles partout en France ! </h1>
+        </div>
+            <div class="searchBen">
+                <form action="/search" id="search-form" class="search-bar" method="GET">
+                    <input type="text" id="search-input" placeholder="Search projects" name="q">
+                    <button class="search-btn" type="submit">Je recherche</button>
+                </form>
+            </div>
+    </div>
+
+
     <h1>Résultats de la recherche</h1>
     <ul>
         {% for volunteer in volunteers %}
