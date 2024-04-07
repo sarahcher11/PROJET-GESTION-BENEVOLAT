@@ -19,33 +19,24 @@ setInterval(()=>{
         number2.innerHTML="+ "+counter2;
     }
 },25);
+
+
+
+
 // Function to handle form submission
-function searchBenevoles(event) {
-    // Prevent default form submission
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    // Écouter l'événement de soumission du formulaire de recherche
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêcher le formulaire d'être soumis normalement
 
-    // Get the search query from the input field
-    var searchQuery = document.querySelector('.search-bar input').value;
+        // Récupérer le terme de recherche
+        var searchQuery = document.getElementById('search-input').value;
 
-    // Fetch the search results from the server
-    fetch('/search?q=' + searchQuery)
-        .then(response => {
-            // Check if the response is successful
-            if (response.ok) {
-                // If successful, reload the page to show the search results
-                window.location.href = '/search?q=' + searchQuery;
-            } else {
-                // If not successful, display an error message
-                console.error('Error:', response.status);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-}
-
-
-// Add event listener to the form submission
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("search-form").addEventListener('submit', searchBenevoles);
+        // Effectuer une redirection vers la page de résultats de recherche avec le terme de recherche comme paramètre
+        window.location.href = '/search?name=' + encodeURIComponent(searchQuery);
+    });
 });
+
+
 
 

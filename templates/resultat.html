@@ -25,15 +25,24 @@
     <h1>Résultats de la recherche</h1>
     <ul>
         {% for volunteer in volunteers %}
-            <li>
-                <strong>Nom complet:</strong> {{ volunteer[2] }}<br>
-                <span class="additional-info"><strong>Date de naissance:</strong> {{ volunteer[3] }}</span><br>
-                <span class="additional-info"><strong>Adresse:</strong> {{ volunteer[4] }}</span><br>
-                <span class="additional-info"><strong>Compétences:</strong> {{ volunteer[5] }}</span><br>
-                <span class="additional-info"><strong>Numéro de téléphone:</strong> {{ volunteer[6] }}</span><br>
-                <span class="additional-info"><strong>Sexe:</strong> {{ volunteer[7] }}</span><br>
-                <span class="additional-info"><strong>Intérêts:</strong> {{ volunteer[8] }}</span><br>
-            </li>
+        <div class="entete">
+            <div class="skills">
+                <p> {{ volunteer[5] }}</p>
+            </div>
+            <div class="trait-horizontal"><br></div>
+        </div>
+        <div class="namecontainer">
+            <div class="name">{{ volunteer[2] }}<br></div>
+        </div>
+        <div class="container">
+            <p>
+                    <strong>Date de naissance:</strong> {{ volunteer[3] }}<br>
+                    <strong>Adresse:</strong> {{ volunteer[4] }}<br>
+                    <strong>Numéro de téléphone:</strong> {{ volunteer[6] }}<br>
+                    <strong>Sexe:</strong> {{ volunteer[7] }}<br>
+                    <strong>Intérêts:</strong> {{ volunteer[8] }}<br>
+            </p>
+        </div>
         {% endfor %}
     </ul>
 </body>
