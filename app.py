@@ -1,13 +1,9 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, request, redirect
 import json
+import datamodel as model
+import math
 
 app = Flask(__name__)
-'''
-# Load data from JSON file
-with open('data.json') as f:
-    data = json.load(f)
-'''
-
 
 @app.route('/')
 def index():
@@ -16,8 +12,6 @@ def index():
 @app.get('/login')
 def login():
     return render_template('login.html')
-
-
 
 @app.get('/signup')
 def signup():
@@ -31,30 +25,29 @@ def inscrProjectManager():
 def registerVolunteer():
     return render_template('registerVolunteer.html')
 
+@app.post('/login')
+def login_post():
+    email = request.form['email']
+    password = request.form['password']
+    user_id = model.login(email, password)
+    if user_id != -1:
+        return redirect('/')
+    else:
+        erreur = 'Failed authentification'
+        return render_template("login.html", error=erreur)
 
+@app.post('/signup')
+def new_user():
+    email = request.form['email']
+    password = request.form['password']
+    username = request.form['username']
+    user_id = model.new_user(email, password, username)
 
-
-'''
-# Route for search functionality
-@app.route('/search')
-def search_benevoles():
-    # Get search query from request parameters
-    search_query = request.args.get('q', '').lower()
-    
-    # List to store matching volunteers
-    matching_benevoles = []
-
-    # Search for matching volunteers
-    for benevole in data['benevoles']:
-        # Make search case-insensitive
-        if search_query in benevole['nom'].lower() or any(interest.lower() == search_query for interest in benevole['interets']):
-            matching_benevoles.append(benevole)
-    
-    # Render template with matching volunteers
-    return render_template('resultats.html', benevoles=matching_benevoles)
-
-'''
-
+    if user_id!=None:
+        return redirect('/')
+    else:
+        erreur = 'Already existing email or username'
+        return render_template("signup.html", error=erreur)
 
 
 if __name__ == '__main__':
