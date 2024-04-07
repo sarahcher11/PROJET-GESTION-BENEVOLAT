@@ -1,0 +1,222 @@
+[
+    {
+        "id": 1,
+        "user_id": 2,
+        "full_name": "John Doe",
+        "date_of_birth": "1990-01-15",
+        "address": "123 Main St, City, Country",
+        "skills": ["Programming", "Communication"],
+        "phone_number": "123-456-7890",
+        "sexe": "Male",
+        "interests": ["Music", "Reading"]
+    },
+    {
+        "id": 2,
+        "user_id": 1,
+        "full_name": "Jane Smith",
+        "date_of_birth": "1985-06-20",
+        "address": "456 Elm St, Town, Country",
+        "skills": ["Teaching", "Organization"],
+        "phone_number": "456-789-0123",
+        "sexe": "Female",
+        "interests": ["Art", "Sports"]
+    },
+    {
+        "id": 3,
+        "user_id": 3,
+        "full_name": "Alice Johnson",
+        "date_of_birth": "1992-03-10",
+        "address": "789 Oak St, Village, Country",
+        "skills": ["Writing", "Problem-solving"],
+        "phone_number": "789-012-3456",
+        "sexe": "Female",
+        "interests": ["Photography", "Cooking"]
+    },
+    {
+        "id": 4,
+        "user_id": 4,
+        "full_name": "Michael Brown",
+        "date_of_birth": "1988-12-05",
+        "address": "321 Pine St, Rural, Country",
+        "skills": ["Design", "Teamwork"],
+        "phone_number": "987-654-3210",
+        "sexe": "Male",
+        "interests": ["Dancing", "Traveling"]
+    },
+    {
+        "id": 5,
+        "user_id": 5,
+        "full_name": "Emily Wilson",
+        "date_of_birth": "1994-08-25",
+        "address": "789 Maple St, Suburb, Country",
+        "skills": ["Marketing", "Leadership"],
+        "phone_number": "321-654-9870",
+        "sexe": "Female",
+        "interests": ["Gardening", "Movies"]
+    },
+    {
+        "id": 6,
+        "user_id": 6,
+        "full_name": "David Lee",
+        "date_of_birth": "1991-02-12",
+        "address": "567 Oak St, Village, Country",
+        "skills": ["Programming", "Problem-solving"],
+        "phone_number": "654-321-0987",
+        "sexe": "Male",
+        "interests": ["Chess", "Hiking"]
+    },
+    {
+        "id": 7,
+        "user_id": 9,
+        "full_name": "Sophia Miller",
+        "date_of_birth": "1987-11-30",
+        "address": "234 Cedar St, Town, Country",
+        "skills": ["Writing", "Communication"],
+        "phone_number": "012-345-6789",
+        "sexe": "Female",
+        "interests": ["Art", "Photography"]
+    },
+    {
+        "id": 8,
+        "user_id": 8,
+        "full_name": "James Taylor",
+        "date_of_birth": "1993-09-18",
+        "address": "678 Pine St, Rural, Country",
+        "skills": ["Design", "Marketing"],
+        "phone_number": "543-210-9876",
+        "sexe": "Male",
+        "interests": ["Music", "Cooking"]
+    },
+    {
+        "id": 9,
+        "user_id": 18,
+        "full_name": "Olivia Garcia",
+        "date_of_birth": "1989-07-08",
+        "address": "345 Elm St, Suburb, Country",
+        "skills": ["Teaching", "Leadership"],
+        "phone_number": "876-543-2109",
+        "sexe": "Female",
+        "interests": ["Reading", "Traveling"]
+    },
+    {
+        "id": 10,
+        "user_id": 1,
+        "full_name": "William Martinez",
+        "date_of_birth": "1996-04-14",
+        "address": "890 Oak St, Village, Country",
+        "skills": ["Programming", "Design"],
+        "phone_number": "210-987-6543",
+        "sexe": "Male",
+        "interests": ["Sports", "Movies"]
+    },
+    {
+        "id": 11,
+        "user_id": 11,
+        "full_name": "Charlotte Hernandez",
+        "date_of_birth": "1986-10-02",
+        "address": "456 Cedar St, Town, Country",
+        "skills": ["Writing", "Marketing"],
+        "phone_number": "789-012-3456",
+        "sexe": "Female",
+        "interests": ["Art", "Music"]
+    },
+    {
+        "id": 12,
+        "user_id": 12,
+        "full_name": "Alexander Nguyen",
+        "date_of_birth": "1990-03-20",
+        "address": "567 Maple St, Suburb, Country",
+        "skills": ["Teaching", "Programming"],
+        "phone_number": "987-654-3210",
+        "sexe": "Male",
+        "interests": ["Chess", "Reading"]
+    },
+    {
+        "id": 13,
+        "user_id": 13,
+        "full_name": "Mia Thompson",
+        "date_of_birth": "1995-07-12",
+        "address": "678 Pine St, Rural, Country",
+        "skills": ["Design", "Communication"],
+        "phone_number": "321-654-9870",
+        "sexe": "Female",
+        "interests": ["Photography", "Traveling"]
+    },
+    {
+        "id": 14,
+        "user_id": 14,
+        "full_name": "Ethan Hall",
+        "date_of_birth": "1988-05-28",
+        "address": "123 Cedar St, Town, Country",
+        "skills": ["Programming", "Teamwork"],
+        "phone_number": "654-321-0987",
+        "sexe": "Male",
+        "interests": ["Music", "Cooking"]
+    },
+    {
+        "id": 15,
+        "user_id": 15,
+        "full_name": "Amelia Moore",
+        "date_of_birth": "1993-09-04",
+        "address": "890 Elm St, Suburb, Country",
+        "skills": ["Teaching", "Leadership"],
+        "phone_number": "012-345-6789",
+        "sexe": "Female",
+        "interests": ["Reading", "Sports"]
+    },
+    {
+        "id": 16,
+        "user_id": 16,
+        "full_name": "Daniel Cooper",
+        "date_of_birth": "1991-01-30",
+        "address": "345 Oak St, Village, Country",
+        "skills": ["Writing", "Marketing"],
+        "phone_number": "543-210-9876",
+        "sexe": "Male",
+        "interests": ["Art", "Movies"]
+    },
+    {
+        "id": 17,
+        "user_id": 17,
+        "full_name": "Olivia Rogers",
+        "date_of_birth": "1987-11-18",
+        "address": "456 Pine St, Rural, Country",
+        "skills": ["Design", "Communication"],
+        "phone_number": "876-543-2109",
+        "sexe": "Female",
+        "interests": ["Photography", "Music"]
+    },
+    {
+        "id": 18,
+        "user_id": 9,
+        "full_name": "Michael Hill",
+        "date_of_birth": "1994-04-22",
+        "address": "567 Elm St, Suburb, Country",
+        "skills": ["Teaching", "Programming"],
+        "phone_number": "210-987-6543",
+        "sexe": "Male",
+        "interests": ["Chess", "Traveling"]
+    },
+    {
+        "id": 19,
+        "user_id": 10,
+        "full_name": "Charlotte Coleman",
+        "date_of_birth": "1988-08-08",
+        "address": "678 Cedar St, Town, Country",
+        "skills": ["Writing", "Teamwork"],
+        "phone_number": "789-012-3456",
+        "sexe": "Female",
+        "interests": ["Art", "Reading"]
+    },
+    {
+        "id": 20,
+        "user_id": 30,
+        "full_name": "Jacob Morris",
+        "date_of_birth": "1995-02-16",
+        "address": "890 Maple St, Suburb, Country",
+        "skills": ["Programming", "Marketing"],
+        "phone_number": "987-654-3210",
+        "sexe": "Male",
+        "interests": ["Music", "Sports"]
+    }
+]

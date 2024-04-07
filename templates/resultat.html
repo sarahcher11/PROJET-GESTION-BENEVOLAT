@@ -4,20 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Résultats de la recherche</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/resultat.css') }}">
 </head>
+
 <body>
+    <div class="image-container">
+        
+        <div class="content">
+            <h1> Retrouvez des benevoles partout en France ! </h1>
+        </div>
+            <div class="searchBen">
+                <form action="/search" id="search-form" class="search-bar" method="GET">
+                    <input type="text" id="search-input" placeholder="Search projects" name="q">
+                    <button class="search-btn" type="submit">Je recherche</button>
+                </form>
+            </div>
+    </div>
+
+
     <h1>Résultats de la recherche</h1>
     <ul>
-        {% for benevole in benevoles %}
-            <li>
-                
-                <strong>Nom:</strong> {{ benevole.nom }}<br>
-                <strong>email:</strong> {{ benevole.email }}<br>
-                <strong>ville:</strong> {{ benevole.ville }}<br>>
-                <strong>Intérêts:</strong> {{ ', '.join(benevole.interets) }}<br>
-                <!-- Add any other relevant information about the volunteer here -->
-            </li>
-    {% endfor %}
+        {% for volunteer in volunteers %}
+
+
+
+        <div class="fiche">
+
+            <div class="container1">
+                <div class="entete">
+                    <div class="skills">
+                        <p> {{ volunteer[5] }}</p>
+                    </div>
+                    <div class="trait-horizontal"><br></div>
+                </div>
+
+                <div class="namecontainer">
+                    <div class="name">{{ volunteer[2] }}<br></div>
+                    <div class="ines"> <img class="logoimg" src="../static/images/volunteer.svg" alt="image2"></div>
+                </div>
+
+                <div class="container">
+                    <p>
+                            <strong>Date de naissance:</strong> {{ volunteer[3] }}<br>
+                            <strong>Adresse:</strong> {{ volunteer[4] }}<br>
+                            <strong>Numéro de téléphone:</strong> {{ volunteer[6] }}<br>
+                            <strong>Sexe:</strong> {{ volunteer[7] }}<br>
+                            <strong>Intérêts:</strong> {{ volunteer[8] }}<br>
+                    </p>
+                </div>
+                <div class="btn"> <button type="button">contacter</button> </div>
+
+            </div>
+        
+        </div>
+        {% endfor %}
     </ul>
 </body>
 </html>
