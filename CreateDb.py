@@ -138,6 +138,49 @@ else:
 
 
 
+def load_project_table(fname="project.json", db_name="database.db"):
+    # Supprimer la table project si elle existe déjà
+    db_run('DROP TABLE IF EXISTS project')
+
+    # Créer la table project avec les colonnes spécifiées
+    db_run('''CREATE TABLE project (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    project_name TEXT,
+    description TEXT,
+    start_date TEXT,
+    end_date TEXT,
+    region TEXT,
+    ville TEXT,
+    code_postal TEXT,
+    adresse TEXT,
+    project_manager_id INTEGER,
+    interests TEXT
+    )''')
+
+    insert_query = '''INSERT INTO project (project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+
+    with open(fname, 'r') as fh:
+        projects = json.load(fh)
+
+    # Convertir les dates de début et de fin du projet en format "YYYY-MM-DD"
+    for project in projects:
+        project['start_date'] = datetime.strptime(project['start_date'], '%Y-%m-%d').strftime('%Y-%m-%d')
+        project['end_date'] = datetime.strptime(project['end_date'], '%Y-%m-%d').strftime('%Y-%m-%d')
+
+    # Préparer les données à insérer sous forme de liste de tuples
+    data_to_insert = [(project['project_name'], project['description'], project['start_date'], project['end_date'],
+                       project['region'], project['ville'], project['code_postal'], project['adresse'],
+                       project['project_manager_id'], ', '.join(project['interests'])) for project in projects]
+
+    with sqlite3.connect(db_name) as conn:
+            conn.executemany(insert_query, data_to_insert)
+
+
+
+load_project_table()
+
+
 
 
 
