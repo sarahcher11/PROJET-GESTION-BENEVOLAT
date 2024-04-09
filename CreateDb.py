@@ -304,7 +304,7 @@ def search_projects_by_filter(region=None, ville=None, start_date=None, end_date
 
 load_project_table()
 
-projects_in_perio = search_projects_by_filter(None,"tou")
+projects_in_perio = search_projects_by_filter(None,"toul")
 
 # Affichage des projets trouvés
 for project in projects_in_perio:
