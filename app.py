@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect
 import json
 import datamodel as model
+from CreateDb import search_volunteer_by_name
 import math
+
 
 app = Flask(__name__)
 
@@ -23,7 +25,7 @@ def inscrProjectManager():
 
 @app.get('/registerVolunteer')
 def registerVolunteer():
-    return render_template('registerVolunteer.html')
+    return render_template('registerVolunteer.html',interests=model.interests)
 
 @app.post('/login')
 def login_post():
@@ -48,6 +50,27 @@ def new_user():
     else:
         erreur = 'Already existing email or username'
         return render_template("signup.html", error=erreur)
+
+
+@app.route('/search')
+def search_volunteers():
+    # Récupérer le terme de recherche depuis les paramètres de la requête
+    search_query = request.args.get('name', '')
+    
+    # Rechercher les bénévoles correspondant au nom
+    matching_volunteers = search_volunteer_by_name(search_query)
+    print("Résultats de la recherche :", matching_volunteers)
+
+
+    # Retourner les résultats de la recherche sous forme de page HTML "resultat.html"
+    return render_template('resultat.html', volunteers=matching_volunteers)
+
+
+
+@app.post('/registerVolunteer')
+def register_volunteer_form():
+    pass
+
 
 
 if __name__ == '__main__':
