@@ -96,9 +96,12 @@ def get_volunteers(db_name=DBFILENAME):
     
     return volunteers
 
+
+'''
 #test
 load_users()
 load_volunteers()
+'''
 
 def search_volunteer_by_name(name, db_name=DBFILENAME):
     select_query = '''SELECT * FROM volunteer WHERE first_name LIKE ? OR last_name LIKE ?'''
@@ -114,7 +117,7 @@ def search_volunteer_by_name(name, db_name=DBFILENAME):
     return matching_volunteers
 
 
-
+'''
 #Test get_volunteers
 volunteers = get_volunteers()
 if volunteers:
@@ -123,9 +126,10 @@ if volunteers:
         print(volunteer)
 else:
     print("Erreur lors de la récupération des bénévoles.")
+'''
 
 
-
+'''
 #Test search_volunteer_by_name
 search_name = "so"
 volunteer = search_volunteer_by_name(search_name)
@@ -133,7 +137,7 @@ if volunteer:
     print(f"Bénévole trouvé avec le nom '{search_name}': {volunteer}")
 else:
     print(f"Aucun bénévole trouvé avec le nom '{search_name}'.")
-
+'''
 
 
 
@@ -194,7 +198,13 @@ def get_projects(db_name=DBFILENAME):
 
 
 load_project_table()
-
+projects=get_projects()
+if projects:
+    print("Liste des projets disponibles:")
+    for project in projects:
+        print(project)
+else:
+    print("Erreur lors de la récupération des projets.")
 
 
 
