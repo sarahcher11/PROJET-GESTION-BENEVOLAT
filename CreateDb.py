@@ -117,6 +117,82 @@ def search_volunteer_by_name(name, db_name=DBFILENAME):
     return matching_volunteers
 
 
+
+def calculate_age(born):
+    today = datetime.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+
+def search_volunteers_by_filter(first_name=None, last_name=None, age=None, address=None, country=None, city=None, region=None, post_code=None, skills=None, sexe=None, interests=None, db_name="Data.sqlite"):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+
+    # Construction de la requête SQL dynamiquement en fonction des filtres fournis
+    query = "SELECT * FROM volunteer WHERE 1=1"
+    parameters = []
+
+    if first_name:
+        query += " AND first_name LIKE ?"
+        parameters.append('%' + first_name + '%')
+
+    if last_name:
+        query += " AND last_name LIKE ?"
+        parameters.append('%' + last_name + '%')
+
+    if age:
+        # Calculer la date de naissance à partir de l'âge spécifié
+        birth_date = datetime.today() - timedelta(days=age*365)
+        # Utiliser l'âge calculé pour filtrer les bénévoles
+        query += " AND date_of_birth <= ?"
+        parameters.append(birth_date.strftime('%Y-%m-%d'))
+
+    if address:
+        query += " AND address LIKE ?"
+        parameters.append('%' + address + '%')
+
+
+    if country:
+        query += " AND country LIKE ?"
+        parameters.append('%' + country + '%')
+
+    if city:
+        query += " AND city LIKE ?"
+        parameters.append('%' + city + '%')
+
+    if region:
+        query += " AND region LIKE ?"
+        parameters.append('%' + region + '%')
+
+    if post_code:
+        query += " AND post_code LIKE ?"
+        parameters.append('%' + post_code + '%')
+
+    if skills:
+        query += " AND skills LIKE ?"
+        parameters.append('%' + skills + '%')
+
+
+    if sexe:
+        query += " AND sexe LIKE ?"
+        parameters.append('%' + sexe + '%')
+
+    if interests:
+        # Utilisation de l'opérateur logique OR pour rechercher des bénévoles qui correspondent à au moins un intérêt
+        interests_filters = ["interests LIKE ?" for _ in interests]
+        query += " AND (" + " OR ".join(interests_filters) + ")"
+        for interest in interests:
+            parameters.append('%' + interest + '%')
+
+    cursor.execute(query, parameters)
+    volunteers = cursor.fetchall()
+
+    conn.close()
+
+    return volunteers
+
+
+
+
+
 '''
 #Test get_volunteers
 volunteers = get_volunteers()
