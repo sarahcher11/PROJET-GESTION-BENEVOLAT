@@ -123,7 +123,68 @@ body{
     background-color: transparent;
     cursor: pointer;
 }
+.select-btn {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+    font-size: 1rem;
+    color: #143147;
+    margin-top: 15px;
+    display: flex; /* Ajout */
+    align-items: center; /* Ajout */
+}
 
+.select-btn .btn-text {
+    flex: 1; 
+}
+
+.select-btn .arrow-btn {
+    flex-shrink: 0; 
+}
+
+.select-btn .arrow-btn i {
+    margin-left: auto; 
+}
+.select-btn.open ~  .list-items{
+    display: block;
+}
+.list-items{
+    display: none;
+}
+
+.list-items .item{
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+.item .checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    padding: 2px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+}
+.item{
+    position: relative;
+    height: 35px;
+    width: 100%;
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+    font-size: 1rem;
+    color: #143147;
+    margin-top: 15px;
+    display: flex; /* Ajout */
+    align-items: center; /* Ajout */
+}
 .gender input{
     accent-color: #143147;
 }
