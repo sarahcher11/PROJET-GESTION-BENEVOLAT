@@ -1,0 +1,572 @@
+[
+    {
+        "project_id": 1,
+        "project_name": "Nettoyage de plage",
+        "description": "Participez à la préservation de l'environnement en nettoyant les plages de la région. Une occasion de sensibiliser le public à la protection des océans.",
+        "start_date": "2024-05-01",
+        "end_date": "2024-05-15",
+        "region": "Nouvelle-Aquitaine",
+        "ville": "Biarritz",
+        "code_postal": "64200",
+        "adresse": "Plage de Biarritz",
+        "project_manager_id": 1,
+        "interests": [
+            "Nature",
+            "Environment",
+            "Beach Cleaning",
+            "Ecology",
+            "Sustainability"
+        ]
+    },
+    {
+        "project_id": 2,
+        "project_name": "Ateliers de jardinage communautaire",
+        "description": "Rejoignez notre initiative de jardinage communautaire pour créer un espace vert partagé dans le quartier. Aidez à planter des légumes, des fleurs et à entretenir le jardin.",
+        "start_date": "2024-06-01",
+        "end_date": "2024-08-31",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "ville": "Marseille",
+        "code_postal": "13000",
+        "adresse": "Jardin partagé des Chartreux",
+        "project_manager_id": 2,
+        "interests": [
+            "Gardening",
+            "Community",
+            "Environment",
+            "Sustainability",
+            "Nature"
+        ]
+    },
+    {
+        "project_id": 3,
+        "project_name": "Cours d'informatique pour les seniors",
+        "description": "Offrez votre expertise en informatique pour aider les personnes âgées à apprendre à utiliser les ordinateurs et à naviguer sur Internet. Un moyen de favoriser l'inclusion numérique.",
+        "start_date": "2024-07-01",
+        "end_date": "2024-07-31",
+        "region": "Auvergne-Rhône-Alpes",
+        "ville": "Lyon",
+        "code_postal": "69000",
+        "adresse": "Maison des seniors",
+        "project_manager_id": 3,
+        "interests": [
+            "Technology",
+            "Seniors",
+            "Education",
+            "Digital Literacy",
+            "Community"
+        ]
+    },
+    {
+        "project_id": 4,
+        "project_name": "Sensibilisation au recyclage",
+        "description": "Organisez des séances éducatives sur le recyclage et le tri des déchets pour sensibiliser la communauté locale à l'importance de la protection de l'environnement.",
+        "start_date": "2024-08-01",
+        "end_date": "2024-08-15",
+        "region": "Île-de-France",
+        "ville": "Paris",
+        "code_postal": "75000",
+        "adresse": "Place de la République",
+        "project_manager_id": 4,
+        "interests": [
+            "Environment",
+            "Recycling",
+            "Education",
+            "Community",
+            "Sustainability"
+        ]
+    },
+    {
+        "project_id": 5,
+        "project_name": "Programmation d'une application mobile pour les personnes handicapées",
+        "description": "Développez une application mobile conviviale pour aider les personnes handicapées à accéder plus facilement aux services et aux informations.",
+        "start_date": "2024-09-01",
+        "end_date": "2024-12-31",
+        "region": "Bretagne",
+        "ville": "Rennes",
+        "code_postal": "35000",
+        "adresse": "Centre des personnes handicapées",
+        "project_manager_id": 5,
+        "interests": [
+            "Technology",
+            "Accessibility",
+            "Mobile Apps",
+            "Inclusion",
+            "Community"
+        ]
+    },
+    {
+        "project_id": 6,
+        "project_name": "Construction de maisons écologiques pour les sans-abris",
+        "description": "Contribuez à la construction de logements durables et abordables pour les sans-abris en utilisant des matériaux recyclés et des techniques respectueuses de l'environnement.",
+        "start_date": "2024-10-01",
+        "end_date": "2024-12-31",
+        "region": "Occitanie",
+        "ville": "Toulouse",
+        "code_postal": "31000",
+        "adresse": "Zone industrielle de Toulouse",
+        "project_manager_id": 6,
+        "interests": [
+            "Housing",
+            "Homelessness",
+            "Environment",
+            "Sustainability",
+            "Community"
+        ]
+    },
+    {
+        "project_id": 7,
+        "project_name": "Cours de français pour les immigrants",
+        "description": "Offrez des cours de français gratuits pour aider les immigrants à s'intégrer dans la société française et à améliorer leurs compétences linguistiques.",
+        "start_date": "2024-11-01",
+        "end_date": "2025-02-28",
+        "region": "Grand Est",
+        "ville": "Strasbourg",
+        "code_postal": "67000",
+        "adresse": "Centre d'accueil des immigrants",
+        "project_manager_id": 7,
+        "interests": [
+            "Language Learning",
+            "Immigration",
+            "Education",
+            "Community",
+            "Inclusion"
+        ]
+    },
+    {
+        "project_id": 8,
+        "project_name": "Organisation d'un festival de musique local",
+        "description": "Participez à l'organisation d'un festival de musique local pour promouvoir les artistes émergents de la région et offrir une expérience culturelle unique à la communauté.",
+        "start_date": "2025-04-01",
+        "end_date": "2025-04-30",
+        "region": "Centre-Val de Loire",
+        "ville": "Orléans",
+        "code_postal": "45000",
+        "adresse": "Place du Martroi",
+        "project_manager_id": 8,
+        "interests": [
+            "Music",
+            "Festivals",
+            "Local Artists",
+            "Community",
+            "Arts"
+        ]
+    },
+    {
+        "project_id": 9,
+        "project_name": "Ateliers de cuisine pour les jeunes défavorisés",
+        "description": "Animez des ateliers de cuisine pour enseigner aux jeunes défavorisés des compétences culinaires de base et les sensibiliser à une alimentation saine et équilibrée.",
+        "start_date": "2025-05-01",
+        "end_date": "2025-05-31",
+        "region": "Normandie",
+        "ville": "Caen",
+        "code_postal": "14000",
+        "adresse": "Centre social de Caen",
+        "project_manager_id": 9,
+        "interests": [
+            "Cooking",
+            "Youth",
+            "Education",
+            "Community",
+            "Nutrition"
+        ]
+    },
+    {
+        "project_id": 10,
+        "project_name": "Collecte de fournitures scolaires pour les enfants défavorisés",
+        "description": "Organisez une collecte de fournitures scolaires pour aider les enfants défavorisés à avoir accès aux fournitures nécessaires pour réussir à l'école.",
+        "start_date": "2025-08-01",
+        "end_date": "2025-08-31",
+        "region": "Hauts-de-France",
+        "ville": "Lille",
+        "code_postal": "59000",
+        "adresse": "Centre de collecte Lille",
+        "project_manager_id": 10,
+        "interests": [
+            "Education",
+            "Children",
+            "Community",
+            "Donations",
+            "Inclusion"
+        ]
+    },
+    {
+        "project_id": 11,
+        "project_name": "Programme de mentorat pour les jeunes entrepreneurs",
+        "description": "Devenez mentor pour les jeunes entrepreneurs en leur offrant des conseils et un soutien pour les aider à développer leurs idées commerciales et à réussir dans le monde des affaires.",
+        "start_date": "2025-09-01",
+        "end_date": "2025-12-31",
+        "region": "Pays de la Loire",
+        "ville": "Nantes",
+        "code_postal": "44000",
+        "adresse": "Centre d'entrepreneuriat de Nantes",
+        "project_manager_id": 11,
+        "interests": [
+            "Entrepreneurship",
+            "Mentorship",
+            "Youth",
+            "Business",
+            "Community"
+        ]
+    },
+    {
+        "project_id": 12,
+        "project_name": "Journée de nettoyage des parcs et jardins",
+        "description": "Rejoignez-nous pour une journée de nettoyage des parcs et jardins de la ville. Aidez à ramasser les déchets et à entretenir les espaces verts pour le plaisir de tous.",
+        "start_date": "2026-03-01",
+        "end_date": "2026-03-01",
+        "region": "Bourgogne-Franche-Comté",
+        "ville": "Dijon",
+        "code_postal": "21000",
+        "adresse": "Parc de la Colombière",
+        "project_manager_id": 12,
+        "interests": [
+            "Environment",
+            "Community",
+            "Gardening",
+            "Sustainability",
+            "Nature"
+        ]
+    },
+    {
+        "project_id": 13,
+        "project_name": "Formation aux premiers secours",
+        "description": "Apprenez les techniques de premiers secours et de réanimation cardio-respiratoire pour être prêt à intervenir en cas d'urgence et à sauver des vies.",
+        "start_date": "2026-05-01",
+        "end_date": "2026-05-31",
+        "region": "Corse",
+        "ville": "Ajaccio",
+        "code_postal": "20000",
+        "adresse": "Centre de formation aux premiers secours",
+        "project_manager_id": 13,
+        "interests": [
+            "First Aid",
+            "Health",
+            "Safety",
+            "Community",
+            "Training"
+        ]
+    },
+    {
+        "project_id": 14,
+        "project_name": "Initiative de recyclage électronique",
+        "description": "Recyclez vos vieux appareils électroniques et contribuez à réduire la pollution liée aux déchets électroniques en les recyclant de manière responsable.",
+        "start_date": "2026-07-01",
+        "end_date": "2026-07-31",
+        "region": "Occitanie",
+        "ville": "Montpellier",
+        "code_postal": "34000",
+        "adresse": "Centre de recyclage électronique",
+        "project_manager_id": 14,
+        "interests": [
+            "Recycling",
+            "Environment",
+            "Technology",
+            "Sustainability",
+            "Community"
+        ]
+    },
+    {
+        "project_id": 15,
+        "project_name": "Atelier de théâtre pour les jeunes",
+        "description": "Offrez aux jeunes une occasion de s'exprimer et de développer leur créativité à travers des jeux de rôle, des exercices d'improvisation et la création de pièces de théâtre.",
+        "start_date": "2026-09-01",
+        "end_date": "2026-12-31",
+        "region": "Normandie",
+        "ville": "Le Havre",
+        "code_postal": "76600",
+        "adresse": "Centre culturel du Havre",
+        "project_manager_id": 15,
+        "interests": [
+            "Theater",
+            "Youth",
+            "Arts",
+            "Creativity",
+            "Community"
+        ]
+    },
+    {
+        "project_id": 16,
+        "project_name": "Campagne de sensibilisation à l'autisme",
+        "description": "Sensibilisez la communauté à l'autisme en organisant des événements éducatifs, des ateliers et des conférences pour promouvoir l'inclusion et la compréhension.",
+        "start_date": "2027-03-01",
+        "end_date": "2027-03-31",
+        "region": "Île-de-France",
+        "ville": "Versailles",
+        "code_postal": "78000",
+        "adresse": "Centre culturel de Versailles",
+        "project_manager_id": 16,
+        "interests": [
+            "Autism",
+            "Awareness",
+            "Education",
+            "Community",
+            "Inclusion"
+        ]
+    },
+    {
+        "project_id": 17,
+        "project_name": "Collecte de nourriture pour les personnes sans-abris",
+        "description": "Organisez une collecte de nourriture non périssable pour soutenir les personnes sans-abris et les familles dans le besoin. Aidez à lutter contre la faim et l'insécurité alimentaire.",
+        "start_date": "2027-05-01",
+        "end_date": "2027-05-31",
+        "region": "Bourgogne-Franche-Comté",
+        "ville": "Besançon",
+        "code_postal": "25000",
+        "adresse": "Centre de collecte de Besançon",
+        "project_manager_id": 17,
+        "interests": [
+            "Homelessness",
+            "Food Drive",
+            "Community",
+            "Charity",
+            "Solidarity"
+        ]
+    },
+    {
+        "project_id": 18,
+        "project_name": "Création d'un parcours de santé",
+        "description": "Contribuez à la création d'un parcours de santé dans un parc local en installant des équipements d'exercice et des panneaux d'information sur la santé et le bien-être.",
+        "start_date": "2027-07-01",
+        "end_date": "2027-07-31",
+        "region": "Auvergne-Rhône-Alpes",
+        "ville": "Lyon",
+        "code_postal": "69000",
+        "adresse": "Parc de la Tête d'Or",
+        "project_manager_id": 18,
+        "interests": [
+            "Health",
+            "Fitness",
+            "Community",
+            "Outdoors",
+            "Wellness"
+        ]
+    },
+    {
+        "project_id": 19,
+        "project_name": "Programme de mentorat pour les étudiants en difficulté",
+        "description": "Soutenez les étudiants en difficulté en leur offrant un mentorat académique et personnel pour les aider à surmonter les obstacles et à réussir leurs études.",
+        "start_date": "2027-09-01",
+        "end_date": "2027-12-31",
+        "region": "Occitanie",
+        "ville": "Toulouse",
+        "code_postal": "31000",
+        "adresse": "Campus universitaire de Toulouse",
+        "project_manager_id": 19,
+        "interests": [
+            "Education",
+            "Youth",
+            "Mentorship",
+            "Community",
+            "Support"
+        ]
+    },
+    {
+        "project_id": 20,
+        "project_name": "Initiative de plantation d'arbres",
+        "description": "Participez à une initiative de plantation d'arbres pour contribuer à la lutte contre le changement climatique et à la préservation de la biodiversité.",
+        "start_date": "2028-03-01",
+        "end_date": "2028-03-31",
+        "region": "Nouvelle-Aquitaine",
+        "ville": "Bordeaux",
+        "code_postal": "33000",
+        "adresse": "Forêt de Bordeaux",
+        "project_manager_id": 20,
+        "interests": [
+            "Environment",
+            "Tree Planting",
+            "Climate Change",
+            "Community",
+            "Sustainability"
+        ]
+    },
+    {
+        "project_id": 21,
+        "project_name": "Campagne de sensibilisation à la santé mentale",
+        "description": "Organisez une campagne de sensibilisation à la santé mentale pour éduquer la communauté et combattre la stigmatisation associée aux troubles mentaux.",
+        "start_date": "2028-05-01",
+        "end_date": "2028-05-31",
+        "region": "Hauts-de-France",
+        "ville": "Amiens",
+        "code_postal": "80000",
+        "adresse": "Centre de sensibilisation à la santé mentale",
+        "project_manager_id": 21,
+        "interests": [
+            "Mental Health",
+            "Awareness",
+            "Education",
+            "Community",
+            "Support"
+        ]
+    },
+    {
+        "project_id": 22,
+        "project_name": "Atelier de peinture pour les personnes âgées",
+        "description": "Animez des ateliers de peinture pour les personnes âgées pour stimuler leur créativité et leur offrir une expérience artistique enrichissante.",
+        "start_date": "2028-07-01",
+        "end_date": "2028-07-31",
+        "region": "Île-de-France",
+        "ville": "Paris",
+        "code_postal": "75000",
+        "adresse": "Maison de retraite Paris",
+        "project_manager_id": 22,
+        "interests": [
+            "Art",
+            "Elderly",
+            "Creativity",
+            "Community",
+            "Socialization"
+        ]
+    },
+    {
+        "project_id": 23,
+        "project_name": "Collecte de vêtements pour les personnes démunies",
+        "description": "Organisez une collecte de vêtements pour les personnes démunies pour les aider à rester au chaud pendant les mois d'hiver.",
+        "start_date": "2028-09-01",
+        "end_date": "2028-09-30",
+        "region": "Grand Est",
+        "ville": "Metz",
+        "code_postal": "57000",
+        "adresse": "Centre de collecte de Metz",
+        "project_manager_id": 23,
+        "interests": [
+            "Clothing Drive",
+            "Community",
+            "Charity",
+            "Solidarity",
+            "Support"
+        ]
+    },
+    {
+        "project_id": 24,
+        "project_name": "Atelier de yoga en plein air",
+        "description": "Organisez des séances de yoga en plein air dans les parcs locaux pour promouvoir le bien-être physique et mental de la communauté.",
+        "start_date": "2028-11-01",
+        "end_date": "2028-11-30",
+        "region": "Pays de la Loire",
+        "ville": "Angers",
+        "code_postal": "49000",
+        "adresse": "Parc Balzac",
+        "project_manager_id": 24,
+        "interests": [
+            "Yoga",
+            "Health",
+            "Wellness",
+            "Community",
+            "Outdoors"
+        ]
+    },
+    {
+        "project_id": 25,
+        "project_name": "Programme de lecture pour les enfants hospitalisés",
+        "description": "Fournissez des livres et organisez des séances de lecture pour divertir et éduquer les enfants hospitalisés, en leur offrant un moment de réconfort et de distraction.",
+        "start_date": "2029-03-01",
+        "end_date": "2029-03-31",
+        "region": "Bretagne",
+        "ville": "Brest",
+        "code_postal": "29200",
+        "adresse": "Hôpital de Brest",
+        "project_manager_id": 25,
+        "interests": [
+            "Reading",
+            "Children",
+            "Education",
+            "Healthcare",
+            "Community"
+        ]
+    },
+    {
+        "project_id": 26,
+        "project_name": "Nettoyage de la rivière",
+        "description": "Participez à une opération de nettoyage de la rivière pour préserver la faune et la flore aquatiques et protéger l'écosystème local.",
+        "start_date": "2029-05-01",
+        "end_date": "2029-05-15",
+        "region": "Normandie",
+        "ville": "Rouen",
+        "code_postal": "76000",
+        "adresse": "Rivière Seine",
+        "project_manager_id": 26,
+        "interests": [
+            "Environment",
+            "River Cleaning",
+            "Ecology",
+            "Sustainability",
+            "Community"
+        ]
+    },
+    {
+        "project_id": 27,
+        "project_name": "Programme de mentorat pour les femmes entrepreneures",
+        "description": "Offrez un mentorat professionnel aux femmes entrepreneures pour les aider à développer leurs compétences en affaires et à réussir dans le monde de l'entrepreneuriat.",
+        "start_date": "2029-08-01",
+        "end_date": "2029-08-31",
+        "region": "Centre-Val de Loire",
+        "ville": "Tours",
+        "code_postal": "37000",
+        "adresse": "Centre d'entrepreneuriat féminin",
+        "project_manager_id": 27,
+        "interests": [
+            "Entrepreneurship",
+            "Women Empowerment",
+            "Mentorship",
+            "Business",
+            "Community"
+        ]
+    },
+    {
+        "project_id": 28,
+        "project_name": "Atelier de photographie pour les jeunes",
+        "description": "Organisez des ateliers de photographie pour les jeunes pour leur apprendre les bases de la photographie et stimuler leur créativité artistique.",
+        "start_date": "2030-03-01",
+        "end_date": "2030-03-31",
+        "region": "Hauts-de-France",
+        "ville": "Lille",
+        "code_postal": "59000",
+        "adresse": "Centre culturel de Lille",
+        "project_manager_id": 28,
+        "interests": [
+            "Photography",
+            "Youth",
+            "Art",
+            "Education",
+            "Community"
+        ]
+    },
+    {
+        "project_id": 29,
+        "project_name": "Collecte de jouets pour Noël",
+        "description": "Organisez une collecte de jouets pour offrir des cadeaux de Noël aux enfants défavorisés et leur apporter un peu de joie pendant les fêtes.",
+        "start_date": "2030-05-01",
+        "end_date": "2030-05-31",
+        "region": "Grand Est",
+        "ville": "Reims",
+        "code_postal": "51100",
+        "adresse": "Centre de collecte de jouets",
+        "project_manager_id": 29,
+        "interests": [
+            "Children",
+            "Christmas",
+            "Community",
+            "Charity",
+            "Solidarity"
+        ]
+    },
+    {
+        "project_id": 30,
+        "project_name": "Programme de sensibilisation à la protection des animaux",
+        "description": "Organisez des événements éducatifs et des campagnes de sensibilisation pour promouvoir la protection des animaux et lutter contre la cruauté envers les animaux.",
+        "start_date": "2030-08-01",
+        "end_date": "2030-08-31",
+        "region": "Auvergne-Rhône-Alpes",
+        "ville": "Lyon",
+        "code_postal": "69000",
+        "adresse": "Centre de protection des animaux",
+        "project_manager_id": 30,
+        "interests": [
+            "Animal Welfare",
+            "Awareness",
+            "Education",
+            "Community",
+            "Activism"
+        ]
+    }
+]
