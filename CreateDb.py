@@ -142,6 +142,7 @@ else:
 
 
 
+
 def load_project_table(fname="Project.json", db_name="Data.sqlite"):
     # Supprimer la table project si elle existe déjà
     db_run('DROP TABLE IF EXISTS project')
@@ -151,8 +152,8 @@ def load_project_table(fname="Project.json", db_name="Data.sqlite"):
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     project_name TEXT,
     description TEXT,
-    start_date TEXT,
-    end_date TEXT,
+    start_date DATE,
+    end_date DATE,
     region TEXT,
     ville TEXT,
     code_postal TEXT,
@@ -169,8 +170,8 @@ def load_project_table(fname="Project.json", db_name="Data.sqlite"):
 
     # Convertir les dates de début et de fin du projet en format "YYYY-MM-DD"
     for project in projects:
-        project['start_date'] = datetime.strptime(project['start_date'], '%Y-%m-%d').strftime('%Y-%m-%d')
-        project['end_date'] = datetime.strptime(project['end_date'], '%Y-%m-%d').strftime('%Y-%m-%d')
+        project['start_date'] = datetime.strptime(project['start_date'], '%Y-%m-%d').date()
+        project['end_date'] = datetime.strptime(project['end_date'], '%Y-%m-%d').date()
 
     # Préparer les données à insérer sous forme de liste de tuples
     data_to_insert = [(project['project_name'], project['description'], project['start_date'], project['end_date'],
@@ -179,6 +180,9 @@ def load_project_table(fname="Project.json", db_name="Data.sqlite"):
 
     with sqlite3.connect(db_name) as conn:
             conn.executemany(insert_query, data_to_insert)
+
+
+
 
 
 
@@ -211,14 +215,68 @@ def search_project_by_keyword(keyword, db_name=DBFILENAME):
 
 
 
+
+
+def search_project_by_location_keyword(keyword, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM project WHERE region LIKE ? OR ville LIKE ? OR adresse LIKE ? OR code_postal LIKE ?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, ('%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%'))
+            matching_projects = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la recherche de projet dans la base de données:", e)
+        return None
+    
+    return matching_projects
+
+
+
+
+
+
+def search_projects_by_period(start_date, end_date, db_name="Data.sqlite"):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+
+    query = '''SELECT * FROM project 
+           WHERE start_date <= ? AND end_date >= ?'''
+
+
+    start_date_iso = start_date.strftime('%Y-%m-%d')
+    end_date_iso = end_date.strftime('%Y-%m-%d')
+    cursor.execute(query, (start_date_iso, end_date_iso))
+    projects = cursor.fetchall()
+    conn.close()
+    return projects
+
+
+
+
 load_project_table()
-projects=search_project_by_keyword("Nettoyage")
-if projects:
-    print("Liste des projets disponibles:")
-    for project in projects:
-        print(project)
-else:
-    print("Erreur lors de la récupération des projets.")
+# Exemple d'utilisation
+start_date = datetime(2024, 7, 1)
+end_date = datetime(2024, 7, 31)
+projects_in_perio = search_projects_by_period(start_date, end_date)
+
+# Affichage des projets trouvés
+for project in projects_in_perio:
+    print(project)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
