@@ -253,11 +253,58 @@ def search_projects_by_period(start_date, end_date, db_name="Data.sqlite"):
 
 
 
+def search_projects_by_filter(region=None, ville=None, start_date=None, end_date=None, code_postal=None, adresse=None, interests=None, db_name="Data.sqlite"):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+
+    # Construction de la requête SQL dynamiquement en fonction des filtres fournis
+    query = "SELECT * FROM project WHERE 1=1"
+    parameters = []
+
+    if region:
+        query += " AND region LIKE ?"
+        parameters.append('%' + region + '%')
+
+    if ville:
+        query += " AND ville LIKE ?"
+        parameters.append('%' + ville + '%')
+
+    if start_date:
+        query += " AND start_date >= ?"
+        parameters.append(start_date.strftime('%Y-%m-%d'))
+
+    if end_date:
+        query += " AND end_date <= ?"
+        parameters.append(end_date.strftime('%Y-%m-%d'))
+
+    if code_postal:
+        query += " AND code_postal LIKE ?"
+        parameters.append('%' + code_postal + '%')
+
+    if adresse:
+        query += " AND adresse LIKE ?"
+        parameters.append('%' + adresse + '%')
+
+    if interests:
+        # Utilisation de l'opérateur logique OR pour rechercher des projets qui correspondent à au moins un intérêt
+        interests_filters = ["interests LIKE ?" for _ in interests]
+        query += " AND (" + " OR ".join(interests_filters) + ")"
+        for interest in interests:
+            parameters.append('%' + interest + '%')
+
+    cursor.execute(query, parameters)
+    projects = cursor.fetchall()
+
+    conn.close()
+
+    return projects
+
+
+
+
 load_project_table()
-# Exemple d'utilisation
-start_date = datetime(2024, 7, 1)
-end_date = datetime(2024, 7, 31)
-projects_in_perio = search_projects_by_period(start_date, end_date)
+
+projects_in_perio = search_projects_by_filter(None,"tou")
 
 # Affichage des projets trouvés
 for project in projects_in_perio:
