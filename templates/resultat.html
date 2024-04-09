@@ -10,15 +10,25 @@
 <body>
     <div class="image-container">
         
-        <div class="content">
-            <h1> Retrouvez des benevoles partout en France ! </h1>
-        </div>
+            <div class="content">
+                <h1> Retrouvez des benevoles partout en France ! </h1>
+            </div>
             <div class="searchBen">
-                <form action="/search" id="search-form" class="search-bar" method="GET">
-                    <input type="text" id="search-input" placeholder="Search projects" name="q">
+                <form action="/search"  id="search-form1" class="search-bar" method="GET">
+                    <input type="text" id="search-input1" placeholder="Search projects" name="name">
                     <button class="search-btn" type="submit">Je recherche</button>
                 </form>
+                <form action="/search" id="search-form2" class="search-bar2" method="GET">
+                    <input type="text" id="search-input2" placeholder="Ville" name="q">
+                    <button type="submit"><img class="search2" src="../static/images/search.svg"></button>
+                </form>
             </div>
+
+
+           
+                
+          
+
     </div>
 
 
@@ -33,23 +43,23 @@
             <div class="container1">
                 <div class="entete">
                     <div class="skills">
-                        <p> {{ volunteer[5] }}</p>
+                        <p> {{ volunteer[11] }}</p>
                     </div>
                     <div class="trait-horizontal"><br></div>
                 </div>
 
                 <div class="namecontainer">
-                    <div class="name">{{ volunteer[2] }}<br></div>
+                    <div class="name">{{ volunteer[3]}} {{volunteer[2]}}<br></div>
                     <div class="ines"> <img class="logoimg" src="../static/images/volunteer.svg" alt="image2"></div>
                 </div>
 
                 <div class="container">
                     <p>
-                            <strong>Date de naissance:</strong> {{ volunteer[3] }}<br>
-                            <strong>Adresse:</strong> {{ volunteer[4] }}<br>
-                            <strong>Numéro de téléphone:</strong> {{ volunteer[6] }}<br>
-                            <strong>Sexe:</strong> {{ volunteer[7] }}<br>
-                            <strong>Intérêts:</strong> {{ volunteer[8] }}<br>
+                            <strong>Date de naissance:</strong> {{ volunteer[4] }}<br>
+                            <strong>Adresse:</strong> {{ volunteer[5] }}<br>
+                            <strong>Numéro de téléphone:</strong> {{ volunteer[12] }}<br>
+                            <strong>Sexe:</strong> {{ volunteer[13] }}<br>
+                            <strong>Intérêts:</strong> {{ volunteer[14] }}<br>
                     </p>
                 </div>
                 <div class="btn"> <button type="button">contacter</button> </div>

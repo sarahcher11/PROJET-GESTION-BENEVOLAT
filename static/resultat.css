@@ -6,7 +6,6 @@ body {
 }
 
 h1 {
-
     color: #333;
     text-align: center;
     margin-top: 50px;
@@ -29,7 +28,9 @@ h1 {
     margin-bottom: 30px;
     position: relative;
     width:300px;
+    height:450px;
     margin: 20px;
+
 
 }
 
@@ -70,40 +71,34 @@ ul{
     background-position: center;
     background-size: cover;
     padding-top: 3%;
+    flex-direction: column;
+    display: flex;
     box-sizing: border-box;
+    position: relative;
   
   }
 
-   .navbar{
-    height:12%;
-    display:flex;
-    align-items: center;
+ 
 
-   }
 
-  .image-container {
-    position: relative;
-    text-align: center;
-}
 
-.searchBen {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
+
+
+
+
+
+
+
+
 
   
-.search-bar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background-color: #f0f0f0;
-    padding: 5px 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+
+
+
+
+
+
+
 
 .search-bar input[type="text"] {
     border: none;
@@ -121,11 +116,24 @@ ul{
     width: 700px;
     height: 50px;
     background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
 }
 
 
 
 .searchBen {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     position: absolute;
     top: calc(85%);
     left: 50%;
@@ -154,18 +162,50 @@ ul{
 }
 
 
-.content{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    color: #fff;
-  }
+.search-bar2 {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.search-bar2 input[type="text"] {
+    border: none;
+    background: none;
+    outline: none;
+    flex: 1;
+   
+}
+
+.search-bar2 button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.search-bar2 .search2 {
+    width: 35px; /* Ajustez la taille de l'image ici */
+    height: 35px; /* Ajustez la taille de l'image ici */
+}
+
+
+
+
+
+
+
+
+
+
+
 
   .content h1 {
     font-size: 30px;
-    margin-top: 100px;
     color: white;
+    margin-top: 100px;
 
   }
 
@@ -173,6 +213,7 @@ ul{
     background-color: #adeae4;
     opacity: 0.8;
     border-radius: 5px;
+    width: 300px;
     
   }
 
@@ -235,4 +276,5 @@ ul{
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
