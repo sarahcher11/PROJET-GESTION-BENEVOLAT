@@ -196,15 +196,30 @@ def get_projects(db_name=DBFILENAME):
     return projects
 
 
+def search_project_by_keyword(keyword, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM project WHERE project_name LIKE ? OR description LIKE ?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, ('%' + keyword + '%', '%' + keyword + '%'))
+            matching_projects = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la recherche de projet dans la base de données:", e)
+        return None
+    
+    return matching_projects
+
+
 
 load_project_table()
-projects=get_projects()
+projects=search_project_by_keyword("Nettoyage")
 if projects:
     print("Liste des projets disponibles:")
     for project in projects:
         print(project)
 else:
     print("Erreur lors de la récupération des projets.")
+
 
 
 
