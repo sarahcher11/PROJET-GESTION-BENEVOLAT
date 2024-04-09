@@ -138,7 +138,7 @@ else:
 
 
 
-def load_project_table(fname="project.json", db_name="database.db"):
+def load_project_table(fname="Project.json", db_name="Data.sqlite"):
     # Supprimer la table project si elle existe déjà
     db_run('DROP TABLE IF EXISTS project')
 
