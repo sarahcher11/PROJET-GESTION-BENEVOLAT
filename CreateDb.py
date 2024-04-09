@@ -178,7 +178,23 @@ def load_project_table(fname="Project.json", db_name="Data.sqlite"):
 
 
 
+def get_projects(db_name=DBFILENAME):
+    select_query = '''SELECT * FROM project'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query)
+            projects = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la récupération des projets depuis la base de données:", e)
+        return None
+    
+    return projects
+
+
+
 load_project_table()
+
 
 
 
