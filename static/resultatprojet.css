@@ -1,0 +1,269 @@
+
+
+.image-container {
+    width: 100%;
+    height: 40vh;
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(images/resultatpp.svg);
+    background-position: center;
+    background-size: cover;
+    padding-top: 3%;
+    flex-direction: column;
+    display: flex;
+    box-sizing: border-box;
+    position: relative;
+  
+  }
+
+
+.search-barpro input[type="text"] {
+    border: none;
+    background: none;
+    outline: none;
+    flex: 1;
+    padding: 5px;
+}
+
+.search-barpro{
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    width: 500px;
+    height: 40px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.period{
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    width: 400px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+
+}
+
+
+.searchBen {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    top: calc(85%);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; 
+}
+
+.search1{
+    width:20px;
+    height: 20px;
+}
+
+
+.search-barpro button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #009688;
+    color: #fff;
+    border-radius: 0 5px 5px 0; 
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-barpro button:hover {
+    background-color: #009688;
+}
+
+::placeholder{
+    font-size:large;
+    margin-left: 20px;
+}
+
+
+.search-barpro2 {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.search-barpro2 input[type="text"] {
+    border: none;
+    background: none;
+    outline: none;
+    flex: 1;
+   
+}
+
+.period button{
+   
+    border: none;
+  
+    cursor: pointer;
+}
+
+.date input[type="text"] {
+    border: none;
+    background: none;
+    outline: none;
+    flex: 1;
+   
+}
+
+.search-barpro2 button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.search-barpro2 .search2 {
+    width: 25px; /* Ajustez la taille de l'image ici */
+    height: 25px; /* Ajustez la taille de l'image ici */
+}
+
+
+
+.fiche {
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.435); /* Définition de la bordure */
+    padding: 20px;
+    margin: 20px;
+    width:800px;
+    height:200px;
+    position: relative;
+   
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+   
+}
+
+
+.ficheFooter {
+    justify-content: space-between; 
+    align-items: center; 
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    bottom: 0;
+    transform: translate(-2.4%);
+    background-color: rgb(81, 17, 28);
+    opacity: 0.9;
+}
+
+.details {
+    background-color: rgb(81, 17, 28);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    right:0;
+    width: 200px;
+    height: 50px;
+}
+
+.ficheFooter a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+.ficheHead{
+    display: flex;
+    flex-direction: row;
+}
+
+.left img{
+    width:150px;
+    margin-top: 25px;
+}
+.container1{
+    display: flex;
+    flex-direction: row;
+}
+.localisation{
+    margin-right: 40px;
+    margin-left: 60px;
+}
+.container1 p{
+    color: white;
+}
+
+.date i {
+    color: white; 
+    margin-right: 5px;
+}
+.fas.fa-map-marker-alt{
+    color: white; 
+    margin-right: 5px;
+}
+
+.ville{
+    background-color: rgb(179, 124, 133);
+    opacity: 0.8;
+    border-radius: 5px;
+    width: 100px;
+    height: 25px;
+    
+  }
+
+.ville p{
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 4px;
+    margin-bottom: 20px;
+}
+
+
+.content h1 {
+    font-size: 30px;
+    color: white;
+    margin-top: 100px;
+    text-align: center;
+  }
+
+h1{
+    margin-top: 150px;
+    text-align: center;
+}
+.period{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

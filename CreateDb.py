@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from datetime import datetime
+from datetime import datetime,timedelta
 
 
 JSONFILENAMEUSER = 'users.json'
@@ -33,11 +33,10 @@ def load_users(fname=JSONFILENAMEUSER, db_name=DBFILENAME):
 
 
 
+
 def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
     # Supprimer la table volunteer s'il existe déjà
     db_run('DROP TABLE IF EXISTS volunteer')
-
-    # Créer la table volunteer avec les nouvelles colonnes
     db_run('''CREATE TABLE volunteer (
                  id INTEGER PRIMARY KEY AUTOINCREMENT,
                  user_id INTEGER,
@@ -58,6 +57,8 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
 
     insert_query = 'INSERT INTO volunteer (user_id, first_name, last_name, date_of_birth, address, adress_line2, country, city, region, post_code, skills, phone_number, sexe, interests) \
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+   
+
 
     with open(fname, 'r') as fh:
         volunteers = json.load(fh)
@@ -79,6 +80,8 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
 
     with sqlite3.connect(db_name) as conn:
         conn.executemany(insert_query, data_to_insert)
+
+
 
 def load_projectmanagers(fname=JSONFILENAMEMANAGER, db_name=DBFILENAME):
     # Supprimer la table volunteer s'il existe déjà
@@ -123,6 +126,12 @@ def load_projectmanagers(fname=JSONFILENAMEMANAGER, db_name=DBFILENAME):
 
 
 
+
+
+
+
+
+
 def get_volunteers(db_name=DBFILENAME):
     select_query = '''SELECT * FROM volunteer'''
     try:
@@ -137,13 +146,19 @@ def get_volunteers(db_name=DBFILENAME):
     return volunteers
 
 load_projectmanagers()
+
+'''
+#test
+load_users()
 load_volunteers()
+'''
 
 def search_volunteer_by_name(name, db_name=DBFILENAME):
     select_query = '''SELECT * FROM volunteer WHERE first_name LIKE ? OR last_name LIKE ?'''
     try:
         with sqlite3.connect(db_name) as conn:
             cursor = conn.cursor()
+            cursor.execute(select_query, ('%' + name + '%','%' + name + '%'))
             cursor.execute(select_query, ('%' + name + '%','%' + name + '%'))
             matching_volunteers = cursor.fetchall()
     except sqlite3.Error as e:
@@ -154,28 +169,209 @@ def search_volunteer_by_name(name, db_name=DBFILENAME):
 
 
 
+def search_volunteer_by_location_keyword(keyword, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM volunteer WHERE region LIKE ? OR city LIKE ? OR address LIKE ? OR country LIKE? OR post_code LIKE ?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, ('%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%','%' + keyword + '%'))
+            matching_volunteerf = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la recherche de projet dans la base de données:", e)
+        return None
 
-'''
-#Test get_volunteers
-volunteers = get_volunteers()
-if volunteers:
-    print("Liste des bénévoles disponibles:")
-    for volunteer in volunteers:
-        print(volunteer)
-else:
-    print("Erreur lors de la récupération des bénévoles.")
+    return matching_volunteerf
 
 
 
-#Test search_volunteer_by_name
-search_name = "so"
-volunteer = search_volunteer_by_name(search_name)
-if volunteer:
-    print(f"Bénévole trouvé avec le nom '{search_name}': {volunteer}")
-else:
-    print(f"Aucun bénévole trouvé avec le nom '{search_name}'.")
+def search_volunteers_by_filter(age=None, skills=None, sexe=None, interests=None, db_name="Data.sqlite"):
+    # Connexion à la base de données
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
 
-'''
+    # Construction de la requête SQL
+    query = "SELECT * FROM volunteer WHERE 1=1"
+    parameters = []
+
+    if age is not None:
+        age = int(age)
+        query += " AND DATE('now') - DATE(date_of_birth) >= ?"
+        parameters.append(age)
+
+    if skills is not None and len(skills) > 0:
+        skills_conditions = skills.split(', ')
+        for skill in skills_conditions:
+            query += " AND skills LIKE ?"
+            parameters.append('%' + skill + '%')
+    if interests is not None and len(interests) > 0:
+        interests_conditions = interests.split(', ')
+        for interest in interests_conditions:
+            query += " AND interests LIKE ?"
+            parameters.append('%' + interest + '%')
+    if sexe is not None:
+        query += " AND sexe = ?"
+        parameters.append(sexe)
+
+    # Exécution de la requête
+    cursor.execute(query, parameters)
+    volunteersf = cursor.fetchall()
+
+    # Fermeture de la connexion à la base de données
+    conn.close()
+
+    return volunteersf
+
+
+
+
+
+
+
+
+def load_project_table(fname="Project.json", db_name="Data.sqlite"):
+    # Supprimer la table project si elle existe déjà
+    db_run('DROP TABLE IF EXISTS project')
+
+    # Créer la table project avec les colonnes spécifiées
+    db_run('''CREATE TABLE project (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    project_name TEXT,
+    description TEXT,
+    start_date DATE,
+    end_date DATE,
+    region TEXT,
+    ville TEXT,
+    code_postal TEXT,
+    adresse TEXT,
+    project_manager_id INTEGER,
+    interests TEXT
+    )''')
+
+    insert_query = '''INSERT INTO project (project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+
+    with open(fname, 'r') as fh:
+        projects = json.load(fh)
+
+    # Convertir les dates de début et de fin du projet en format "YYYY-MM-DD"
+    for project in projects:
+        project['start_date'] = datetime.strptime(project['start_date'], '%Y-%m-%d').date()
+        project['end_date'] = datetime.strptime(project['end_date'], '%Y-%m-%d').date()
+
+    # Préparer les données à insérer sous forme de liste de tuples
+    data_to_insert = [(project['project_name'], project['description'], project['start_date'], project['end_date'],
+                       project['region'], project['ville'], project['code_postal'], project['adresse'],
+                       project['project_manager_id'], ', '.join(project['interests'])) for project in projects]
+
+    with sqlite3.connect(db_name) as conn:
+            conn.executemany(insert_query, data_to_insert)
+
+
+load_project_table()
+load_projectmanagers()
+load_users()
+load_volunteers()
+
+
+
+def get_projects(db_name=DBFILENAME):
+    select_query = '''SELECT * FROM project'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query)
+            projects = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la récupération des projets depuis la base de données:", e)
+        return None
+    
+    return projects
+
+
+def search_project_by_keyword(keyword, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM project WHERE project_name LIKE ? OR description LIKE ?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, ('%' + keyword + '%', '%' + keyword + '%'))
+            matching_projects = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la recherche de projet dans la base de données:", e)
+        return None
+    
+    return matching_projects
+
+
+
+matching_projects=search_project_by_keyword("programme")
+print(matching_projects)
+
+def search_project_by_location_keyword(keyword, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM project WHERE region LIKE ? OR ville LIKE ? OR adresse LIKE ? OR code_postal LIKE ?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, ('%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%'))
+            matching_projects = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la recherche de projet dans la base de données:", e)
+        return None
+    
+    return matching_projects
+
+
+
+
+
+
+def search_projects_by_period(start_date, end_date, db_name="Data.sqlite"):
+    conn = sqlite3.connect(db_name)
+    cursor = conn.cursor()
+
+    query = '''SELECT * FROM project 
+           WHERE start_date <= ? AND end_date >= ?'''
+
+
+    start_date_iso = start_date.strftime('%Y-%m-%d')
+    end_date_iso = end_date.strftime('%Y-%m-%d')
+    cursor.execute(query, (start_date_iso, end_date_iso))
+    projects = cursor.fetchall()
+    conn.close()
+    return projects
+
+
+
+start_date = datetime(2024, 5, 2)
+end_date = datetime(2024, 5, 14)
+
+# Call the function
+projects = search_projects_by_period(start_date, end_date)
+
+# Now you have a list of projects that fall within the specified period
+print(projects)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

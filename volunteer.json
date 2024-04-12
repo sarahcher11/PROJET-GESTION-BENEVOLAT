@@ -5,16 +5,13 @@
         "first_name": "Jean",
         "last_name": "Dupont",
         "date_of_birth": "1990-05-15",
-        "address": "12 Rue de la R\u00c3\u00a9publique",
+        "address": "12 Rue de la République",
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75001",
-        "skills": [
-            "Programming",
-            "Communication"
-        ],
+        "skills": ["Programming", "Communication"],
         "phone_number": "123-456-7890",
         "sexe": "Male",
         "interests": [
@@ -28,22 +25,16 @@
         "first_name": "Marie",
         "last_name": "Martin",
         "date_of_birth": "1988-08-20",
-        "address": "8 Rue du Faubourg Saint-Honor\u00c3\u00a9",
+        "address": "8 Rue du Faubourg Saint-Honoré",
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75008",
-        "skills": [
-            "Leadership",
-            "Problem Solving"
-        ],
+        "skills": ["Leadership", "Problem Solving"],
         "phone_number": "987-654-3210",
         "sexe": "Female",
-        "interests": [
-            "Sports",
-            "Traveling"
-        ]
+        "interests": ["Sports", "Traveling"]
     },
     {
         "id": 3,
@@ -51,22 +42,16 @@
         "first_name": "Pierre",
         "last_name": "Dubois",
         "date_of_birth": "1995-03-10",
-        "address": "20 Avenue des Champs-\u00c3\u2030lys\u00c3\u00a9es",
+        "address": "20 Avenue des Champs-Élysées",
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75008",
-        "skills": [
-            "Programming",
-            "Teamwork"
-        ],
+        "skills": ["Programming", "Teamwork"],
         "phone_number": "555-123-4567",
         "sexe": "Male",
-        "interests": [
-            "Cooking",
-            "Music"
-        ]
+        "interests": ["Cooking", "Music"]
     },
     {
         "id": 4,
@@ -78,18 +63,12 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75004",
-        "skills": [
-            "Communication",
-            "Leadership"
-        ],
+        "skills": ["Communication", "Leadership"],
         "phone_number": "444-222-3333",
         "sexe": "Female",
-        "interests": [
-            "Reading",
-            "Sports"
-        ]
+        "interests": ["Reading", "Sports"]
     },
     {
         "id": 5,
@@ -101,18 +80,12 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75005",
-        "skills": [
-            "Programming",
-            "Problem Solving"
-        ],
+        "skills": ["Programming", "Problem Solving"],
         "phone_number": "777-888-9999",
         "sexe": "Male",
-        "interests": [
-            "Traveling",
-            "Cooking"
-        ]
+        "interests": ["Traveling", "Cooking"]
     },
     {
         "id": 6,
@@ -120,22 +93,16 @@
         "first_name": "Camille",
         "last_name": "Moreau",
         "date_of_birth": "1994-04-30",
-        "address": "5 Avenue de l'Op\u00c3\u00a9ra",
+        "address": "5 Avenue de l'Opéra",
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75002",
-        "skills": [
-            "Teamwork",
-            "Programming"
-        ],
+        "skills": ["Teamwork", "Programming"],
         "phone_number": "111-222-3333",
         "sexe": "Female",
-        "interests": [
-            "Music",
-            "Sports"
-        ]
+        "interests": ["Music", "Sports"]
     },
     {
         "id": 7,
@@ -147,18 +114,12 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75006",
-        "skills": [
-            "Leadership",
-            "Communication"
-        ],
+        "skills": ["Leadership", "Communication"],
         "phone_number": "666-555-4444",
         "sexe": "Male",
-        "interests": [
-            "Reading",
-            "Traveling"
-        ]
+        "interests": ["Reading", "Traveling"]
     },
     {
         "id": 8,
@@ -170,41 +131,29 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75011",
-        "skills": [
-            "Problem Solving",
-            "Teamwork"
-        ],
+        "skills": ["Problem Solving", "Teamwork"],
         "phone_number": "999-888-7777",
         "sexe": "Female",
-        "interests": [
-            "Cooking",
-            "Music"
-        ]
+        "interests": ["Cooking", "Music"]
     },
     {
         "id": 9,
         "user_id": 1009,
-        "first_name": "Th\u00c3\u00a9o",
+        "first_name": "Théo",
         "last_name": "Vincent",
         "date_of_birth": "1980-12-05",
         "address": "10 Rue des Rosiers",
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75004",
-        "skills": [
-            "Programming",
-            "Leadership"
-        ],
+        "skills": ["Programming", "Leadership"],
         "phone_number": "222-333-4444",
         "sexe": "Male",
-        "interests": [
-            "Reading",
-            "Traveling"
-        ]
+        "interests": ["Reading", "Traveling"]
     },
     {
         "id": 10,
@@ -216,18 +165,12 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75008",
-        "skills": [
-            "Problem Solving",
-            "Communication"
-        ],
+        "skills": ["Problem Solving", "Communication"],
         "phone_number": "333-444-5555",
         "sexe": "Female",
-        "interests": [
-            "Traveling",
-            "Music"
-        ]
+        "interests": ["Traveling", "Music"]
     },
     {
         "id": 11,
@@ -239,41 +182,29 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75008",
-        "skills": [
-            "Programming",
-            "Communication"
-        ],
+        "skills": ["Programming", "Communication"],
         "phone_number": "111-222-3333",
         "sexe": "Male",
-        "interests": [
-            "Music",
-            "Reading"
-        ]
+        "interests": ["Music", "Reading"]
     },
     {
         "id": 12,
         "user_id": 1012,
-        "first_name": "L\u00c3\u00a9a",
+        "first_name": "Léa",
         "last_name": "Lemoine",
         "date_of_birth": "1995-01-15",
-        "address": "35 Rue du Faubourg Saint-Honor\u00c3\u00a9",
+        "address": "35 Rue du Faubourg Saint-Honoré",
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75008",
-        "skills": [
-            "Leadership",
-            "Problem Solving"
-        ],
+        "skills": ["Leadership", "Problem Solving"],
         "phone_number": "987-654-3210",
         "sexe": "Female",
-        "interests": [
-            "Sports",
-            "Traveling"
-        ]
+        "interests": ["Sports", "Traveling"]
     },
     {
         "id": 13,
@@ -285,18 +216,12 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75001",
-        "skills": [
-            "Programming",
-            "Teamwork"
-        ],
+        "skills": ["Programming", "Teamwork"],
         "phone_number": "555-123-4567",
         "sexe": "Male",
-        "interests": [
-            "Cooking",
-            "Music"
-        ]
+        "interests": ["Cooking", "Music"]
     },
     {
         "id": 14,
@@ -308,18 +233,12 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75004",
-        "skills": [
-            "Communication",
-            "Leadership"
-        ],
+        "skills": ["Communication", "Leadership"],
         "phone_number": "444-222-3333",
         "sexe": "Female",
-        "interests": [
-            "Reading",
-            "Sports"
-        ]
+        "interests": ["Reading", "Sports"]
     },
     {
         "id": 15,
@@ -331,41 +250,29 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75005",
-        "skills": [
-            "Programming",
-            "Problem Solving"
-        ],
+        "skills": ["Programming", "Problem Solving"],
         "phone_number": "777-888-9999",
         "sexe": "Male",
-        "interests": [
-            "Traveling",
-            "Cooking"
-        ]
+        "interests": ["Traveling", "Cooking"]
     },
     {
         "id": 16,
         "user_id": 1016,
-        "first_name": "Chlo\u00c3\u00a9",
+        "first_name": "Chloé",
         "last_name": "Leroy",
         "date_of_birth": "1994-04-30",
-        "address": "10 Avenue de l'Op\u00c3\u00a9ra",
+        "address": "10 Avenue de l'Opéra",
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75002",
-        "skills": [
-            "Teamwork",
-            "Programming"
-        ],
+        "skills": ["Teamwork", "Programming"],
         "phone_number": "111-222-3333",
         "sexe": "Female",
-        "interests": [
-            "Music",
-            "Sports"
-        ]
+        "interests": ["Music", "Sports"]
     },
     {
         "id": 17,
@@ -377,18 +284,12 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75006",
-        "skills": [
-            "Leadership",
-            "Communication"
-        ],
+        "skills": ["Leadership", "Communication"],
         "phone_number": "666-555-4444",
         "sexe": "Male",
-        "interests": [
-            "Reading",
-            "Traveling"
-        ]
+        "interests": ["Reading", "Traveling"]
     },
     {
         "id": 18,
@@ -400,18 +301,12 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75011",
-        "skills": [
-            "Problem Solving",
-            "Teamwork"
-        ],
+        "skills": ["Problem Solving", "Teamwork"],
         "phone_number": "999-888-7777",
         "sexe": "Female",
-        "interests": [
-            "Cooking",
-            "Music"
-        ]
+        "interests": ["Cooking", "Music"]
     },
     {
         "id": 19,
@@ -423,18 +318,12 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75004",
-        "skills": [
-            "Programming",
-            "Leadership"
-        ],
+        "skills": ["Programming", "Leadership"],
         "phone_number": "222-333-4444",
         "sexe": "Male",
-        "interests": [
-            "Reading",
-            "Traveling"
-        ]
+        "interests": ["Reading", "Traveling"]
     },
     {
         "id": 20,
@@ -446,17 +335,11 @@
         "adress_line2": "",
         "country": "France",
         "city": "Paris",
-        "region": "\u00c3\u017dle-de-France",
+        "region": "Île-de-France",
         "post_code": "75008",
-        "skills": [
-            "Problem Solving",
-            "Communication"
-        ],
+        "skills": ["Problem Solving", "Communication"],
         "phone_number": "333-444-5555",
         "sexe": "Female",
-        "interests": [
-            "Traveling",
-            "Music"
-        ]
+        "interests": ["Traveling", "Music"]
     }
 ]

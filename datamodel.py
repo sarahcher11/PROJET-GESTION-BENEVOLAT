@@ -227,6 +227,7 @@ def login(email,password):
   if user_data:
     user_id=user_data['id']
     stored_password_hash=user_data['password']
+    stored_password_hash=user_data['password']
     if check_password_hash(stored_password_hash,password):
       current_user_id=user_id
       return user_id
@@ -250,7 +251,6 @@ def new_user(email, password, username):
         current_user_id=user_id
         return user_id
     
-
 
 
 def add_volunteer(first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, skills, phone_number, sexe, interests, db_name=DBFILENAME):
