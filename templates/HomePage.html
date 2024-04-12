@@ -20,7 +20,10 @@
                     {% endif %}
                     <li><a href="">Help</a></li>
                     <li class="FAQ" ><a href="#">FAQ</a></li>
-                    
+                    {% if 'user_id'in session %}
+                    <li class="Profile" ><a href="/profil">Profile</a></li>
+                    <li class="logout" ><a href="/logout">Logout</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </div>

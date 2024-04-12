@@ -136,7 +136,8 @@ def get_volunteers(db_name=DBFILENAME):
     
     return volunteers
 
-
+load_projectmanagers()
+load_volunteers()
 
 def search_volunteer_by_name(name, db_name=DBFILENAME):
     select_query = '''SELECT * FROM volunteer WHERE first_name LIKE ? OR last_name LIKE ?'''

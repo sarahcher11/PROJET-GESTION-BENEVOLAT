@@ -18,10 +18,18 @@ def login_required(f):
   return decorated_function
 
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect('/')
 
+@app.get("/profil")
+def get_profil():
+    return render_template('profil.html')
 
 @app.route('/')
 def index():
+    session['auth_success']=False
     return render_template('HomePage.html')
 
 @app.get('/login')
@@ -49,6 +57,7 @@ def login_post():
     user_id = model.login(email, password)
     if user_id != -1:
         session['user_id']=user_id
+        session['auth_success']=True
         return redirect('/')
     else:
         erreur = 'Failed authentification'
