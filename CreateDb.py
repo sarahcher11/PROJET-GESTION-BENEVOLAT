@@ -5,6 +5,7 @@ from datetime import datetime
 
 JSONFILENAMEUSER = 'users.json'
 JSONFILENAMEVOLUNTEER = 'volunteer.json'
+JSONFILENAMEMANAGER = 'manager.json'
 DBFILENAME = 'Data.sqlite'
 
 def db_run(query, args=(),db_name=DBFILENAME):
@@ -16,10 +17,7 @@ def db_run(query, args=(),db_name=DBFILENAME):
 def load_users(fname=JSONFILENAMEUSER, db_name=DBFILENAME):
   # possible improvement: do whole thing as a single transaction
   db_run('DROP TABLE IF EXISTS user')
-  db_run('DROP TABLE IF EXISTS volunteer')
-  db_run('DROP TABLE IF EXISTS project_manager')
-  db_run('DROP TABLE IF EXISTS project_registration')
-  db_run('DROP TABLE IF EXISTS project')
+
 
   #la table user 
   db_run('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT, registration_date TEXT)')
@@ -80,6 +78,47 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
     with sqlite3.connect(db_name) as conn:
         conn.executemany(insert_query, data_to_insert)
 
+def load_projectmanagers(fname=JSONFILENAMEMANAGER, db_name=DBFILENAME):
+    # Supprimer la table volunteer s'il existe déjà
+    db_run('DROP TABLE IF EXISTS project_manager')
+
+    # Créer la table volunteer avec les nouvelles colonnes
+    db_run('''CREATE TABLE project_manager (
+                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                 user_id INTEGER,
+                 first_name TEXT,
+                 last_name TEXT,
+                 date_of_birth TEXT,
+                 address TEXT,
+                 adress_line2 TEXT,
+                 country TEXT,
+                 city TEXT,
+                 region TEXT,
+                 post_code TEXT,
+                 phone_number TEXT,
+                 sexe TEXT
+              )''')
+
+    insert_query = 'INSERT INTO  project_manager(user_id, first_name, last_name, date_of_birth, address, adress_line2, country, city, region, post_code, phone_number, sexe) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+
+    with open(fname, 'r') as fh:
+       managers = json.load(fh)
+
+    # Convertir les dates de naissance en format "YYYY-MM-DD"
+    for manager in managers:
+        manager['date_of_birth'] = datetime.strptime(manager['date_of_birth'], '%Y-%m-%d').strftime('%Y-%m-%d')
+
+      
+
+    # Préparer les données à insérer sous forme de liste de tuples
+    data_to_insert = [(manager['user_id'], manager['first_name'], manager['last_name'], manager['date_of_birth'], manager['address'],
+                       manager['adress_line2'], manager['country'], manager['city'], manager['region'], manager['post_code'],
+                        manager['phone_number'], manager['sexe']) for manager in managers]
+
+    with sqlite3.connect(db_name) as conn:
+        conn.executemany(insert_query, data_to_insert)
+
 
 
 def get_volunteers(db_name=DBFILENAME):
@@ -110,7 +149,8 @@ def search_volunteer_by_name(name, db_name=DBFILENAME):
     
     return matching_volunteers
 
-
+load_projectmanagers()
+load_volunteers()
 '''
 #Test get_volunteers
 volunteers = get_volunteers()
