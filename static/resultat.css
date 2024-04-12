@@ -8,7 +8,7 @@ body {
 h1 {
     color: #333;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 150px;
 }
 
 
@@ -278,3 +278,286 @@ ul{
     align-items: center;
 
 }
+.select-btn {
+    position: relative;
+    margin-right: 20px; 
+    outline: none;
+    font-size: 1rem;
+    padding: 8px; /* Espacement intérieur pour une apparence uniforme */
+    font-size: 16px; /* Taille de police par défaut */
+    border-radius: 5px; /* Coins arrondis pour une apparence plus douce */
+    border: none; /* Bordure de couleur grise */
+    background-color: #fff;
+    margin-top: 15px;
+    display: flex; /* Ajout */
+    align-items: center; /* Ajout */
+    width:130px;
+    height:30px;
+}
+
+.select-btn .btn-text {
+    flex: 1;
+    margin-right: 20px; 
+}
+
+.select-btn .arrow-btn {
+    flex-shrink: 0; 
+    transition: 0.3s;
+}
+
+.select-btn .arrow-btn i {
+    margin-left: auto; 
+}
+.select-btn.open .arrow-btn{
+    transform: rotate(-180deg);
+}
+.select-btn.open ~  .list-items{
+    display: block;
+}
+.list-items{
+    display: none;
+}
+
+.list-items .item{
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+.item .checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    padding: 2px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+}
+.list-items .item{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.list-items .item:hover{
+   background-color: #c0c0c0;
+}
+.item .checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    padding: 2px;
+    margin-right: 12px;
+    border: 1.5px solid #143147;
+    transition: all 0.3s ease-in-out;
+}
+.item{
+    position: relative;
+    height: 35px;
+    width: 100%;
+    outline: none;
+    padding: 0 15px;
+    font-size: 1rem;
+    color: #143147;
+    display: flex; /* Ajout */
+    align-items: center; /* Ajout */
+}
+.item .item-text{
+    font-size: 16px;
+    font-weight: 400px;
+}
+
+
+.item  .check-icon i {
+    transform: scale(0);
+    font-size: 11px;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.item.checked .check-icon i {
+    transform: scale(1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.select-btnskill {
+    position: relative;
+    margin-right: 20px; 
+    outline: none;
+    font-size: 1rem;
+    padding: 8px; /* Espacement intérieur pour une apparence uniforme */
+    font-size: 16px; /* Taille de police par défaut */
+    border-radius: 5px; /* Coins arrondis pour une apparence plus douce */
+    border: none; /* Bordure de couleur grise */
+    background-color: #fff;
+    margin-top: 15px;
+    display: flex; /* Ajout */
+    align-items: center; /* Ajout */
+    width:130px;
+    height:30px;
+}
+
+.select-btnskill .btn-textskill {
+    flex: 1;
+    margin-right: 20px; 
+}
+
+.select-btnskill .arrow-btnskill {
+    flex-shrink: 0; 
+    transition: 0.3s;
+}
+
+.select-btnskill .arrow-btnskill i {
+    margin-left: auto; 
+}
+.select-btnskill.openskill .arrow-btnskill{
+    transform: rotate(-180deg);
+}
+.select-btnskill.openskill ~  .list-itemsskill{
+    display: block;
+}
+.list-itemsskill{
+    display: none;
+}
+
+.list-itemsskill .itemskill{
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+.itemskill .checkboxskill{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    padding: 2px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+}
+.list-itemsskill .itemskill{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.list-itemsskill .itemskill:hover{
+   background-color: #c0c0c0;
+}
+.itemskill .checkboxskill{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    padding: 2px;
+    margin-right: 12px;
+    border: 1.5px solid #143147;
+    transition: all 0.3s ease-in-out;
+}
+.itemskill{
+    position: relative;
+    height: 35px;
+    width: 100%;
+    outline: none;
+    padding: 0 15px;
+    font-size: 1rem;
+    color: #143147;
+    display: flex; /* Ajout */
+    align-items: center; /* Ajout */
+}
+.itemsskill .item-textskill{
+    font-size: 16px;
+    font-weight: 400px;
+}
+
+
+.itemskill  .check-iconskill i {
+    transform: scale(0);
+    font-size: 11px;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.itemskill.checkedskill .check-iconskill i {
+    transform: scale(1);
+}
+
+
+
+
+
+
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 100px;
+}
+
+
+
+
+  select {
+    padding: 8px; 
+    font-size: 16px; 
+    border-radius: 5px; 
+    border: none; 
+    margin-top: 15px;
+    background-color: #fff;
+    margin-right: 20px; 
+    width:200px;
+    height:47px;
+  }
+  
+  
+  select option {
+    padding: 5px; 
+  }
+  
+  select option[selected] {
+    font-weight: bold; 
+    color: #333; 
+  }
+  
+  select option:disabled {
+    color: #999; 
+  }
+
+
+  .option{
+    margin-right: 30px;
+  }
+  
+  .filtrer{
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #009688;
+    color: #fff;
+    border-radius: 5px 5px 5px 5px; 
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+    width:20%;
+    height: 50px;
+  }

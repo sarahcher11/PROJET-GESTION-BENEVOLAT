@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Résultats de la recherche</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='../static/resultat.css') }}">
 </head>
 
@@ -18,9 +22,77 @@
                     <input type="text" id="search-input1" placeholder="Search projects" name="name">
                     <button class="search-btn" type="submit">Je recherche</button>
                 </form>
-                <form action="/search" id="search-form2" class="search-bar2" method="GET">
-                    <input type="text" id="search-input2" placeholder="Ville" name="q">
+                <form action="/search1" id="search-form2" class="search-bar2" method="GET">
+                    <input type="text" id="search-input2" placeholder="Ville" name="name">
                     <button type="submit"><img class="search2" src="../static/images/search.svg"></button>
+                </form>
+               
+    </div>            
+    <form class="form" action="/filtrer" id="myForm"  method="GET">
+                   <div class=" input-boxskill checkskill">
+                        <div name="country" class="select-btnskill">
+                            <span class="btn-textskill">Skills</span>  
+                            <span class="arrow-btnskill"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <ul class="list-itemsskill">
+                            {% for skill in skills %}
+                            <li class="itemskill">
+                                <span class="checkboxskill check-iconskill">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                               
+                                <span class="item-textskill"> {{skill}}</span>
+                               
+                            </li>
+                            {% endfor %}
+                        </ul>
+            
+                    </div>
+                    
+                    
+                    <div class=" input-box check">
+                        <div name="country" class="select-btn">
+                            <span class="btn-text">Interests</span>  
+                            <span class="arrow-btn"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <ul class="list-items">
+                            {% for interest in interests %}
+                            <li class="item">
+                                <span class="checkbox check-icon">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                               
+                                <span class="item-text"> {{interest}}</span>
+                               
+                            </li>
+                            {% endfor %}
+                        </ul>
+            
+                    </div> 
+
+
+
+                    <select id="sexe" name="sexe">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    </select>
+
+
+
+
+                    <select id="age" name="age">
+                        <div class="option">
+                    <option  value="">-- Sélectionnez l'âge --</option>
+                        </div>
+                    {% for i in range(18, 51) %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                    </select>
+
+
+
+                    <button class="filtrer" type="submit">Filtrer</button>
+
                 </form>
             </div>
 
@@ -29,7 +101,7 @@
                 
           
 
-    </div>
+   
 
 
     <h1>Résultats de la recherche</h1>
@@ -69,5 +141,10 @@
         </div>
         {% endfor %}
     </ul>
+
+
+
+    <script src="../static/resultat.js"></script>
+
 </body>
 </html>

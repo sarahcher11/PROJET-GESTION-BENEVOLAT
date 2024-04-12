@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import json
 import datamodel as model
-from CreateDb import search_volunteer_by_name
+from CreateDb import *
 import math
 
 
@@ -56,15 +56,48 @@ def new_user():
 def search_volunteers():
     # Récupérer le terme de recherche depuis les paramètres de la requête
     search_query = request.args.get('name', '')
-    
+    skills=model.skills
+    interests=model.interests
+    print(interests)
     # Rechercher les bénévoles correspondant au nom
     matching_volunteers = search_volunteer_by_name(search_query)
     print("Résultats de la recherche :", matching_volunteers)
+    
+    # Retourner les résultats de la recherche sous forme de page HTML "resultat.html"
+    return render_template('resultat.html', volunteers=matching_volunteers, interests=interests,skills=skills)
+
+
+@app.route('/search1')
+def search_volunteers_by_location():
+    # Récupérer le terme de recherche depuis les paramètres de la requête
+    search_query = request.args.get('name', '')
+    
+    # Rechercher les bénévoles correspondant au nom
+    matching_volunteersf = search_volunteer_by_location_keyword(search_query)
+    print("Résultats de la recherche :", matching_volunteersf)
 
 
     # Retourner les résultats de la recherche sous forme de page HTML "resultat.html"
-    return render_template('resultat.html', volunteers=matching_volunteers)
+    return render_template('resultat.html', volunteers=matching_volunteersf, interests=model.interests,skills=model.skills)
 
+
+@app.route('/filtrer')
+def filtrer():
+
+    skills = request.args.get('skills')
+    print(skills)
+    interests = request.args.get('interests')
+    print(interests)
+    sexe = request.args.get('sexe')
+    print(sexe)
+    age = request.args.get('age')
+    print(age)
+    
+
+    volunteers = search_volunteers_by_filter(skills=skills, interests=interests, sexe=sexe, age=age)
+    for volunteer in volunteers:
+     print(volunteer)
+    return render_template('resultat.html', volunteers=volunteers, interests=model.interests, skills=model.skills)
 
 
 @app.post('/registerVolunteer')

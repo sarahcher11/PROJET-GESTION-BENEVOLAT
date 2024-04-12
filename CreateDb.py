@@ -1,6 +1,6 @@
 import sqlite3
 import json
-from datetime import datetime
+from datetime import datetime,timedelta
 
 
 JSONFILENAMEUSER = 'users.json'
@@ -118,103 +118,80 @@ def search_volunteer_by_name(name, db_name=DBFILENAME):
 
 
 
-def calculate_age(born):
-    today = datetime.today()
-    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+def search_volunteer_by_location_keyword(keyword, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM volunteer WHERE region LIKE ? OR city LIKE ? OR address LIKE ? OR country LIKE? OR post_code LIKE ?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, ('%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%','%' + keyword + '%'))
+            matching_volunteerf = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la recherche de projet dans la base de données:", e)
+        return None
 
-def search_volunteers_by_filter(first_name=None, last_name=None, age=None, address=None, country=None, city=None, region=None, post_code=None, skills=None, sexe=None, interests=None, db_name="Data.sqlite"):
+    return matching_volunteerf
+
+
+
+
+
+
+
+def search_volunteers_by_filter(age=None, skills=None, sexe=None, interests=None, db_name="Data.sqlite"):
+    # Connexion à la base de données
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
 
-    # Construction de la requête SQL dynamiquement en fonction des filtres fournis
+    # Construction de la requête SQL
     query = "SELECT * FROM volunteer WHERE 1=1"
-    parameters = []
+    params = []
 
-    if first_name:
-        query += " AND first_name LIKE ?"
-        parameters.append('%' + first_name + '%')
-
-    if last_name:
-        query += " AND last_name LIKE ?"
-        parameters.append('%' + last_name + '%')
-
-    if age:
-        # Calculer la date de naissance à partir de l'âge spécifié
-        birth_date = datetime.today() - timedelta(days=age*365)
-        # Utiliser l'âge calculé pour filtrer les bénévoles
+    # Ajout des filtres à la requête
+    if age is not None:
+        age=int(age)
+        # Calcul de la date de naissance pour l'âge donné
+        # Assumant que date_of_birth est au format 'YYYY-MM-DD'
+        birth_year = 2024 - age
         query += " AND date_of_birth <= ?"
-        parameters.append(birth_date.strftime('%Y-%m-%d'))
+        params.append(f"{birth_year}-12-31")
 
-    if address:
-        query += " AND address LIKE ?"
-        parameters.append('%' + address + '%')
+    if skills is not None and len(skills) > 0:
+        # Recherche intelligente des compétences
+        query += " AND ("
+        for index, skill in enumerate(skills):
+            if index > 0:
+                query += " OR"
+            query += " skills LIKE ?"
+            params.append(f"%{skill}%")
+        query += ")"
 
+    if sexe is not None:
+        query += " AND sexe = ?"
+        params.append(sexe)
 
-    if country:
-        query += " AND country LIKE ?"
-        parameters.append('%' + country + '%')
+    if interests is not None and len(interests) > 0:
+        # Recherche intelligente des intérêts
+        query += " AND ("
+        for index, interest in enumerate(interests):
+            if index > 0:
+                query += " OR"
+            query += " interests LIKE ?"
+            params.append(f"%{interest}%")
+        query += ")"
 
-    if city:
-        query += " AND city LIKE ?"
-        parameters.append('%' + city + '%')
-
-    if region:
-        query += " AND region LIKE ?"
-        parameters.append('%' + region + '%')
-
-    if post_code:
-        query += " AND post_code LIKE ?"
-        parameters.append('%' + post_code + '%')
-
-    if skills:
-        query += " AND skills LIKE ?"
-        parameters.append('%' + skills + '%')
-
-
-    if sexe:
-        query += " AND sexe LIKE ?"
-        parameters.append('%' + sexe + '%')
-
-    if interests:
-        # Utilisation de l'opérateur logique OR pour rechercher des bénévoles qui correspondent à au moins un intérêt
-        interests_filters = ["interests LIKE ?" for _ in interests]
-        query += " AND (" + " OR ".join(interests_filters) + ")"
-        for interest in interests:
-            parameters.append('%' + interest + '%')
-
-    cursor.execute(query, parameters)
+    # Exécution de la requête
+    cursor.execute(query, params)
     volunteers = cursor.fetchall()
 
+    # Fermeture de la connexion et retour des résultats
     conn.close()
-
     return volunteers
 
 
 
 
-
-'''
-#Test get_volunteers
-volunteers = get_volunteers()
-if volunteers:
-    print("Liste des bénévoles disponibles:")
-    for volunteer in volunteers:
-        print(volunteer)
-else:
-    print("Erreur lors de la récupération des bénévoles.")
-'''
-
-
-'''
-#Test search_volunteer_by_name
-search_name = "so"
-volunteer = search_volunteer_by_name(search_name)
-if volunteer:
-    print(f"Bénévole trouvé avec le nom '{search_name}': {volunteer}")
-else:
-    print(f"Aucun bénévole trouvé avec le nom '{search_name}'.")
-'''
-
+volunteers=search_volunteers_by_filter(skills="Programming",interests="Music",sexe="Male",age="19")
+print(volunteers)
 
 
 
@@ -378,13 +355,6 @@ def search_projects_by_filter(region=None, ville=None, start_date=None, end_date
 
 
 
-load_project_table()
-
-projects_in_perio = search_projects_by_filter(None,"toul")
-
-# Affichage des projets trouvés
-for project in projects_in_perio:
-    print(project)
 
 
 
