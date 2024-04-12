@@ -3,7 +3,6 @@ import json
 from datetime import datetime
 
 
-
 JSONFILENAMEUSER = 'users.json'
 JSONFILENAMEVOLUNTEER = 'volunteer.json'
 DBFILENAME = 'Data.sqlite'
@@ -32,34 +31,33 @@ def load_users(fname=JSONFILENAMEUSER, db_name=DBFILENAME):
     db_run(insert1, user)
 
 
-  
-
-
-
-
-  
 
 
 def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
     # Supprimer la table volunteer s'il existe déjà
     db_run('DROP TABLE IF EXISTS volunteer')
 
-    # Créer la table volunteer
+    # Créer la table volunteer avec les nouvelles colonnes
     db_run('''CREATE TABLE volunteer (
                  id INTEGER PRIMARY KEY AUTOINCREMENT,
                  user_id INTEGER,
-                 full_name TEXT,
+                 first_name TEXT,
+                 last_name TEXT,
                  date_of_birth TEXT,
                  address TEXT,
+                 adress_line2 TEXT,
+                 country TEXT,
+                 city TEXT,
+                 region TEXT,
+                 post_code TEXT,
                  skills TEXT,
                  phone_number TEXT,
                  sexe TEXT,
                  interests TEXT
               )''')
 
-    insert_query = 'INSERT INTO volunteer (user_id, full_name, date_of_birth, address, skills, phone_number, sexe, interests) \
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
-
+    insert_query = 'INSERT INTO volunteer (user_id, first_name, last_name, date_of_birth, address, adress_line2, country, city, region, post_code, skills, phone_number, sexe, interests) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
 
     with open(fname, 'r') as fh:
         volunteers = json.load(fh)
@@ -68,66 +66,19 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
     for volunteer in volunteers:
         volunteer['date_of_birth'] = datetime.strptime(volunteer['date_of_birth'], '%Y-%m-%d').strftime('%Y-%m-%d')
 
+        # Convertir les compétences en une chaîne de caractères séparée par des virgules
+        volunteer['skills'] = ', '.join(volunteer['skills'])
+
+        # Convertir les intérêts en une chaîne de caractères séparée par des virgules
+        volunteer['interests'] = ', '.join(volunteer['interests'])
+
     # Préparer les données à insérer sous forme de liste de tuples
-    data_to_insert = [(volunteer['user_id'], volunteer['full_name'], volunteer['date_of_birth'], volunteer['address'],
-                       ', '.join(volunteer['skills']), volunteer['phone_number'], volunteer['sexe'],
-                       ', '.join(volunteer['interests'])) for volunteer in volunteers]
+    data_to_insert = [(volunteer['user_id'], volunteer['first_name'], volunteer['last_name'], volunteer['date_of_birth'], volunteer['address'],
+                       volunteer['adress_line2'], volunteer['country'], volunteer['city'], volunteer['region'], volunteer['post_code'],
+                       volunteer['skills'], volunteer['phone_number'], volunteer['sexe'], volunteer['interests']) for volunteer in volunteers]
 
-    
     with sqlite3.connect(db_name) as conn:
-            conn.executemany(insert_query, data_to_insert)
-
-
-
-
-
-
-
-
-
-def add_volunteer(user_id, full_name, date_of_birth, address, skills, phone_number, sexe, interests, db_name=DBFILENAME):
-    insert_query = '''INSERT INTO volunteer (user_id, full_name, date_of_birth, address, skills, phone_number, sexe, interests)
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
-
-    # Convertir la liste de compétences et d'intérêts en chaînes de caractères séparées par des virgules
-    skills_str = ', '.join(skills)
-    interests_str = ', '.join(interests)
-
-    try:
-        with sqlite3.connect(db_name) as conn:
-            cursor = conn.cursor()
-            cursor.execute(insert_query, (user_id, full_name, date_of_birth, address, skills_str, phone_number, sexe, interests_str))
-            conn.commit()
-            volunteer_id = cursor.lastrowid 
-    except sqlite3.Error as e:
-        print("Erreur lors de l'ajout du volontaire à la base de données:", e)
-        return None
-    
-    # Mettre à jour le fichier JSON
-    volunteer_data = {
-        "id": volunteer_id,
-        "user_id": user_id,
-        "full_name": full_name,
-        "date_of_birth": date_of_birth,
-        "address": address,
-        "skills": skills,
-        "phone_number": phone_number,
-        "sexe": sexe,
-        "interests": interests
-    }
-    
-    try:
-        with open(JSONFILENAMEVOLUNTEER, 'r') as file:
-            data = json.load(file)
-    except FileNotFoundError:
-        data = []
-    
-    data.append(volunteer_data)
-    
-    with open(JSONFILENAMEVOLUNTEER, 'w') as file:
-        json.dump(data, file, indent=4)
-    
-    return volunteer_id
+        conn.executemany(insert_query, data_to_insert)
 
 
 
@@ -144,16 +95,14 @@ def get_volunteers(db_name=DBFILENAME):
     
     return volunteers
 
-#test
-load_users()
-load_volunteers()
+
 
 def search_volunteer_by_name(name, db_name=DBFILENAME):
-    select_query = '''SELECT * FROM volunteer WHERE full_name LIKE ?'''
+    select_query = '''SELECT * FROM volunteer WHERE first_name LIKE ? OR last_name LIKE ?'''
     try:
         with sqlite3.connect(db_name) as conn:
             cursor = conn.cursor()
-            cursor.execute(select_query, ('%' + name + '%',))
+            cursor.execute(select_query, ('%' + name + '%','%' + name + '%'))
             matching_volunteers = cursor.fetchall()
     except sqlite3.Error as e:
         print("Erreur lors de la recherche du bénévole dans la base de données:", e)
@@ -162,7 +111,7 @@ def search_volunteer_by_name(name, db_name=DBFILENAME):
     return matching_volunteers
 
 
-
+'''
 #Test get_volunteers
 volunteers = get_volunteers()
 if volunteers:
@@ -182,7 +131,7 @@ if volunteer:
 else:
     print(f"Aucun bénévole trouvé avec le nom '{search_name}'.")
 
-
+'''
 
 
 

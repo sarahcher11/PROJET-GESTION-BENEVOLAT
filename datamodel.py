@@ -1,10 +1,63 @@
 import sqlite3
 import math
 from werkzeug.security import generate_password_hash, check_password_hash
+import json
 
+
+JSONFILENAMEUSER = 'users.json'
+JSONFILENAMEVOLUNTEER = 'volunteer.json'
 DBFILENAME = 'Data.sqlite'
+current_user_id=None
 
-# Utility functions
+# Liste des centres d'intérêt
+interests = [
+    "Music",
+    "Reading",
+    "Traveling",
+    "Sports",
+    "Cooking",
+    "Art",
+    "Cinema",
+    "Photography",
+    "Gardening",
+    "Volunteering",
+    "Fashion",
+    "Technology",
+    "Nature",
+    "Animals",
+    "Video Games",
+    "Yoga",
+    "Meditation",
+    "Dance",
+    "Theater",
+    "Creative Writing"
+]
+
+
+skills = [
+    "Programming",
+    "Problem Solving",
+    "Communication",
+    "Leadership",
+    "Teamwork",
+    "Adaptability",
+    "Time Management",
+    "Decision Making",
+    "Organization",
+    "Creativity",
+    "Critical Thinking",
+    "Fast Learning",
+    "Persuasion",
+    "Data Analysis",
+    "Stress Management",
+    "Collaboration",
+    "Presentation",
+    "Project Management",
+    "Independence",
+    "Writing"
+]
+
+
 def db_fetch(query, args=(), all=False, db_name=DBFILENAME):
   with sqlite3.connect(db_name) as conn:
     # to allow access to columns by name in res
@@ -167,25 +220,74 @@ def search(query="", page=1):
   }
 
 
-def login(username,password):
-  query='SELECT id, password_hash FROM user WHERE name=?'
-  user_data=db_fetch(query,(username,))
+def login(email,password):
+  global current_user_id
+  query='SELECT id, password FROM user WHERE email=?'
+  user_data=db_fetch(query,(email,))
   if user_data:
     user_id=user_data['id']
-    stored_password_hash=user_data['password_hash']
+    stored_password_hash=user_data['password']
     if check_password_hash(stored_password_hash,password):
+      current_user_id=50
       return user_id
   return -1
 
-def new_user(name,password):
-  query1='SELECT id FROM user WHERE name=? '
-  existing_user=db_fetch(query1,(name,))
-  if existing_user:
-    return None
-  else:
-    password_hash=generate_password_hash(password)
-    insert = 'INSERT INTO user (name, password_hash) VALUES (?, ?)'
-    user_id=db_run(insert,(name,password_hash))
-    return user_id
+
+
+
+def new_user(email, password, username):
+    global current_user_id
+    query_check_existence = 'SELECT id FROM user WHERE email=?'
+    existing_user = db_fetch(query_check_existence, (email,))
+    if existing_user:
+        # L'utilisateur avec cet e-mail existe déjà, retourner None
+        return None
+    else:
+        # L'utilisateur avec cet e-mail n'existe pas, créer un nouvel utilisateur
+        password_hash = generate_password_hash(password)
+        insert_query = 'INSERT INTO user (email, username, password) VALUES (?, ?, ?)'
+        user_id = db_insert(insert_query, (email, username, password_hash))
+        current_user_id=user_id
+        return user_id
     
- 
+
+
+
+def add_volunteer(first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, skills, phone_number, sexe, interests, db_name=DBFILENAME):
+    global current_user_id  # Déclarez que vous utilisez la variable globale current_user_id
+
+    # Vérifiez si current_user_id est défini
+    if current_user_id is None:
+        print("current_user_id n'est pas défini. Impossible d'ajouter un volontaire.")
+        return None
+
+    # Convertir les listes de compétences et d'intérêts en chaînes de caractères séparées par des virgules et espaces
+    skills_str = ""
+    for skill in skills:
+        skills_str += skill + ", "
+    # Retirer la virgule et l'espace supplémentaires à la fin
+    skills_str = skills_str[:-2]
+
+    interests_str = ""
+    for interest in interests:
+        print(interest)
+        print('fbjfbvjfbv')
+        interests_str += interest + ", "
+    # Retirer la virgule et l'espace supplémentaires à la fin
+    interests_str = interests_str[:-2]
+    print(interests_str)
+    print(skills_str)
+    insert_query = '''INSERT INTO volunteer (user_id, first_name, last_name, date_of_birth, address, adress_line2, country, city, region, post_code, skills, phone_number, sexe, interests)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(insert_query, (current_user_id, first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, skills_str, phone_number, sexe, interests_str))
+            conn.commit()
+            volunteer_id = cursor.lastrowid 
+    except sqlite3.Error as e:
+        print("Erreur lors de l'ajout du volontaire à la base de données:", e)
+        return None
+    
+    return volunteer_id

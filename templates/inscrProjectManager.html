@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Become a project manager</title>
+        <title>Become a Volunteer</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <link rel="stylesheet" href="../static/formulaire.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='../static/formulaire.css') }}">
@@ -12,70 +13,115 @@
     
 <body>
    <section class="container">
-        <header>Registration As Project Manager</header>
-        <form action="#"class="form">
-            <div class="input-box">
-                <label >Full Name</label>
-                <input type="text" placeholder="Enter full name" required/>
-            </div>
-            <div class="input-box">
-                <label >Email Address</label>
-                <input type="text" placeholder="Enter email address" required/>
-            </div>
+        <header>Registration As a projet manager</header>
+        <form action="/registerVolunteer" method="post" class="form">
             <div class="column">
-                 <div class="input-box">
-                   <label >Phone Number</label>
-                   <input type="text" placeholder="Enter phone num" required/>
+                <div class="input-box">
+                <label >First Name *</label>
+                <input type="text"  name="first_name" placeholder="Enter first name" required/>
                  </div>
                  <div class="input-box">
-                    <label>Birth Date</label>
-                    <input type="text" id="birthdate" placeholder="Select birth date">
+                    <label >Last Name *</label>
+                    <input type="text" name="last_name" placeholder="Enter last name" required/>
+                </div>
+            </div>
+            
+            <div class="column">
+                 <div class="input-box">
+                   <label >Phone Number *</label>
+                   <input type="text" name="phone_number" placeholder="Enter phone num" required/>
+                 </div>
+                 <div class="input-box">
+                    <label>Birth Date *</label>
+                    <input type="text" name="date_of_birth" id="birthdate" placeholder="Select birth date">
                 </div>
             </div>
             
             <div class="gender-box">
-                <h3>Gender</h3>
+                <h3>Gender *</h3>
                 <div class="gender-option">
                     <div class="gender">
-                        <input type="radio" id="check-male" name="gender" checked/>
+                        <input type="radio" id="check-male" name="gender" value="Male" checked/> 
+
                         <label for="check-male">Male</label>
                     </div>
                     <div class="gender">
-                         <input type="radio" id="check-female" name="gender"/>
+                        <input type="radio" id="check-female" name="gender" value="Female"/> 
                          <label for="check-female">Female</label>
                      </div>
                 </div>
                 
             </div>
             <div class="input-box address">
-                <label >Address </label>
-                <input type="text" placeholder="Enter street Adress "required/>
-                <input type="text" placeholder="Enter street Adress line 2 "required/>
+                <label >Address * </label>
+                <input type="text" name="address" placeholder="Enter street Adress * "required/>
+                <input type="text" name="address_line2" placeholder="Enter street Adress line 2 "/>
                  <div class="column">
-                    <div class="select-box">
-                        <select>
-                            <option hidden>Country</option>
+                    <div name="country" class="select-box">
+                        <select name="country">
+                            <option hidden>Country *</option>
                             <option>France</option>
                         </select>
-
                     </div>
-                    <input type="text" placeholder="Enter your city "required/>
+                    <input type="text" name="city" placeholder="Enter your city "required/>
 
                  </div>
-                <input type="text" placeholder="Enter your region "required/>
-                <input type="text" placeholder="Enter your postal code "required/>
+                <input type="text" name="region" placeholder="Enter your region * "required/>
+                <input type="text" name="postal_code" placeholder="Enter your postal code * "required/>
 
              </div>
-             
+
+             <div class="column">
+                 <div class=" input-box check">
+                    <div name="interests" class="select-btn">
+                     <span class="btn-text">Interests</span>  
+                     <span class="arrow-dwn">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                 </div>
+                    <ul class="list-items">
+                    {% for interest in interests %}
+                        <li class="item">
+                             <span class="checkbox check-icon">
+                                 <i class="fa-solid fa-check"></i>
+                             </span>
+                       
+                             <span class="item-text"> {{interest}}</span>
+                       
+                        </li>
+                    {% endfor %}
+                    </ul>
+
+                 </div>
+                 <!-- Pour les compétences -->
+                <div class="input-box check">
+                  <div name="skills" class="select-btn select-btn-skills">
+                      <span class="btn-text">Skills</span>  
+                      <span class="arrow-dwn">
+                         <i class="fa-solid fa-chevron-down"></i>
+                     </span>
+                 </div>
+                 <ul class="list-items list-items-skills">
+                   {% for skill in skills %}
+                     <li class="item-skills">
+                          <span class="checkbox check-icon">
+                             <i class="fa-solid fa-check"></i>
+                         </span>
+                            <span class="item-text">{{skill}}</span>
+                     </li>
+                  {% endfor %}
+                 </ul>
+              </div>
+             </div> 
              <button>Submit</button>
         </form>
    </section> 
    <script>
     flatpickr("#birthdate", {
-        dateFormat: "Y-m-d", // You can adjust the date format as needed
-        maxDate: new Date(), // Optionally set maximum date
-        // Other configurations as needed
+        dateFormat: "Y-m-d", 
+        maxDate: new Date(), 
     });
-   </script>
+</script>
+<script src="../static/formulaire.js"></script>
 </body>
 </html>
