@@ -38,6 +38,12 @@
 
   }
 
+
+  .right{
+    width:600px;
+  }
+
+ 
   .FAQ {
     margin-right: 150px;
   }
@@ -131,28 +137,44 @@
   footer {
     background-color: #333;
     color: #fff;
-    text-align: center;
     padding: 20px 0;
     bottom: 0;
     width: 100%;
+      display: flex;
+   justify-content: center;
+   justify-items: center;
+   flex-direction: column;
+}
+
+footer p {
+  text-align: center;
 }
 
 .social-icons {
-    margin-bottom: 40px;
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    justify-items: center;
+  margin-top: 20px;
     margin-left: 40px;
-}
-
-
-
-footer p{
     display: flex;
+    align-items: center;
     justify-content: center;
-    justify-items: center;
+    margin-bottom: 20px;
+    
+
 }
+
+.social-icons a{
+  margin-bottom: 10px;
+}
+
+.insta{
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+
+
+
 .social-icons a {
     color: #fff;
     text-decoration: none;
@@ -168,7 +190,6 @@ footer p{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 80px;
     margin-bottom: 80px;
 }
 
@@ -287,6 +308,7 @@ svg {
 .RechercheChef .Description{
     display: flex;
     flex-direction: column;
+   
 }
 
 .RechercheBenevole{
@@ -294,28 +316,39 @@ svg {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin-top: 40px;
+    background-color: rgba(128, 128, 128, 0.436);
+    margin-bottom: 40px;
 }
 .RechercheChef{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    background-color: rgba(128, 128, 128, 0.436);
+    margin-bottom: 100px;
     margin-top: 40px;
 }
 
 .BenImageimg{
-    width: 450px;
+   
     margin-top: 30px;
     border-radius: 50%;
-    height: auto;
+    width: 400px;
+    height: 350px; 
+    margin-bottom: 30px;
+    object-fit: cover; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); 
 
 }
 .ProjImageimg {
-    width: 450px;
-    margin-top: 40px;
-    margin-left: 40px;
-    border-radius: 50%; 
+    margin-top: 30px;
+    border-radius: 50%;
+    width: 400px;
+    height: 350px; 
+    object-fit: cover; 
+    margin-bottom: 30px;
+    margin-left: 30px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); 
 }
 
@@ -373,7 +406,7 @@ h2 {
 
 .Description p {
     font-size: 16px;
-    color: #666;
+    color: rgba(62, 55, 55, 0.726);
     line-height: 1.5;
     margin-top: 20px;
 }
@@ -383,14 +416,98 @@ h2 {
     margin-right: 30px;
 }
 
+.description{
+  width: 600px;
+}
 
+
+
+
+.contact-info{
+  text-align:justify;
+  line-height: 1.5;
+  margin-right: 20px;
+}
   
+.p{
+  text-align:justify;
+  line-height: 1.5;
+}
+
+.entete{
+  display: flex;
+ 
+  margin-bottom: 10px;
+}
+
+.trait-horizontal {
+  width: 65%;
+  height: 1px; /* épaisseur du trait */
+  background-color: white; /* couleur du trait */
+  margin-left: 20px;
+  margin-top: 10px;
   
+}
 
 
+.bas{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
 
 
+.avis-section {
+  display: flex;
+  justify-content: center;
+  height: 300px;
+  margin-bottom: 100px;
+}
 
+.avis {
+  background-color: rgba(128, 128, 128, 0.436);
+  border-radius: 10px;
+  margin: 10px;
+  padding: 20px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+.imggg{
+  width:100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+
+}
+
+.h11{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.imgg{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avis-content {
+  text-align: center;
+}
+
+.author {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.rating {
+  font-size: 24px;
+  margin-top: 10px;
+}
 
 
   
