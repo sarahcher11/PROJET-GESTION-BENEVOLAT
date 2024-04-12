@@ -81,6 +81,11 @@ def search_volunteers_by_location():
     return render_template('resultat.html', volunteers=matching_volunteersf, interests=model.interests,skills=model.skills)
 
 
+
+
+
+
+
 @app.route('/filtrer')
 def filtrer():
 
@@ -98,6 +103,50 @@ def filtrer():
     for volunteer in volunteers:
      print(volunteer)
     return render_template('resultat.html', volunteers=volunteers, interests=model.interests, skills=model.skills)
+
+
+
+
+
+@app.route('/searchpro')
+def search_projects():
+    search_query = request.args.get('name', '')
+    matching_projects = search_project_by_keyword(search_query)
+    print("Résultats de la recherche :", matching_projects)
+    print(len(matching_projects))
+    return render_template('resultatProjet.html', projects=matching_projects,size=len(matching_projects))
+
+
+@app.route('/searchpro2')
+def search_projects_by_location():
+    # Récupérer le terme de recherche depuis les paramètres de la requête
+    search_query = request.args.get('name', '')
+    
+    # Rechercher les bénévoles correspondant au nom
+    matching_projectsf = search_project_by_location_keyword(search_query)
+    print("Résultats de la recherche :", matching_projectsf)
+    print(len(matching_projectsf))
+
+    # Retourner les résultats de la recherche sous forme de page HTML "resultat.html"
+    return render_template('resultatProjet.html', projects=matching_projectsf, interests=model.interests,skills=model.skills,size=len(matching_projectsf))
+
+
+
+
+@app.route('/searchpro3')
+def search_projects_by_period_route():
+    start_date_str = request.args.get('start_date')
+    end_date_str = request.args.get('end_date')
+
+    start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
+    end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+
+    matching_projectsr=search_projects_by_period(start_date,end_date)
+    print( matching_projectsr)
+    return render_template('resultatProjet.html', projects=matching_projectsr, size=len(matching_projectsr))
+
+
+    
 
 
 @app.post('/registerVolunteer')

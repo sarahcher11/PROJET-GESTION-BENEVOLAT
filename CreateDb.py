@@ -133,10 +133,6 @@ def search_volunteer_by_location_keyword(keyword, db_name=DBFILENAME):
 
 
 
-
-
-
-
 def search_volunteers_by_filter(age=None, skills=None, sexe=None, interests=None, db_name="Data.sqlite"):
     # Connexion à la base de données
     conn = sqlite3.connect(db_name)
@@ -144,54 +140,39 @@ def search_volunteers_by_filter(age=None, skills=None, sexe=None, interests=None
 
     # Construction de la requête SQL
     query = "SELECT * FROM volunteer WHERE 1=1"
-    params = []
+    parameters = []
 
-    # Ajout des filtres à la requête
     if age is not None:
-        age=int(age)
-        # Calcul de la date de naissance pour l'âge donné
-        # Assumant que date_of_birth est au format 'YYYY-MM-DD'
-        birth_year = 2024 - age
-        query += " AND date_of_birth <= ?"
-        params.append(f"{birth_year}-12-31")
+        age = int(age)
+        query += " AND DATE('now') - DATE(date_of_birth) >= ?"
+        parameters.append(age)
 
     if skills is not None and len(skills) > 0:
-        # Recherche intelligente des compétences
-        query += " AND ("
-        for index, skill in enumerate(skills):
-            if index > 0:
-                query += " OR"
-            query += " skills LIKE ?"
-            params.append(f"%{skill}%")
-        query += ")"
-
+        skills_conditions = skills.split(', ')
+        for skill in skills_conditions:
+            query += " AND skills LIKE ?"
+            parameters.append('%' + skill + '%')
+    if interests is not None and len(interests) > 0:
+        interests_conditions = interests.split(', ')
+        for interest in interests_conditions:
+            query += " AND interests LIKE ?"
+            parameters.append('%' + interest + '%')
     if sexe is not None:
         query += " AND sexe = ?"
-        params.append(sexe)
-
-    if interests is not None and len(interests) > 0:
-        # Recherche intelligente des intérêts
-        query += " AND ("
-        for index, interest in enumerate(interests):
-            if index > 0:
-                query += " OR"
-            query += " interests LIKE ?"
-            params.append(f"%{interest}%")
-        query += ")"
+        parameters.append(sexe)
 
     # Exécution de la requête
-    cursor.execute(query, params)
-    volunteers = cursor.fetchall()
+    cursor.execute(query, parameters)
+    volunteersf = cursor.fetchall()
 
-    # Fermeture de la connexion et retour des résultats
+    # Fermeture de la connexion à la base de données
     conn.close()
-    return volunteers
+
+    return volunteersf
 
 
 
 
-volunteers=search_volunteers_by_filter(skills="Programming",interests="Music",sexe="Male",age="19")
-print(volunteers)
 
 
 
@@ -268,7 +249,8 @@ def search_project_by_keyword(keyword, db_name=DBFILENAME):
 
 
 
-
+matching_projects=search_project_by_keyword("programme")
+print(matching_projects)
 
 def search_project_by_location_keyword(keyword, db_name=DBFILENAME):
     select_query = '''SELECT * FROM project WHERE region LIKE ? OR ville LIKE ? OR adresse LIKE ? OR code_postal LIKE ?'''
@@ -305,52 +287,16 @@ def search_projects_by_period(start_date, end_date, db_name="Data.sqlite"):
 
 
 
+start_date = datetime(2024, 5, 2)
+end_date = datetime(2024, 5, 14)
 
-def search_projects_by_filter(region=None, ville=None, start_date=None, end_date=None, code_postal=None, adresse=None, interests=None, db_name="Data.sqlite"):
-    conn = sqlite3.connect(db_name)
-    cursor = conn.cursor()
+# Call the function
+projects = search_projects_by_period(start_date, end_date)
 
-    # Construction de la requête SQL dynamiquement en fonction des filtres fournis
-    query = "SELECT * FROM project WHERE 1=1"
-    parameters = []
+# Now you have a list of projects that fall within the specified period
+print(projects)
 
-    if region:
-        query += " AND region LIKE ?"
-        parameters.append('%' + region + '%')
 
-    if ville:
-        query += " AND ville LIKE ?"
-        parameters.append('%' + ville + '%')
-
-    if start_date:
-        query += " AND start_date >= ?"
-        parameters.append(start_date.strftime('%Y-%m-%d'))
-
-    if end_date:
-        query += " AND end_date <= ?"
-        parameters.append(end_date.strftime('%Y-%m-%d'))
-
-    if code_postal:
-        query += " AND code_postal LIKE ?"
-        parameters.append('%' + code_postal + '%')
-
-    if adresse:
-        query += " AND adresse LIKE ?"
-        parameters.append('%' + adresse + '%')
-
-    if interests:
-        # Utilisation de l'opérateur logique OR pour rechercher des projets qui correspondent à au moins un intérêt
-        interests_filters = ["interests LIKE ?" for _ in interests]
-        query += " AND (" + " OR ".join(interests_filters) + ")"
-        for interest in interests:
-            parameters.append('%' + interest + '%')
-
-    cursor.execute(query, parameters)
-    projects = cursor.fetchall()
-
-    conn.close()
-
-    return projects
 
 
 
