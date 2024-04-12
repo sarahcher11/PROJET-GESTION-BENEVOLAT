@@ -315,3 +315,17 @@ def add_project_manager(first_name, last_name, date_of_birth, address, address_l
         return None
     
     return manager_id
+
+
+def get_project_manager(db_name=DBFILENAME):
+    select_query = '''SELECT * FROM project_manager'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query)
+            managers = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la récupération des bénévoles depuis la base de données:", e)
+        return None
+    
+    return managers
