@@ -8,6 +8,8 @@ JSONFILENAMEVOLUNTEER = 'volunteer.json'
 JSONFILENAMEMANAGER = 'manager.json'
 DBFILENAME = 'Data.sqlite'
 
+
+
 def db_run(query, args=(),db_name=DBFILENAME):
   with sqlite3.connect(db_name) as conn:
     cur= conn.execute(query,args)
@@ -149,8 +151,9 @@ def search_volunteer_by_name(name, db_name=DBFILENAME):
     
     return matching_volunteers
 
-load_projectmanagers()
-load_volunteers()
+
+
+
 '''
 #Test get_volunteers
 volunteers = get_volunteers()

@@ -71,48 +71,7 @@
 
              </div>
 
-             <div class="column">
-                 <div class=" input-box check">
-                    <div name="interests" class="select-btn">
-                     <span class="btn-text">Interests</span>  
-                     <span class="arrow-dwn">
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </span>
-                 </div>
-                    <ul class="list-items">
-                    {% for interest in interests %}
-                        <li class="item">
-                             <span class="checkbox check-icon">
-                                 <i class="fa-solid fa-check"></i>
-                             </span>
-                       
-                             <span class="item-text"> {{interest}}</span>
-                       
-                        </li>
-                    {% endfor %}
-                    </ul>
-
-                 </div>
-                 <!-- Pour les compétences -->
-                <div class="input-box check">
-                  <div name="skills" class="select-btn select-btn-skills">
-                      <span class="btn-text">Skills</span>  
-                      <span class="arrow-dwn">
-                         <i class="fa-solid fa-chevron-down"></i>
-                     </span>
-                 </div>
-                 <ul class="list-items list-items-skills">
-                   {% for skill in skills %}
-                     <li class="item-skills">
-                          <span class="checkbox check-icon">
-                             <i class="fa-solid fa-check"></i>
-                         </span>
-                            <span class="item-text">{{skill}}</span>
-                     </li>
-                  {% endfor %}
-                 </ul>
-              </div>
-             </div> 
+        
              <button>Submit</button>
         </form>
    </section> 

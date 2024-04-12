@@ -228,7 +228,7 @@ def login(email,password):
     user_id=user_data['id']
     stored_password_hash=user_data['password']
     if check_password_hash(stored_password_hash,password):
-      current_user_id=50
+      current_user_id=user_id
       return user_id
   return -1
 
@@ -291,3 +291,27 @@ def add_volunteer(first_name, last_name, date_of_birth, address, address_line2, 
         return None
     
     return volunteer_id
+
+
+def add_project_manager(first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, phone_number, sexe, db_name=DBFILENAME):
+    global current_user_id  # Déclarez que vous utilisez la variable globale current_user_id
+
+    # Vérifiez si current_user_id est défini
+    if current_user_id is None:
+        print("current_user_id n'est pas défini. Impossible d'ajouter un volontaire.")
+        return None
+   
+    insert_query = '''INSERT INTO project_manager (user_id, first_name, last_name, date_of_birth, address, adress_line2, country, city, region, post_code, phone_number, sexe)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(insert_query, (current_user_id, first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, phone_number, sexe))
+            conn.commit()
+            manager_id = cursor.lastrowid 
+    except sqlite3.Error as e:
+        print("Erreur lors de l'ajout du volontaire à la base de données:", e)
+        return None
+    
+    return manager_id

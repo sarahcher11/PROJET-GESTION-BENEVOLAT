@@ -14,8 +14,10 @@
             <img class="logoimg" src="../static/images/logo.svg" alt="image2">
             <nav>
                 <ul>
+                    {% if 'user_id' not in session %}
                     <li><a href="/login">Login</a></li>
                     <li><a href="/signup">Signup</a></li>
+                    {% endif %}
                     <li><a href="">Help</a></li>
                     <li class="FAQ" ><a href="#">FAQ</a></li>
                     
