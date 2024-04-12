@@ -325,7 +325,21 @@ def get_project_manager(db_name=DBFILENAME):
             cursor.execute(select_query)
             managers = cursor.fetchall()
     except sqlite3.Error as e:
-        print("Erreur lors de la récupération des bénévoles depuis la base de données:", e)
+        print("Erreur lors de la récupération des managers depuis la base de données:", e)
         return None
     
     return managers
+
+
+def search_manager_by_userid(user_id, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM project_manager WHERE user_id '''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, ('%' + user_id + '%'))
+            matching_volunteers = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur when searching for the project manager in the data base", e)
+        return None
+    
+    return matching_volunteers
