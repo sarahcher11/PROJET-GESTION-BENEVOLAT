@@ -145,7 +145,7 @@ def get_volunteers(db_name=DBFILENAME):
     
     return volunteers
 
-load_projectmanagers()
+
 
 '''
 #test
@@ -267,10 +267,7 @@ def load_project_table(fname="Project.json", db_name="Data.sqlite"):
             conn.executemany(insert_query, data_to_insert)
 
 
-load_project_table()
-load_projectmanagers()
-load_users()
-load_volunteers()
+
 
 
 
