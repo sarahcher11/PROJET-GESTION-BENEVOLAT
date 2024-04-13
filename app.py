@@ -61,7 +61,10 @@ def login_post():
     if user_id != -1:
         session['user_id']=user_id
         session['auth_success']=True
-        session['username']=model.get_username_for_user(user_id)
+        current_user=model.get_user_by_id(user_id)
+        print(current_user)
+        session['username']=current_user[1]
+        session['email']=current_user[3]
         return redirect('/login')
     else:
         erreur = 'Failed authentification'

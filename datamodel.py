@@ -269,8 +269,6 @@ def add_volunteer(first_name, last_name, date_of_birth, address, address_line2, 
 
     interests_str = ""
     for interest in interests:
-        print(interest)
-        print('fbjfbvjfbv')
         interests_str += interest + ", "
     # Retirer la virgule et l'espace supplémentaires à la fin
     interests_str = interests_str[:-2]
@@ -331,7 +329,6 @@ def get_project_manager(db_name=DBFILENAME):
 
 def get_username_for_user(user_id, db_name=DBFILENAME):
     select_query = '''SELECT username FROM user WHERE id=?'''
-
     try:
         with sqlite3.connect(db_name) as conn:
             cursor = conn.cursor()
@@ -345,6 +342,25 @@ def get_username_for_user(user_id, db_name=DBFILENAME):
     except sqlite3.Error as e:
         print("Erreur lors de la récupération du nom d'utilisateur depuis la base de données:", e)
         return None
+    
+
+def get_user_by_id(user_id, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM user WHERE id=?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, (user_id,))
+            result = cursor.fetchone()  # Fetches the first row
+            if result:
+                return result  # Returns the entire row as a tuple
+            else:
+                print("Aucun utilisateur trouvé avec l'ID:", user_id)
+                return None
+    except sqlite3.Error as e:
+        print("Erreur lors de la récupération du nom d'utilisateur depuis la base de données:", e)
+        return None
+
+
 
 
 def search_manager_by_userid(user_id, db_name=DBFILENAME):

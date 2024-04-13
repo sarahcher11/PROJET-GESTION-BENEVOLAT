@@ -6,6 +6,7 @@ from datetime import datetime,timedelta
 JSONFILENAMEUSER = 'users.json'
 JSONFILENAMEVOLUNTEER = 'volunteer.json'
 JSONFILENAMEMANAGER = 'manager.json'
+JSONFILEPHOTOUSER = 'photo_user.json'
 DBFILENAME = 'Data.sqlite'
 
 
@@ -31,6 +32,18 @@ def load_users(fname=JSONFILENAMEUSER, db_name=DBFILENAME):
     db_run(insert1, user)
 
 
+import json
+
+def load_photo_user(fname=JSONFILEPHOTOUSER, db_name=DBFILENAME):
+    db_run('DROP TABLE IF EXISTS image')
+    db_run('CREATE TABLE image (user_id INTEGER, img TEXT)')
+    insert_query = 'INSERT INTO image VALUES (:user_id, :img)'
+
+    with open(fname, 'r') as fh:
+        images = json.load(fh)
+
+    for id, image in enumerate(images, start=1):  # Commence à l'index 1
+        db_run(insert_query, {'user_id': id, 'img': image['img']})
 
 
 
