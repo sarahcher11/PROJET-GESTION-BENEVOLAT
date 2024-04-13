@@ -93,7 +93,7 @@ def search_volunteers():
     print("Résultats de la recherche :", matching_volunteers)
     
     # Retourner les résultats de la recherche sous forme de page HTML "resultat.html"
-    return render_template('resultat.html', volunteers=matching_volunteers, interests=interests,skills=skills)
+    return render_template('resultatbenevole.html', volunteers=matching_volunteers, interests=interests,skills=skills)
 
 
 @app.route('/search1')
@@ -107,7 +107,7 @@ def search_volunteers_by_location():
 
 
     # Retourner les résultats de la recherche sous forme de page HTML "resultat.html"
-    return render_template('resultat.html', volunteers=matching_volunteersf, interests=model.interests,skills=model.skills)
+    return render_template('resultatbenevole.html', volunteers=matching_volunteersf, interests=model.interests,skills=model.skills)
 
 
 
@@ -131,7 +131,7 @@ def filtrer():
     volunteers = search_volunteers_by_filter(skills=skills, interests=interests, sexe=sexe, age=age)
     for volunteer in volunteers:
      print(volunteer)
-    return render_template('resultat.html', volunteers=volunteers, interests=model.interests, skills=model.skills)
+    return render_template('resultatbenevole.html', volunteers=volunteers, interests=model.interests, skills=model.skills)
 
 
 

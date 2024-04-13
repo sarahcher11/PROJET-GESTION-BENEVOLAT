@@ -17,10 +17,12 @@
                     {% if 'user_id' not in session %}
                     <li><a href="/login">Login</a></li>
                     <li><a href="/signup">Signup</a></li>
-                    {% endif %}
                     <li><a href="">Help</a></li>
                     <li class="FAQ" ><a href="#">FAQ</a></li>
+                    {% endif %}
                     {% if 'user_id'in session %}
+                    <li><a href="">Help</a></li>
+                    <li class="FAQ2" ><a href="#">FAQ</a></li>
                     <li class="Profile" ><a href="/profil">Profile</a></li>
                     <li class="logout" ><a href="/logout">Logout</a></li>
                     {% endif %}
