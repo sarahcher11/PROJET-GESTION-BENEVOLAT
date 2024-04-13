@@ -65,6 +65,7 @@ def login_post():
         print(current_user)
         session['username']=current_user[1]
         session['email']=current_user[3]
+        session['img']=model.get_image(user_id)
         return redirect('/login')
     else:
         erreur = 'Failed authentification'
@@ -79,7 +80,8 @@ def new_user():
 
     if user_id!=None:
         session['user_id']=user_id
-        session['username']=model.get_username_for_user(user_id)
+        session['username']=username
+        session['email']=email
         return redirect('/')
     else:
         erreur = 'Already existing email or username'
@@ -222,6 +224,7 @@ def register_form_manager():
     postal_code = request.form['postal_code']
     model.add_project_manager(first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, phone_number, gender)
     return redirect('/')
+
 
 
 

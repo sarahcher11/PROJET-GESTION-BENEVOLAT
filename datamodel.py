@@ -360,7 +360,21 @@ def get_user_by_id(user_id, db_name=DBFILENAME):
         print("Erreur lors de la récupération du nom d'utilisateur depuis la base de données:", e)
         return None
 
-
+def get_image(user_id, db_name=DBFILENAME):
+    select_query = 'SELECT img FROM image WHERE user_id = ?'
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, (user_id,))
+            result = cursor.fetchone()
+            if result:
+                return result[0]  
+            else:
+                print("Aucune image trouvée pour l'utilisateur avec l'ID:", user_id)
+                return None
+    except sqlite3.Error as e:
+        print("Erreur lors de la récupération de l'image depuis la base de données:", e)
+        return None
 
 
 def search_manager_by_userid(user_id, db_name=DBFILENAME):
