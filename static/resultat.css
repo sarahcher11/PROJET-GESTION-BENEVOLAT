@@ -104,7 +104,6 @@ ul{
    }
 
   .logoimg{
-    margin-top: 30px;
     width: 200px;
     cursor: pointer;
 
@@ -138,7 +137,7 @@ ul{
    content: '';
    height: 3px;
    width: 0;
-   background: #009688;
+   background: #102C57;
    position: absolute;
    left: 0;
    bottom:-10px;
@@ -201,7 +200,7 @@ ul{
     padding: 10px 20px;
     font-size: 16px;
     border: none;
-    background-color: #009688;
+    background-color: #102C57;
     color: #fff;
     border-radius: 0 5px 5px 0; 
     cursor: pointer;
@@ -209,7 +208,7 @@ ul{
 }
 
 .search-bar button:hover {
-    background-color: #009688;
+    background-color: #102C57;
 }
 
 ::placeholder{
@@ -266,7 +265,7 @@ ul{
   }
 
   .skills{
-    background-color: #adeae4;
+    background-color: #DAC0A3;
     opacity: 0.8;
     border-radius: 5px;
     width: 300px;
@@ -294,10 +293,11 @@ ul{
 }
 
 .name{
+    margin-top: 30px;
+    margin-bottom: 20px;
     font-size: large;
     color: black;
-    margin-bottom: 20px;
-    margin-left: 10px;
+    text-align: center;
    
 }
 .namecontainer{
@@ -328,7 +328,7 @@ ul{
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    border: 2px solid #009688;
+    border: 2px solid #102C57;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -559,8 +559,6 @@ ul{
 
 
 .logo{
-    margin-top: 30px;
-  
     width: 200px;
     cursor: pointer;
 
@@ -614,72 +612,43 @@ ul{
     padding: 10px 20px;
     font-size: 16px;
     border: none;
-    background-color: #009688;
+    background-color: #102C57;
     color: #fff;
     border-radius: 5px 5px 5px 5px; 
     cursor: pointer;
     margin-top: 15px;
     transition: background-color 0.3s;
-    width:20%;
-    height: 50px;
+    width:15%;
+    height: 40px;
   }
 
 
-  .description{
-    width: 600px;
-  }
-  
-  .footer-content{
-  margin-right: 30px;
-  }
-  .contact-info{
-    text-align:justify;
-    line-height: 1.5;
-    margin-right: 20px;
-  }
-    
-  .p{
-    text-align:justify;
-    line-height: 1.5;
-  }
-  
-  .entete{
-    display: flex;
-   
-    margin-bottom: 10px;
-  }
-  
-  .trait-horizontal {
-    width: 65%;
-    height: 1px; /* épaisseur du trait */
-    background-color: white; /* couleur du trait */
-    margin-left: 20px;
-    margin-top: 10px;
-    
-  }
-  footer h3{
-    margin-bottom: 20px;
-    padding-left: 0;
-    
-  }
+
 
   footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #EADBC8;
+    color: black;
     padding: 20px 0;
     bottom: 0;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+      display: flex;
+   justify-content: center;
+   justify-items: center;
+   flex-direction: column;
+}
+
+footer p {
+  text-align: center;
 }
 
 .social-icons {
-   
+  margin-top: 20px;
+    margin-left: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    margin-bottom: 20px;
+    
 
 }
 
@@ -705,5 +674,5 @@ ul{
 }
 
 .social-icons a:hover {
-    color: #55acee; /* couleur Twitter */
+    color: #102C57; /* couleur Twitter */
 }

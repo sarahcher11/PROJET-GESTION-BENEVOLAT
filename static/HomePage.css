@@ -65,7 +65,7 @@
    content: '';
    height: 3px;
    width: 0;
-   background: #009688;
+   background: #102C57;
    position: absolute;
    left: 0;
    bottom:-10px;
@@ -109,7 +109,7 @@
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    border: 2px solid #009688;
+    border: 2px solid #102C57;
     background: transparent;
     color:#fff;
     cursor: pointer;
@@ -117,7 +117,7 @@
     overflow: hidden;
   }
   span{
-    background:#009688 ;
+    background:#102C57 ;
     height: 100%;
     width: 0;
     border-radius: 25px;
@@ -135,8 +135,8 @@
   }
 
   footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #EADBC8;
+    color: black;
     padding: 20px 0;
     bottom: 0;
     width: 100%;
@@ -183,7 +183,7 @@ footer p {
 }
 
 .social-icons a:hover {
-    color: #55acee; /* couleur Twitter */
+    color: #102C57; /* couleur Twitter */
 }
 
 .statistiques {
@@ -202,6 +202,7 @@ footer p {
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Ajoute une ombre douce */
     margin-right: 100px;
+    background-color: #FEFAF6;
     margin-bottom: 40px;
     display: inline-block;
 }
@@ -210,6 +211,7 @@ footer p {
 .skill2 {
     width: 300px;
     height: 300px;
+    background-color: #FEFAF6;
     border-radius: 10px;
     position: relative;
     margin-top: 30px;
@@ -276,8 +278,8 @@ footer p {
 }
 
 circle {
+  stroke: url(#GradientColor);
     fill: none;
-    stroke: url(#GradientColor);
     stroke-dasharray: 472;
     stroke-dashoffset: 472;
     animation: anim 7s linear forwards;
@@ -317,17 +319,20 @@ svg {
     align-items: center;
     justify-content: center;
     margin-top: 40px;
-    background-color: rgba(128, 128, 128, 0.436);
+    background-color:#DAC0A3;
     margin-bottom: 40px;
+    background: -webkit-linear-gradient(90deg, #102c57,#dac0a3,#eadbc8);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */                                             ;
 }
 .RechercheChef{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: rgba(128, 128, 128, 0.436);
+    background-color: #DAC0A3;
     margin-bottom: 100px;
     margin-top: 40px;
+    background: -webkit-linear-gradient(90deg, #102c57,#dac0a3,#eadbc8);
+
 }
 
 .BenImageimg{
@@ -465,8 +470,9 @@ h2 {
 }
 
 .avis {
-  background-color: rgba(128, 128, 128, 0.436);
+  background-color: #102C57;
   border-radius: 10px;
+  color: white;
   margin: 10px;
   padding: 20px;
   width: 300px;
