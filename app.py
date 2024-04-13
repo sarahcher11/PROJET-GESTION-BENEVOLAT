@@ -61,11 +61,11 @@ def login_post():
     if user_id != -1:
         session['user_id']=user_id
         session['auth_success']=True
-        return redirect('/')
+        return redirect('/login')
     else:
         erreur = 'Failed authentification'
         return render_template("login.html", error=erreur)
-
+    
 @app.post('/signup')
 def new_user():
     email = request.form['email']
