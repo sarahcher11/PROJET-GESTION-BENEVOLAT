@@ -233,6 +233,8 @@ def get_projects(db_name=DBFILENAME):
     
     return projects
 
+print(len(get_projects()))
+
 
 def search_project_by_keyword(keyword, db_name=DBFILENAME):
     select_query = '''SELECT * FROM project WHERE project_name LIKE ? OR description LIKE ?'''
@@ -287,14 +289,6 @@ def search_projects_by_period(start_date, end_date, db_name="Data.sqlite"):
 
 
 
-start_date = datetime(2024, 5, 2)
-end_date = datetime(2024, 5, 14)
-
-# Call the function
-projects = search_projects_by_period(start_date, end_date)
-
-# Now you have a list of projects that fall within the specified period
-print(projects)
 
 
 

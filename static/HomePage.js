@@ -1,7 +1,9 @@
 let number1 =document.getElementById("number1");
+var totalv = number1.textContent;
+console.log(totalv);
 let counter1=0;
 setInterval(()=>{
-    if(counter1==200){
+    if(counter1==totalv){
         clearInterval();
     }else{
         counter1+=1;
@@ -10,9 +12,10 @@ setInterval(()=>{
 },25);
 
 let number2 =document.getElementById("number2");
+var totalp = number2.textContent;
 let counter2=0;
 setInterval(()=>{
-    if(counter2==200){
+    if(counter2==totalp){
         clearInterval();
     }else{
         counter2+=1;

@@ -372,17 +372,17 @@ ul{
 }
 .list-items{
     display: none;
+    position: absolute;
+    background-color: white;
+    z-index:1;
+    width: 200px;
 }
 
 .list-items .item{
-    display: flex;
-    align-items: center;
-    list-style: none;
+   
 }
 .item .checkbox{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  
     height: 16px;
     width: 16px;
     padding: 2px;
@@ -452,7 +452,6 @@ ul{
 
 
 
-
 .select-btnskill {
     position: relative;
     margin-right: 20px; 
@@ -491,12 +490,14 @@ ul{
 }
 .list-itemsskill{
     display: none;
+    position: absolute;
+    background-color: white;
+    z-index:1;
+    width: 200px;
 }
 
 .list-itemsskill .itemskill{
-    display: flex;
-    align-items: center;
-    list-style: none;
+   
 }
 .itemskill .checkboxskill{
     display: flex;
@@ -604,9 +605,9 @@ ul{
   }
 
 
-  .option{
-    margin-right: 30px;
-  }
+#age{
+    width:280px;
+}
   
   .filtrer{
     padding: 10px 20px;

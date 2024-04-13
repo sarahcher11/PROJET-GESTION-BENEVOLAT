@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var searchQuery = document.getElementById('search-inputpro2').value;
 
         // Effectuer une redirection vers la page de résultats de recherche avec le terme de recherche comme paramètre
-        window.location.href = '/search2pro?name=' + encodeURIComponent(searchQuery);
+        window.location.href = '/searchpro2?name=' + encodeURIComponent(searchQuery);
     });
 });
 

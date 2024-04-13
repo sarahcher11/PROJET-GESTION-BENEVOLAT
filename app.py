@@ -9,7 +9,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('HomePage.html')
+    volunteers=get_volunteers()
+    projects=get_projects()
+    return render_template('HomePage.html',totalv=len(volunteers),totalp=len(projects))
 
 @app.get('/login')
 def login():
@@ -67,13 +69,10 @@ def search_volunteers():
     search_query = request.args.get('name', '')
     skills=model.skills
     interests=model.interests
-    print(interests)
     # Rechercher les bénévoles correspondant au nom
     matching_volunteers = search_volunteer_by_name(search_query)
-    print("Résultats de la recherche :", matching_volunteers)
-    
     # Retourner les résultats de la recherche sous forme de page HTML "resultat.html"
-    return render_template('resultatbenevole.html', volunteers=matching_volunteers, interests=interests,skills=skills)
+    return render_template('resultatbenevole.html', volunteers=matching_volunteers, interests=interests,skills=skills,size=len(matching_volunteers))
 
 
 @app.route('/search1')
@@ -83,11 +82,11 @@ def search_volunteers_by_location():
     
     # Rechercher les bénévoles correspondant au nom
     matching_volunteersf = search_volunteer_by_location_keyword(search_query)
-    print("Résultats de la recherche :", matching_volunteersf)
+ 
 
 
     # Retourner les résultats de la recherche sous forme de page HTML "resultat.html"
-    return render_template('resultatbenevole.html', volunteers=matching_volunteersf, interests=model.interests,skills=model.skills)
+    return render_template('resultatbenevole.html', volunteers=matching_volunteersf, interests=model.interests,skills=model.skills,size=len(matching_volunteersf))
 
 
 
@@ -99,19 +98,14 @@ def search_volunteers_by_location():
 def filtrer():
 
     skills = request.args.get('skills')
-    print(skills)
     interests = request.args.get('interests')
-    print(interests)
     sexe = request.args.get('sexe')
-    print(sexe)
     age = request.args.get('age')
-    print(age)
     
 
     volunteers = search_volunteers_by_filter(skills=skills, interests=interests, sexe=sexe, age=age)
-    for volunteer in volunteers:
-     print(volunteer)
-    return render_template('resultatbenevole.html', volunteers=volunteers, interests=model.interests, skills=model.skills)
+    
+    return render_template('resultatbenevole.html', volunteers=volunteers, interests=model.interests, skills=model.skills,size=len(volunteers))
 
 
 
@@ -130,14 +124,14 @@ def search_projects():
 def search_projects_by_location():
     # Récupérer le terme de recherche depuis les paramètres de la requête
     search_query = request.args.get('name', '')
-    
     # Rechercher les bénévoles correspondant au nom
     matching_projectsf = search_project_by_location_keyword(search_query)
     print("Résultats de la recherche :", matching_projectsf)
     print(len(matching_projectsf))
+    print("iiiiiiiiiiiiiiiiiiiiiiii")
 
     # Retourner les résultats de la recherche sous forme de page HTML "resultat.html"
-    return render_template('resultatProjet.html', projects=matching_projectsf, interests=model.interests,skills=model.skills,size=len(matching_projectsf))
+    return render_template('resultatProjet.html', projects=matching_projectsf,size=len(matching_projectsf))
 
 
 
@@ -156,6 +150,20 @@ def search_projects_by_period_route():
 
 
     
+@app.route('/help/envoyer_message', methods=['GET', 'POST'])
+def helpp():
+    if request.method == 'POST':
+        # Traitement du message ici
+        
+        # Affichage de la fenêtre modale
+        return '''
+        <script>
+            alert("Message envoyé avec succès !");
+            window.location.href = "/";
+        </script>
+        '''
+    else:
+        return render_template('help.html')
 
 
 @app.post('/registerVolunteer')
