@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background:  #EADBC8;
+    color: black;
+}
+
+section {
+    min-height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    font-size: 2rem;
+    margin: 2rem 0rem;
+}
+
+.faq {
+    max-width: 900px;
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid white;
+    cursor: pointer;
+}
+
+.question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.question h3 {
+   
+}
+
+.answer p {
+    padding-top: 1rem;
+    line-height: 1.6;
+}
+
+.answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1.4s ease;
+}
+
+.faq.active .answer {
+    max-height: 300px;
+    animation: fade 1s ease-in-out;
+}
+
+.faq.active svg {
+    transform: rotate(180deg);
+}
+
+svg {
+    transition: transform 0.5s ease-in;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+
+
+footer {
+    background-color: #EADBC8;
+    color: black;
+    padding: 20px 0;
+    bottom: 0;
+    width: 100%;
+      display: flex;
+   justify-content: center;
+   justify-items: center;
+   flex-direction: column;
+}
+
+footer p {
+  text-align: center;
+}
+
+.social-icons {
+  margin-top: 20px;
+    margin-left: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    
+
+}
+
+.social-icons a{
+  margin-bottom: 10px;
+}
+
+.insta{
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+
+
+
+.social-icons a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 50px;
+}
+
+.social-icons a:hover {
+    color: #102C57; /* couleur Twitter */
+}
+
+
+.logo1{
+  position: relative;
+  top: 10px;
+  width: 50px;
+  height: 50px;
+}
+
+.logoimg{
+   width: 200px;
+   height: 200px;
+}
+.logo{
+   flex-direction: row;
+   display: flex; 
+}

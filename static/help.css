@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background:  #FEFAF6;
+}
+
+
+.contact-form {
+    width: 100%;
+    margin: 50px auto;
+    padding: 20px;
+    width:800px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   
+
+}
+
+.contact-form h2 {
+    margin-bottom: 20px;
+}
+
+.contact-form label,
+.contact-form input,
+.contact-form textarea {
+    display:block;
+    width: 80%;
+    margin-bottom: 20px;
+    border: none;
+
+}
+
+.contact-form input,
+.contact-form textarea {
+    border: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form button {
+    padding: 10px 20px;
+    margin-top: 30px;
+    background-color: #102C57;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #081a34;
+}
+
+footer {
+    background-color: #EADBC8;
+    color: black;
+    padding: 20px 0;
+    bottom: 0;
+    width: 100%;
+      display: flex;
+   justify-content: center;
+   justify-items: center;
+   flex-direction: column;
+}
+
+footer p {
+  text-align: center;
+}
+
+.social-icons {
+  margin-top: 20px;
+    margin-left: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    
+
+}
+
+.social-icons a{
+  margin-bottom: 10px;
+}
+
+.insta{
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+
+
+
+.social-icons a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 50px;
+}
+
+.social-icons a:hover {
+    color: #102C57; /* couleur Twitter */
+}
+
+.logo1{
+    position: relative;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .logoimg{
+     width: 200px;
+     height: 200px;
+  }
+  .logo{
+     flex-direction: row;
+     display: flex; 
+  }

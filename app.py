@@ -15,6 +15,15 @@ def index():
 def login():
     return render_template('login.html')
 
+
+@app.get('/FAQ')
+def FAQ():
+    return render_template('FAQ.html')
+
+@app.get('/help')
+def help():
+    return render_template('help.html')
+
 @app.get('/signup')
 def signup():
     return render_template('signup.html')
