@@ -39,9 +39,7 @@
 
   }
 
-  .logout {
-    margin-right: 150px;
-  }
+ 
   .FAQ {
     margin-right: 150px;
   }
@@ -388,17 +386,150 @@ h2 {
 }
 
 
+
+.profile {
+  margin-right: 150px; 
+}
+
+.sub-wrap {
+  position: absolute;
+  top: 120%; 
+  right: 0;
+  width: 320px;
+  background-color: #fff;
+  margin-top: 10px;
+  display: none; 
+  z-index: 999; /* Valeur de z-index pour la placer au-dessus des autres éléments */
+}
+
+
+.profile:hover .sub-wrap {
+  display: block;
+}
+
+
+.navbar nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; 
+  list-style: none;
+}
+
+.navbar nav ul li {
+  margin-left: 20px; /* Réduisez la marge pour une meilleure disposition */
+}
+
+.navbar nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  position: relative;
+}
+
+.navbar nav ul li a::after {
+  content: '';
+  height: 3px;
+  width: 0;
+  background: #009688;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  transition: width 0.5s;
+}
+
+.navbar nav ul li a:hover::after {
+  width: 100%;
+}
+
+.navbar nav ul .sub-wrap :hover::after {
+  width: 0%;
+}
+
+
+
+.sub-wrap::after {
+  content: none; /* Cette ligne supprime le contenu généré qui crée la ligne */
+}
+
+
+
+.sub-menu{
+  background-color: #fff;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-info a{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+
+.user-info h3{
+  font-weight: 500;
+  margin: 0;
+  color: #333;
+} 
+
+.sub-menu hr{
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background-color: #ccc;
+  margin: 15px 0 10px;
+}
+.user-info img, .sub-menu-link img{
+  width: 35px;
+  height: 35px;
+  margin-right: 20px;
+
+}
+.sub-menu-link{
+  padding: 10px;
+  width: 100%;
+}
+.sub-menu-link:hover{
+  background-color: #ccc;
+}
+img.doc{
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+img.disconnect{
+  width: 37px;
+  height: 37px;
+  margin-right: 20px;
+}
+.sub-menu-link{
+  display: flex;
+  align-items: flex-start;
+  margin-top: 15px;
+}
+.sub-menu-link span{
+  font-size: 50px;
+}
+.sub-menu-link p{
+  text-decoration: none;
+  color: #333;
+  padding: 5px;
+}
+.sub-menu-link a:hover{
+  background-color: #0c0c0c0c;
+}
+
+
+
+
+
+
   
   
-
-
-
-
-
-
-
   
-  
-  
- 
   

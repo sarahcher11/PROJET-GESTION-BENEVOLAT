@@ -51,3 +51,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    var profileLink = document.getElementById('profile-link');
+    var subWrap = document.querySelector('.sub-wrap');
+
+    // Fonction pour afficher la sub-wrap
+    function showSubWrap() {
+        subWrap.style.display = 'block';
+    }
+
+    // Fonction pour masquer la sub-wrap
+    function hideSubWrap() {
+        subWrap.style.display = 'none';
+    }
+
+    // Afficher la sub-wrap lors du survol du profil
+    profileLink.addEventListener('mouseenter', showSubWrap);
+
+    // Masquer la sub-wrap lors du survol d'autre éléments
+    subWrap.addEventListener('mouseleave', hideSubWrap);
+});

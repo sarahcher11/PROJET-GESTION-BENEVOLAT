@@ -17,17 +17,51 @@
                     {% if 'user_id' not in session %}
                     <li><a href="/login">Login</a></li>
                     <li><a href="/signup">Signup</a></li>
-                    <li><a href="">Help</a></li>
-                    <li class="FAQ" ><a href="#">FAQ</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li class="FAQ"><a href="#">FAQ</a></li>
                     {% endif %}
-                    {% if 'user_id'in session %}
-                    <li><a href="">Help</a></li>
-                    <li class="FAQ2" ><a href="#">FAQ</a></li>
-                    <li class="Profile" ><a href="/profil">Profile</a></li>
-                    <li class="logout" ><a href="/logout">Logout</a></li>
+                    {% if 'user_id' in session %}
+                    <li>
+                        <a href="#">Help</a>
+                    </li>
+                    <li class="FAQ2">
+                        <a href="#">FAQ</a>
+                    </li>
+                    <li class="logout">
+                        <a href="/logout">Logout</a>
+                    </li>
+                    <li class="profile">
+                        <a id="profile-link" >Profile</a>
+                        <div class="sub-wrap">
+                            <div class="sub-menu">
+                                <div class="user-info">
+                                    <a href="/profil"><img src="../static/images/user.png" alt="user-icon">
+                                    <h3>{{ session['username'] }}</h3>
+                                    </a> 
+                                </div>
+                                <hr>
+                                <a href="#" class="sub-menu-link">
+                                    <img src="../static/images/edit.png" alt="">
+                                    <p>Edit profil</p>
+                                    <span>></span>
+                                </a>
+                                <a href="#" class="sub-menu-link">
+                                    <img class="doc" src="../static/images/dossier.png" alt="">
+                                    <p>My projects</p>
+                                    <span>></span>
+                                </a>
+                                <a  href="/logout" class="sub-menu-link">
+                                    <img class="disconnect" src="../static/images/disconnect.png" alt="">
+                                    <p>Logout</p>
+                                    <span> ></span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
                     {% endif %}
                 </ul>
             </nav>
+            
         </div>
     
 

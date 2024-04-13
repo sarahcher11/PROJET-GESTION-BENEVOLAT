@@ -61,6 +61,7 @@ def login_post():
     if user_id != -1:
         session['user_id']=user_id
         session['auth_success']=True
+        session['username']=model.get_username_for_user(user_id)
         return redirect('/login')
     else:
         erreur = 'Failed authentification'
@@ -75,6 +76,7 @@ def new_user():
 
     if user_id!=None:
         session['user_id']=user_id
+        session['username']=model.get_username_for_user(user_id)
         return redirect('/')
     else:
         erreur = 'Already existing email or username'

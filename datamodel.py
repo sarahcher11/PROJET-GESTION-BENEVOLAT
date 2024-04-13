@@ -227,7 +227,6 @@ def login(email,password):
   if user_data:
     user_id=user_data['id']
     stored_password_hash=user_data['password']
-    stored_password_hash=user_data['password']
     if check_password_hash(stored_password_hash,password):
       current_user_id=user_id
       return user_id
@@ -330,6 +329,23 @@ def get_project_manager(db_name=DBFILENAME):
     
     return managers
 
+def get_username_for_user(user_id, db_name=DBFILENAME):
+    select_query = '''SELECT username FROM user WHERE id=?'''
+
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, (user_id,))
+            result = cursor.fetchone()  # On utilise fetchone() car nous nous attendons à un seul résultat
+            if result:
+                return result[0]  # Renvoie le premier (et unique) élément de la liste résultat
+            else:
+                print("Aucun utilisateur trouvé avec l'ID:", user_id)
+                return None
+    except sqlite3.Error as e:
+        print("Erreur lors de la récupération du nom d'utilisateur depuis la base de données:", e)
+        return None
+
 
 def search_manager_by_userid(user_id, db_name=DBFILENAME):
     select_query = '''SELECT * FROM project_manager WHERE user_id '''
@@ -343,3 +359,5 @@ def search_manager_by_userid(user_id, db_name=DBFILENAME):
         return None
     
     return matching_volunteers
+
+
