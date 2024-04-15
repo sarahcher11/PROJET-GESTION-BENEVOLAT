@@ -406,3 +406,18 @@ def search_manager_by_userid(user_id, db_name=DBFILENAME):
     return matching_volunteers
 
 
+def add_project(project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests, db_name="Data.sqlite"):
+    insert_query = '''INSERT INTO project (project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(insert_query, (project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests))
+            conn.commit()
+            project_id = cursor.lastrowid
+    except sqlite3.Error as e:
+        print("Erreur lors de l'ajout du projet à la base de données:", e)
+        return None
+
+    return project_id

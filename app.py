@@ -243,6 +243,14 @@ def change_password():
         erreur ="You've entered a wrong current password."
         return redirect('profil.html', error=erreur)
 
+@app.get('/profil/addProject')
+def add_project():
+     return render_template("projectform.html")
+
+@app.post('/profil/addProject')
+def add_project_form():
+    pass
+
 
 if __name__ == '__main__':
     app.run(debug=True)
