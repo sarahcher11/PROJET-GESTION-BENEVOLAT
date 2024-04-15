@@ -32,7 +32,6 @@ def load_users(fname=JSONFILENAMEUSER, db_name=DBFILENAME):
     db_run(insert1, user)
 
 
-import json
 
 def load_photo_user(fname=JSONFILEPHOTOUSER, db_name=DBFILENAME):
     db_run('DROP TABLE IF EXISTS image')

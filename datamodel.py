@@ -232,6 +232,21 @@ def login(email,password):
       return user_id
   return -1
 
+def check_password(user_id, password):
+    query = 'SELECT password FROM user WHERE id=?'
+    user_data = db_fetch(query, (user_id,))
+    print("User data:", user_data)  # Ajout d'une impression pour vérifier les données renvoyées
+    if user_data and 'password' in user_data:  # Vérifiez si la clé 'password' est présente dans les données de l'utilisateur
+        stored_password_hash = user_data['password']
+        if check_password_hash(stored_password_hash, password):
+            return True
+    return False
+
+def change_password(user_id, new_password):
+    query = 'UPDATE user SET password=? WHERE id=?'
+    db_run(query, (generate_password_hash(new_password), user_id))
+
+
 
 
 

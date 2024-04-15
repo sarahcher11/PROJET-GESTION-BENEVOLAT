@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up to Voitho</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/login.css">
     
 </head>
 </head>
@@ -13,7 +14,7 @@
 
         <form action="/signup" method="post">
             <div class="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0 h-auto md:h-full md:max-h-full md:max-w-full max-w-[400px] mx-auto max-h-screen items-center">
-                <div class="flex flex-col justify-center p-8 md:p-14 max-h-screen"> 
+                <div class=" container-ext flex flex-col justify-center p-8 md:p-14 max-h-screen"> 
                     <span class="mb-2 text-4xl font-bold">Welcome, new user</span>
                     <span class="font-light text-gray-400 mb-8">
                         Welcome ! Please enter your details
@@ -65,7 +66,23 @@
             </div>    
         </form>
        
-            
+        {% if session['auth_success'] %}
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+         console.log("DOMContentLoaded event triggered!");
+        document.querySelector(".modal-box").classList.add("show");
+         });
+
+        </script>
+        <div class="modal-box">
+            <i class="fa-regular fa-circle-check" style="color: #1e9981;"></i>
+            <h2>Successful authentication</h2>
+            <h3>Welcom to your world</h3>
+            <form action="/" method="get">
+                <button class="submit" type="submit"> Continue </button>
+            </form>
+        </div>
+    {% endif %}   
             
 
     </div>

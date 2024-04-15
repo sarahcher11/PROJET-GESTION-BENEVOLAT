@@ -82,6 +82,7 @@ def new_user():
         session['user_id']=user_id
         session['username']=username
         session['email']=email
+        session['auth_success']=True
         return redirect('/')
     else:
         erreur = 'Already existing email or username'
@@ -226,8 +227,21 @@ def register_form_manager():
     return redirect('/')
 
 
-
-
+@app.post('/changepwd')
+def change_password():
+    current_password=request.form['current_password']
+    new_password=request.form['new_password']
+    new_password_cf=request.form['new_password_cf']
+    if model.check_password( session['user_id'],current_password):
+        if new_password == new_password_cf:
+            model.change_password(session['user_id'],new_password)
+            return redirect("/")
+        else :
+            erreur= 'Passwords do not match. Please try again'
+            return redirect('profil.html', error=erreur)
+    else :
+        erreur ="You've entered a wrong current password."
+        return redirect('profil.html', error=erreur)
 
 
 if __name__ == '__main__':
