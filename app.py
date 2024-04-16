@@ -5,11 +5,20 @@ import datamodel as model
 from CreateDb import *
 from CreateDb import search_volunteer_by_name
 import math
-
-
+from flask import request, jsonify
+import google.oauth2.credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+import googleapiclient.discovery
+from email.mime.text import MIMEText
+import base64
  
 app = Flask(__name__)
 app.secret_key = 'gghyednejcn'
+
+SCOPES = ['https://www.googleapis.com/auth/gmail.send']
+CLIENT_SECRET_FILE = 'clint_credential.json'
+
 
 
 def login_required(f):
@@ -44,14 +53,21 @@ def signup():
     return render_template('signup.html')
 
 @app.get('/inscrProjectManager')
-@login_required
 def inscrProjectManager():
-    return render_template('inscrProjectManager.html')
+    if 'user_id' in session:
+        return render_template('inscrProjectManager.html')
+    else :
+        return render_template('HomePage.html', erreur="you should connect first to your account")
 
 @app.get('/registerVolunteer')
-@login_required
 def registerVolunteer():
-    return render_template('registerVolunteer.html',interests=model.interests,skills=model.skills)
+     if 'user_id' in session:
+         return render_template('registerVolunteer.html',interests=model.interests,skills=model.skills)
+     else :
+          return render_template('HomePage.html', erreur="you should connect first to your account")
+
+
+
 
 @app.post('/login')
 def login_post():
@@ -62,7 +78,6 @@ def login_post():
         session['user_id']=user_id
         session['auth_success']=True
         current_user=model.get_user_by_id(user_id)
-        print(current_user)
         session['username']=current_user[1]
         session['email']=current_user[3]
         session['img']=model.get_image(user_id)
@@ -76,8 +91,7 @@ def new_user():
     email = request.form['email']
     password = request.form['password']
     username = request.form['username']
-    user_id = model.new_user(email, password, username)
-
+    user_id = model.new_user(email, password, username)    
     if user_id!=None:
         session['user_id']=user_id
         session['username']=username
@@ -205,8 +219,9 @@ def register_volunteer_form():
     for interest in interests_selectionnes:
         print(interest)
     
-    model.add_volunteer(first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code,
+    id=model.add_volunteer(session['user_id'],first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code,
                         skills_selectionnes, phone_number, gender, interests_selectionnes)
+    session['volunteer_id']=id
     return redirect('/')
 
 
@@ -223,7 +238,7 @@ def register_form_manager():
     city = request.form['city']
     region = request.form['region']
     postal_code = request.form['postal_code']
-    model.add_project_manager(first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, phone_number, gender)
+    model.add_project_manager(session['user_id'],first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, phone_number, gender)
     return redirect('/')
 
 
@@ -238,18 +253,105 @@ def change_password():
             return redirect("/")
         else :
             erreur= 'Passwords do not match. Please try again'
-            return redirect('profil.html', error=erreur)
+            return render_template('profil.html', error=erreur)
     else :
         erreur ="You've entered a wrong current password."
-        return redirect('profil.html', error=erreur)
+        return render_template('profil.html', error=erreur)
 
-@app.get('/profil/addProject')
+@app.get('/addProject')
 def add_project():
-     return render_template("projectform.html")
+     return render_template("projectform.html",interests=model.interests)
 
-@app.post('/profil/addProject')
+@app.post('/addProject')
 def add_project_form():
+    project_name = request.form['project_name']
+    start_date = request.form['start_date']
+    end_date = request.form['end_date']
+    address = request.form['address']
+    city = request.form['city']
+    postal_code = request.form['postal_code']
+    region = request.form['region']
+    interests = json.loads(request.form['interests'])
+    description = request.form['description']
+    project_manager=model.search_manager_by_userid(session['user_id'])
+    model.add_project(project_name,description,start_date,end_date,region,city,postal_code,address,project_manager[0],interests)
+    return render_template('myProjects.html',projet_cree='true')
+
+
+@app.get('/myprojects')
+def display_projects():
+     id=session['user_id']
+     project_manager=model.search_manager_by_userid(id)
+     if project_manager!=None :
+         projects=model.get_projets_with_id(project_manager[0])
+         return render_template('myProjects.html',projects=projects )
+     else :
+        return render_template('HomePage.html',erreur2="you are not a project manager")
+
+@app.get('/contact/<int:id>')
+def contact_volunteer(id):
+    volunteer=model.get_volunteer_by_id(id)
+    print(volunteer)
+    user=model.get_user_by_id(volunteer[1])
+    print(user)
+    return render_template("sendmail.html",destinataire=user[3])
+
+@app.post("/contact")
+def contact_form():
     pass
+
+
+ 
+
+
+
+def create_message(sender, to, subject, message_text):
+    """Create a message for an email."""
+    message = MIMEText(message_text)
+    message['to'] = to
+    message['from'] = sender
+    message['subject'] = subject
+    raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+    return {'raw': raw_message}
+
+def send_message(service, user_id, message):
+    """Send an email message."""
+    try:
+        message = (service.users().messages().send(userId=user_id, body=message)
+                   .execute())
+        print('Message Id: %s' % message['id'])
+        return message
+    except Exception as e:
+        print('An error occurred: %s' % e)
+
+
+
+def get_credentials():
+    flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
+    credentials = flow.run_local_server()
+    return credentials
+
+def send_email(sender, to, subject, message):
+    credentials = get_credentials()
+    service = googleapiclient.discovery.build('gmail', 'v1', credentials=credentials)
+
+    message = create_message(sender, to, subject, message)
+    send_message(service, "me", message)
+
+@app.post("/contact")
+def contact_form():
+    if request.method == 'POST':
+        sender = request.form['sender']  # L'adresse e-mail de l'expéditeur
+        recipient = request.form['recipient']  # L'adresse e-mail du destinataire
+        subject = request.form['subject']  # L'objet de l'e-mail
+        body = request.form['body']  # Le corps de l'e-mail
+
+        send_email(sender, recipient, subject, body)
+        return jsonify({"message": "Email sent successfully"})
+    else:
+        return jsonify({"message": "Method not allowed"}), 405
+
+
 
 
 if __name__ == '__main__':

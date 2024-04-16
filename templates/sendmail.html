@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Form</title>
+    <link rel="stylesheet" href="../static/sendmail.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/sendmail.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Email Form</h2>
+    <form action="/contact" method="post">
+        <label for="recipient">Recipient:</label>
+        <input type="text" id="recipient" name="recipient" placeholder="Enter recipient's email address"  value="{{destinataire}}" required>
+
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" placeholder="Enter email subject" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" placeholder="Enter your message" style="height:200px" required></textarea>
+
+        <input type="submit" value="Send">
+        <input type="reset" value="Cancel">
+    </form>
+</div>
+
+</body>
+</html>

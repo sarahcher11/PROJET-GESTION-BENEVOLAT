@@ -267,3 +267,29 @@ h1{
     align-items: center;
     justify-content: center;
 }
+
+
+.add-project-button {
+    background-color: #009688;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.add-project-button:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+.add-project-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+}

@@ -1,6 +1,7 @@
 import sqlite3
 import json
 from datetime import datetime,timedelta
+from werkzeug.security import generate_password_hash 
 
 
 JSONFILENAMEUSER = 'users.json'
@@ -17,19 +18,20 @@ def db_run(query, args=(),db_name=DBFILENAME):
     conn.execute
    
 
-def load_users(fname=JSONFILENAMEUSER, db_name=DBFILENAME):
-  # possible improvement: do whole thing as a single transaction
-  db_run('DROP TABLE IF EXISTS user')
 
-
-  #la table user 
-  db_run('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT, registration_date TEXT)')
-  insert1 = 'INSERT INTO user VALUES (:id,:username, :password, :email, :registration_date)'
-  with open('users.json', 'r') as fh:
-     users = json.load(fh)
-  for id, user in enumerate(users):
-    user['id'] = id
-    db_run(insert1, user)
+def load_users(fname='users.json', db_name='your_database.db'):
+    # Assume you have your database setup functions db_run(), db_fetch(), db_insert() etc.
+    db_run('DROP TABLE IF EXISTS user')
+    db_run('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT, registration_date TEXT)')
+    
+    insert_query = 'INSERT INTO user (username, password, email, registration_date) VALUES (?, ?, ?, ?)'
+    
+    with open(fname, 'r',encoding='utf-8') as fh:
+        users = json.load(fh)
+    
+    for user in users:
+        user['password_hash'] = generate_password_hash(user['password'])
+        db_run(insert_query, (user['username'], user['password_hash'], user['email'], user['registration_date']))
 
 
 
@@ -38,7 +40,7 @@ def load_photo_user(fname=JSONFILEPHOTOUSER, db_name=DBFILENAME):
     db_run('CREATE TABLE image (user_id INTEGER, img TEXT)')
     insert_query = 'INSERT INTO image VALUES (:user_id, :img)'
 
-    with open(fname, 'r') as fh:
+    with open(fname, 'r',encoding='utf-8') as fh:
         images = json.load(fh)
 
     for id, image in enumerate(images, start=1):  # Commence à l'index 1
@@ -72,7 +74,7 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
    
 
 
-    with open(fname, 'r') as fh:
+    with open(fname, 'r',encoding='utf-8') as fh:
         volunteers = json.load(fh)
 
     # Convertir les dates de naissance en format "YYYY-MM-DD"
@@ -92,7 +94,6 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
 
     with sqlite3.connect(db_name) as conn:
         conn.executemany(insert_query, data_to_insert)
-
 
 
 def load_projectmanagers(fname=JSONFILENAMEMANAGER, db_name=DBFILENAME):
@@ -119,7 +120,7 @@ def load_projectmanagers(fname=JSONFILENAMEMANAGER, db_name=DBFILENAME):
     insert_query = 'INSERT INTO  project_manager(user_id, first_name, last_name, date_of_birth, address, adress_line2, country, city, region, post_code, phone_number, sexe) \
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
 
-    with open(fname, 'r') as fh:
+    with open(fname, 'r',encoding='utf-8') as fh:
        managers = json.load(fh)
 
     # Convertir les dates de naissance en format "YYYY-MM-DD"
@@ -170,7 +171,6 @@ def search_volunteer_by_name(name, db_name=DBFILENAME):
     try:
         with sqlite3.connect(db_name) as conn:
             cursor = conn.cursor()
-            cursor.execute(select_query, ('%' + name + '%','%' + name + '%'))
             cursor.execute(select_query, ('%' + name + '%','%' + name + '%'))
             matching_volunteers = cursor.fetchall()
     except sqlite3.Error as e:
@@ -262,7 +262,7 @@ def load_project_table(fname="Project.json", db_name="Data.sqlite"):
     insert_query = '''INSERT INTO project (project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
 
-    with open(fname, 'r') as fh:
+    with open(fname, 'r',encoding='utf-8') as fh:
         projects = json.load(fh)
 
     # Convertir les dates de début et de fin du projet en format "YYYY-MM-DD"
@@ -312,8 +312,8 @@ def search_project_by_keyword(keyword, db_name=DBFILENAME):
 
 
 
-matching_projects=search_project_by_keyword("programme")
-print(matching_projects)
+#matching_projects=search_project_by_keyword("programme")
+#print(matching_projects)
 
 def search_project_by_location_keyword(keyword, db_name=DBFILENAME):
     select_query = '''SELECT * FROM project WHERE region LIKE ? OR ville LIKE ? OR adresse LIKE ? OR code_postal LIKE ?'''
@@ -357,7 +357,7 @@ end_date = datetime(2024, 5, 14)
 projects = search_projects_by_period(start_date, end_date)
 
 # Now you have a list of projects that fall within the specified period
-print(projects)
+#print(projects)
 
 
 

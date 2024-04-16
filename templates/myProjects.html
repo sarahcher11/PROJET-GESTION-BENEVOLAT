@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/resultatprojet.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/login.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../static/resultatprojet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>Résultats de la recherche</title>
+ 
+</head>
+
+<body>
+   
+    
+<div class="container">
+
+    <div class="add-project-container">
+        <a href="/addProject">
+           <button class="add-project-button">Ajouter un nouveau projet</button>
+        </a>
+    </div>
+    {% for project in projects %}         
+    <div class="fiche">
+        <div class="ficheHead">
+        <div class="left">
+            <img src="../static/images/projet.svg">
+        </div>
+        <div class="right">
+            <h2> {{ project[1]}}<br></h2>
+            <p> <strong> Domaine : </strong> {{project[10]}}</p>
+            <div class="ville"> <p> {{project[6]}}</p></div>
+        </div>
+        </div>
+        <div class="ficheFooter">
+            <div class="container1">
+                <div class="localisation"><p><i class="fas fa-map-marker-alt"></i> {{ project[8] }}</p> </div> 
+                <div class="date"> <p><i class="far fa-calendar-alt"></i> Du {{ project[3] }} au {{project[4]}}</p></div>
+            </div>
+            <div class="container2">
+                <button class="details"> VOIR LES DETAILS </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+ </div>   
+    
+
+ {% if projet_cree %}
+        <div class="modal-box">
+            <i class="fa-regular fa-circle-check" style="color: #1e9981;"></i>
+            <h2>Successful operation</h2>
+            <h3>You're project had been created</h3>
+            <form action="/myprojects" method="get">
+                <button class="submit" type="submit"> Continue </button>
+            </form>
+        </div>
+{% endif %}
+
+
+           
+                
+          
+
+
+<script src="../static/resultatprojet.js"></script>
+</body>
+</html>

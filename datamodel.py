@@ -96,130 +96,6 @@ def db_update(query, args=(), db_name=DBFILENAME):
     return cur.rowcount
 
 
-
-"""Lire le contenu d'une recette à partir de son identifiant.
-
-Cette fonction prend en argument un identifiant de recette.
-
-Elle renvoie une recette sous la forme d'un objet :
-- title: son titre
-- description: la description textuelle de la recette
-- duration: la durée totale de la recette
-- img: l'url de son image
-- ingredients: une liste d'ingrédients (pour chacun il y a un champ name)
-- stages: une liste d'étapes pour la recette (chacune contient un champ description)
-
-Cette fonction renvoie None si l'identifiant n'existe pas.
-"""
-def read(id):
-  found = db_fetch('SELECT * FROM user WHERE id = ?', (id,))
-  if (not(found is None)):
-    found['ingredients'] = db_fetch('SELECT name FROM ingredient WHERE recipe = ? ORDER BY rank',
-                                    (id,), all=True)
-    found['stages'] = db_fetch('SELECT description FROM stage WHERE recipe = ? ORDER BY rank',
-                               (id,), all=True)
-  return found
-
-
-"""Fonction pour créer une nouvelle recette dans la base.
-
-Prend en paramètre un objet python décrivant la recette sous la forme suivante :
-recipe = {
-  title: 'text',
-  description: 'text',
-  duration: 'text',
-  ingredients: [
-    {name: 'text'},
-    ...
-  ],
-  stages: [
-    {description: 'text'},
-    ...
-  ]
-}
-
-Cette fonction retourne l'identifiant de la recette créée.
-
-Possible improvement: create the whole recipe as a single transaction.
-"""
-def create(recipe):
-  id = db_insert('INSERT INTO recipe (title, img, description, duration) VALUES (:title, :img, :description, :duration)',
-                 recipe)
-  ingredients, stages = recipe['ingredients'], recipe['stages']
-  for r, ingredient in enumerate(ingredients):
-    db_run('INSERT INTO ingredient VALUES (:recipe, :rank, :name)',
-           {'recipe': id, 'rank': r, 'name': ingredient})
-  for r, stage in enumerate(stages):
-    db_run('INSERT INTO stage VALUES (:recipe, :rank, :description)',
-           {'recipe': id, 'rank': r, 'description': stage})
-  return id
-
-"""Fonction pour mettre à jour une recette de la base.
-
-Un identifiant de recette doit être passé en premier argument.
-Le second argument est un objet python au même format que pour la fonction create.
-
-Cette fonction revoie True si l'identifiant existe dans la base.
-
-Possible improvement: update the whole recipe as a single transaction.
-"""
-def update(id, recipe):
-  params = {key: recipe[key] for key in recipe}
-  params['id'] = id
-  result = db_update('UPDATE recipe SET title = :title, img = :img, description = :description WHERE id = :id',
-                     params)
-  if result == 1:
-    ingredients, stages = recipe['ingredients'], recipe['stages']
-    db_run('DELETE FROM ingredient WHERE recipe = ?', (id,))
-    for r, ingredient in enumerate(ingredients):
-      db_run('INSERT INTO ingredient VALUES (:recipe, :rank, :name)',
-             {'recipe': id, 'rank': r, 'name': ingredient})
-    db_run('DELETE FROM stage WHERE recipe = ?', (id,))
-    for r, stage in enumerate(stages):
-      db_run('INSERT INTO stage VALUES (:recipe, :rank, :description)',
-             {'recipe': id, 'rank': r, 'description': stage})
-    return True
-  else:
-    return False
-
-
-"""Fonction pour effacer une recette dans la base à partir de son identifiant"""
-def delete(id):
-  db_run('DELETE FROM recipe WHERE id = ?', (id,))
-  db_run('DELETE FROM ingredient WHERE recipe = ?', (id,))
-  db_run('DELETE FROM stage WHERE recipe = ?', (id,))
-
-""" Recherche d'une recette par requête, avec pagination des résultats
-
-Cette fonction prend en argument la requête sous forme d'une chaîne de caractères
-et le numéro de la page de résultats.
-
-Cette fonction retourne un dictionnaire contenant les champs suivants :
-- results: liste de recettes (version courte contenant l'identifiant de la recette, son titre et l'url de son image)
-- num_found: le nombre de recettes trouvées
-- query: la requête
-- next_page: numero de la page suivante
-- page: numero de la page courante
-- num_pages: nombre total de pages
-"""
-def search(query="", page=1):
-  num_per_page = 32
-  # on utiliser l'opérateur SQL LIKE pour rechercher dans le titre 
-  res = db_fetch('SELECT count(*) FROM recipe WHERE title LIKE ?',
-                       ('%' + query + '%',))
-  num_found = res['count(*)']
-  results = db_fetch('SELECT id as entry, title, img FROM recipe WHERE title LIKE ? ORDER BY id LIMIT ? OFFSET ?',
-                     ('%' + query + '%', num_per_page, (page - 1) * num_per_page), all=True)
-  return {
-    'results': results,
-    'num_found': num_found, 
-    'query': query,
-    'next_page': page + 1,
-    'page': page,
-    'num_pages': math.ceil(float(num_found) / float(num_per_page))
-  }
-
-
 def login(email,password):
   global current_user_id
   query='SELECT id, password FROM user WHERE email=?'
@@ -267,8 +143,7 @@ def new_user(email, password, username):
     
 
 
-def add_volunteer(first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, skills, phone_number, sexe, interests, db_name=DBFILENAME):
-    global current_user_id  # Déclarez que vous utilisez la variable globale current_user_id
+def add_volunteer(current_user_id,first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, skills, phone_number, sexe, interests, db_name=DBFILENAME):
 
     # Vérifiez si current_user_id est défini
     if current_user_id is None:
@@ -287,8 +162,7 @@ def add_volunteer(first_name, last_name, date_of_birth, address, address_line2, 
         interests_str += interest + ", "
     # Retirer la virgule et l'espace supplémentaires à la fin
     interests_str = interests_str[:-2]
-    print(interests_str)
-    print(skills_str)
+
     insert_query = '''INSERT INTO volunteer (user_id, first_name, last_name, date_of_birth, address, adress_line2, country, city, region, post_code, skills, phone_number, sexe, interests)
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
 
@@ -305,8 +179,7 @@ def add_volunteer(first_name, last_name, date_of_birth, address, address_line2, 
     return volunteer_id
 
 
-def add_project_manager(first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, phone_number, sexe, db_name=DBFILENAME):
-    global current_user_id  # Déclarez que vous utilisez la variable globale current_user_id
+def add_project_manager(current_user_id,first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, phone_number, sexe, db_name=DBFILENAME):
 
     # Vérifiez si current_user_id est défini
     if current_user_id is None:
@@ -358,6 +231,42 @@ def get_username_for_user(user_id, db_name=DBFILENAME):
         print("Erreur lors de la récupération du nom d'utilisateur depuis la base de données:", e)
         return None
     
+def get_volunteer_by_id(id, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM volunteer WHERE id=?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, (id,))
+            result = cursor.fetchone()  # On utilise fetchone() car nous nous attendons à un seul résultat
+            if result:
+                return result
+            else:
+                print("Aucun utilisateur trouvé avec l'ID:", id)
+                return None
+    except sqlite3.Error as e:
+        print("Erreur lors de la récupération du nom d'utilisateur depuis la base de données:", e)
+        return None
+
+
+
+def get_projets_with_id(manager_id, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM project WHERE project_manager_id=?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, (manager_id,))
+            result = cursor.fetchall()  
+            if result:
+                return result 
+            else:
+                print("Aucun project trouvé avec l'ID:", manager_id)
+                return None
+    except sqlite3.Error as e:
+        print("Erreur lors de la récupération des projets depuis la base de données:", e)
+        return None
+
+projets=get_projets_with_id(1)
+print(projets)
 
 def get_user_by_id(user_id, db_name=DBFILENAME):
     select_query = '''SELECT * FROM user WHERE id=?'''
@@ -367,7 +276,7 @@ def get_user_by_id(user_id, db_name=DBFILENAME):
             cursor.execute(select_query, (user_id,))
             result = cursor.fetchone()  # Fetches the first row
             if result:
-                return result  # Returns the entire row as a tuple
+                return result 
             else:
                 print("Aucun utilisateur trouvé avec l'ID:", user_id)
                 return None
@@ -393,12 +302,12 @@ def get_image(user_id, db_name=DBFILENAME):
 
 
 def search_manager_by_userid(user_id, db_name=DBFILENAME):
-    select_query = '''SELECT * FROM project_manager WHERE user_id '''
+    select_query = '''SELECT * FROM project_manager WHERE user_id =?'''
     try:
         with sqlite3.connect(db_name) as conn:
             cursor = conn.cursor()
-            cursor.execute(select_query, ('%' + user_id + '%'))
-            matching_volunteers = cursor.fetchall()
+            cursor.execute(select_query, ( user_id, ))
+            matching_volunteers = cursor.fetchone()
     except sqlite3.Error as e:
         print("Erreur when searching for the project manager in the data base", e)
         return None
@@ -409,11 +318,16 @@ def search_manager_by_userid(user_id, db_name=DBFILENAME):
 def add_project(project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests, db_name="Data.sqlite"):
     insert_query = '''INSERT INTO project (project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests)
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
-
+    
+    interests_str = ""
+    for interest in interests:
+        interests_str += interest + ", "
+    # Retirer la virgule et l'espace supplémentaires à la fin
+    interests_str = interests_str[:-2]
     try:
         with sqlite3.connect(db_name) as conn:
             cursor = conn.cursor()
-            cursor.execute(insert_query, (project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests))
+            cursor.execute(insert_query, (project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests_str))
             conn.commit()
             project_id = cursor.lastrowid
     except sqlite3.Error as e:
@@ -421,3 +335,6 @@ def add_project(project_name, description, start_date, end_date, region, ville, 
         return None
 
     return project_id
+
+
+
