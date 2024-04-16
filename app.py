@@ -12,7 +12,8 @@ from google.auth.transport.requests import Request
 import googleapiclient.discovery
 from email.mime.text import MIMEText
 import base64
- 
+import requests
+
 app = Flask(__name__)
 app.secret_key = 'gghyednejcn'
 
@@ -341,12 +342,21 @@ def contact_form():
         recipient = request.form['recipient']  
         subject = request.form['subject']  
         body = request.form['message']  
-
-        send_email(sender, recipient, subject, body)
-        return  render_template("sendmail.html",sent='true')
+        if test_internet_connection() :
+            send_email(sender, recipient, subject, body)
+            return  render_template("sendmail.html",sent='true')
+        else :
+             return  render_template("sendmail.html" ,error='true')
     else:
         return jsonify({"message": "Method not allowed"}), 405
 
+
+def test_internet_connection():
+    try:
+        response = requests.get("http://www.google.com", timeout=5)
+        return response.status_code == 200
+    except requests.ConnectionError:
+        return False
 
 
 

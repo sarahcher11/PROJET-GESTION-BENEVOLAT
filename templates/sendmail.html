@@ -6,6 +6,7 @@
     <title>Email Form</title>
     <link rel="stylesheet" href="../static/sendmail.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='../static/sendmail.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 <body>
 
@@ -22,7 +23,7 @@
         <textarea id="message" name="message" placeholder="Enter your message" style="height:200px" required></textarea>
 
         <input type="submit" value="Send">
-        <a href="/resultatProjet">
+        <a href="/search">
             <input type="reset" value="Cancel">
         </a>
         
@@ -33,7 +34,17 @@
     <i class="fa-regular fa-circle-check" style="color: #1e9981;"></i>
     <h2>Successful Contact</h2>
     <h3>You're email has successfully been sent </h3>
-    <form action="/resultatProjet" method="get">
+    <form action="/search" method="get">
+        <button class="submit" type="submit"> Continue </button>
+    </form>
+</div>
+{% endif %} 
+{% if error%}
+<div class="modal-box">
+    <i class="fa-solid fa-x" style="color:red;"></i>
+    <h2>Connexion echoue</h2>
+    <h3>Verify your connexion </h3>
+    <form action="/search" method="get">
         <button class="submit" type="submit"> Continue </button>
     </form>
 </div>
