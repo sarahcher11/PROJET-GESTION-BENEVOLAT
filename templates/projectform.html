@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add a new project</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <link rel="stylesheet" href="../static/formulaire.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='../static/formulaire.css') }}">
+    </head>
+<body>
+   <section class="container">
+        <header>Add New Project</header>
+        <form action="/addProject" method="post" class="form">
+            <div class="column">
+                <div class="input-box">
+                <label >Project Name *</label>
+                <input type="text"  name="project_name" placeholder="Enter name of your project" required/>
+                 </div>
+            </div>
+            <div class="column">
+                <div class="input-box">
+                    <label> Start date*</label>
+                    <input type="text" name="start_date" id="birthdate" placeholder="Select the start date">
+                </div>
+                 <div class="input-box">
+                    <label>End date *</label>
+                    <input type="text" name="end_date" id="birthdate" placeholder="Select the date of the end">
+                </div>
+            </div>
+            <div class="input-box address">
+                <label >Address * </label>
+                <input type="text" name="address" placeholder="Enter street Adress * "required/>
+                 <div class="column">
+                    <input type="text" name="city" placeholder="Enter your city "required/>
+                    <input type="text" name="postal_code" placeholder="Enter your postal code * "required/>
+                 </div>
+                <input type="text" name="region" placeholder="Enter your region * "required/>
+             </div>
+
+             <div class="column">
+                 <div class=" input-box check">
+                    <div name="interests" class="select-btn">
+                     <span class="btn-text">Interests</span>  
+                     <span class="arrow-dwn">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </span>
+                 </div>
+                    <ul class="list-items">
+                    {% for interest in interests %}
+                        <li class="item">
+                             <span class="checkbox check-icon">
+                                 <i class="fa-solid fa-check"></i>
+                             </span>
+                       
+                             <span class="item-text"> {{interest}}</span>
+                       
+                        </li>
+                    {% endfor %}
+                    </ul>
+
+                 </div>
+             </div> 
+             <div class="input-box description">
+                <label> Description *</label>
+                <input type="text" name="description" placeholder="Describe your project">
+            </div>
+             <button>Submit</button>
+        </form>
+   </section> 
+   <script>
+    flatpickr("#birthdate", {
+        dateFormat: "Y-m-d", 
+        maxDate: new Date(), 
+    });
+  </script>
+<script src="../static/formulaire.js"></script>
+</body>
+</html>

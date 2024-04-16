@@ -69,31 +69,45 @@
 
 <h1>{{size}} missions correspondant à votre recherche</h1>
 <div class="container">
-    {% for project in projects %}         
+    {% for project in projects %}
     <div class="fiche">
         <div class="ficheHead">
-        <div class="left">
-            <img src="../static/images/projet.svg">
-        </div>
-        <div class="right">
-            <h2> {{ project[1]}}<br></h2>
-            <p> <strong> Domaine : </strong> {{project[10]}}</p>
-            <div class="ville"> <p> {{project[6]}}</p></div>
-        </div>
+            <div class="left">
+                <img src="../static/images/projet.svg">
+            </div>
+            <div class="right">
+                <h2>{{ project[1] }}</h2>
+                <p><strong> Domaine : </strong> {{ project[10] }}</p>
+                <div class="ville"><p>{{ project[6] }}</p></div>
+            </div>
         </div>
         <div class="ficheFooter">
             <div class="container1">
                 <div class="localisation"><p><i class="fas fa-map-marker-alt"></i> {{ project[8] }}</p> </div> 
-                <div class="date"> <p><i class="far fa-calendar-alt"></i> Du {{ project[3] }} au {{project[4]}}</p></div>
+                <div class="date"><p><i class="far fa-calendar-alt"></i> Du {{ project[3] }} au {{ project[4] }}</p></div>
             </div>
             <div class="container2">
-                <button class="details"> VOIR LES DETAILS </button>
+                <button class="details" data-description="{{ project[2] }}">VOIR LES DÉTAILS</button>
             </div>
         </div>
     </div>
     {% endfor %}
- </div>   
     
+    <div id="detailsPopup" class="popup">
+        <div class="popup-content">
+            <div class="containerpop">
+                <span id="detailsPopup" class="close" onclick="closePopup()">&times;</span>
+                <h2>Détails du projet</h2>
+            </div>
+            <p id="projectDetails"></p>
+            <button onclick="subscribeToProject()">S'INSCRIRE AU PROJET</button>
+        </div>
+    </div>
+    
+    
+    
+ </div>   
+ 
 
 
  <footer>

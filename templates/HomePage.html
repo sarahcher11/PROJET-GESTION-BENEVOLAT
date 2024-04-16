@@ -6,22 +6,97 @@
   <title>HomePage</title> 
   <link rel="stylesheet" href="{{ url_for('static', filename='../static/HomePage.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
 </head>
 <body>
     <div class="image-container">
-        <div class="navbar">
-            <img class="logoimg" src="../static/images/logo.svg" alt="image2">
-            <nav>
-                <ul>
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/signup">Signup</a></li>
-                    <li><a href="/help">Help</a></li>
-                    <li class="FAQ" ><a href="/FAQ">FAQ</a></li>
+        <body>
+            <div class="image-container">
+                <div class="navbar">
+                    <img class="logoimg" src="../static/images/logo.svg" alt="image2">
+                    <nav>
+                        <ul>
+                            {% if 'user_id' not in session %}
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/signup">Signup</a></li>
+                            <li><a href="/help">Help</a></li>
+                            <li class="FAQ"><a href="/FAQ">FAQ</a></li>
+                            {% endif %}
+                            {% if 'user_id' in session %}
+                            <li>
+                                <a href="/help">Help</a>
+                            </li>
+                            <li class="FAQ2">
+                                <a href="/FAQ">FAQ</a>
+                            </li>
+                            <li class="logout">
+                                <a href="/logout">Logout</a>
+                            </li>
+                            <li class="profile">
+                                <a id="profile-link" >Profile</a>
+                                <div class="sub-wrap">
+                                    <div class="sub-menu">
+                                        <div class="user-info">
+                                            <a href="/profil"><img src="../static/images/user.png" alt="user-icon">
+                                            <h3>{{ session['username'] }}</h3>
+                                            </a> 
+                                        </div>
+                                        <hr>
+                                        <a href="#" class="sub-menu-link">
+                                            <img src="../static/images/edit.png" alt="">
+                                            <p>Edit profil</p>
+                                            <span>></span>
+                                        </a>
+                                        <a href="/myprojects" class="sub-menu-link">
+                                            <img class="doc" src="../static/images/dossier.png" alt="">
+                                            <p>My projects</p>
+                                            <span>></span>
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <img class="doc" src="../static/images/candidate.png" alt="">
+                                            <p>My candidatures</p>
+                                            <span>></span>
+                                        </a>
+                                        <a  href="/logout" class="sub-menu-link">
+                                            <img class="disconnect" src="../static/images/disconnect.png" alt="">
+                                            <p>Logout</p>
+                                            <span> ></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
                     
-                </ul>
-            </nav>
-        </div>
+                </div>
+                {% if erreur %}
+                <div class="modal-box">
+                    <i class="fa-solid fa-x" style="color:red;"></i>
+                    <h2>Access Denied</h2>
+                    <h3>You should connect to an account</h3>
+                    <form action="/" method="get">
+                        <button class="submit" type="submit"> Back </button>
+                    </form>
+                </div>
+                {% endif %}
+                {% if erreur2 %}
+                <div class="modal-box">
+                    <i class="fa-solid fa-x" style="color: red;"></i>
+                    <h2>Access Denied</h2>
+                    <h3>You are not a project manager</h3>
+                    <div class="buttons">
+                        <form action="/" method="get">
+                            <button class="submit back" type="submit"> Back </button>
+                        </form>
+                        <form action="/inscrProjectManager" method="get">
+                            <button class="submit register" type="submit"> register</button>
+                        </form>
+                    </div>
+                  
+                </div>
+                {% endif %}
     
 
         <div class="content">

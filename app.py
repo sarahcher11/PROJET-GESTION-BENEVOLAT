@@ -1,16 +1,37 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template,jsonify, request, redirect,session, Response,url_for, abort
 import json
 import datamodel as model
 from CreateDb import *
 import math
+from functools import wraps
+from CreateDb import search_volunteer_by_name
+import math
+
+
 
 
 app = Flask(__name__)
+app.secret_key = 'gghyednejcn'
+
+
+
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect('/')
+
+@app.get("/profil")
+def get_profil():
+    return render_template('profil.html')
+
 
 @app.route('/')
 def index():
     volunteers=get_volunteers()
     projects=get_projects()
+    session['auth_success']=False
     return render_template('HomePage.html',totalv=len(volunteers),totalp=len(projects))
 
 @app.get('/login')
@@ -32,11 +53,17 @@ def signup():
 
 @app.get('/inscrProjectManager')
 def inscrProjectManager():
-    return render_template('inscrProjectManager.html')
+    if 'user_id' in session:
+        return render_template('inscrProjectManager.html')
+    else :
+        return render_template('HomePage.html', erreur="you should connect first to your account")
 
 @app.get('/registerVolunteer')
 def registerVolunteer():
-    return render_template('registerVolunteer.html',interests=model.interests)
+     if 'user_id' in session:
+         return render_template('registerVolunteer.html',interests=model.interests,skills=model.skills)
+     else :
+          return render_template('HomePage.html', erreur="you should connect first to your account")
 
 @app.post('/login')
 def login_post():
@@ -44,19 +71,28 @@ def login_post():
     password = request.form['password']
     user_id = model.login(email, password)
     if user_id != -1:
-        return redirect('/')
+        session['user_id']=user_id
+        session['auth_success']=True
+        current_user=model.get_user_by_id(user_id)
+        session['username']=current_user[1]
+        session['email']=current_user[3]
+        session['img']=model.get_image(user_id)
+        return redirect('/login')
     else:
         erreur = 'Failed authentification'
         return render_template("login.html", error=erreur)
-
+    
 @app.post('/signup')
 def new_user():
     email = request.form['email']
     password = request.form['password']
     username = request.form['username']
-    user_id = model.new_user(email, password, username)
-
+    user_id = model.new_user(email, password, username)    
     if user_id!=None:
+        session['user_id']=user_id
+        session['username']=username
+        session['email']=email
+        session['auth_success']=True
         return redirect('/')
     else:
         erreur = 'Already existing email or username'
@@ -101,10 +137,8 @@ def filtrer():
     interests = request.args.get('interests')
     sexe = request.args.get('sexe')
     age = request.args.get('age')
-    
 
-    volunteers = search_volunteers_by_filter(skills=skills, interests=interests, sexe=sexe, age=age)
-    
+    volunteers = search_volunteers_by_filter(skills=skills, interests=interests, sexe=sexe, age=age)    
     return render_template('resultatbenevole.html', volunteers=volunteers, interests=model.interests, skills=model.skills,size=len(volunteers))
 
 
@@ -168,7 +202,152 @@ def helpp():
 
 @app.post('/registerVolunteer')
 def register_volunteer_form():
-    pass
+    first_name = request.form['first_name']
+    last_name = request.form["last_name"]
+    phone_number = request.form['phone_number']
+    date_of_birth = request.form['date_of_birth']
+    gender = request.form.get('gender')
+    address = request.form["address"]
+    address_line2 = request.form['address_line2']
+    country = request.form.get('country')
+    city = request.form['city']
+    region = request.form['region']
+    postal_code = request.form['postal_code']
+    
+    # Décoder les listes JSON en structures de données Python
+    interests_selectionnes = json.loads(request.form['interests'])
+    skills_selectionnes = json.loads(request.form['skills'])
+    
+    for interest in interests_selectionnes:
+        print(interest)
+    
+    id=model.add_volunteer(session['user_id'],first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code,
+                        skills_selectionnes, phone_number, gender, interests_selectionnes)
+    session['volunteer_id']=id
+    return redirect('/')
+
+
+@app.post("/inscrProjectManager")
+def register_form_manager():
+    first_name = request.form['first_name']
+    last_name = request.form["last_name"]
+    phone_number = request.form['phone_number']
+    date_of_birth = request.form['date_of_birth']
+    gender = request.form.get('gender')
+    address = request.form["address"]
+    address_line2 = request.form['address_line2']
+    country = request.form.get('country')
+    city = request.form['city']
+    region = request.form['region']
+    postal_code = request.form['postal_code']
+    model.add_project_manager(session['user_id'],first_name, last_name, date_of_birth, address, address_line2, country, city, region, postal_code, phone_number, gender)
+    return redirect('/')
+
+
+@app.post('/changepwd')
+def change_password():
+    current_password=request.form['current_password']
+    new_password=request.form['new_password']
+    new_password_cf=request.form['new_password_cf']
+    if model.check_password( session['user_id'],current_password):
+        if new_password == new_password_cf:
+            model.change_password(session['user_id'],new_password)
+            return redirect("/")
+        else :
+            erreur= 'Passwords do not match. Please try again'
+            return render_template('profil.html', error=erreur)
+    else :
+        erreur ="You've entered a wrong current password."
+        return render_template('profil.html', error=erreur)
+
+@app.get('/addProject')
+def add_project():
+     return render_template("projectform.html",interests=model.interests)
+
+@app.post('/addProject')
+def add_project_form():
+    project_name = request.form['project_name']
+    start_date = request.form['start_date']
+    end_date = request.form['end_date']
+    address = request.form['address']
+    city = request.form['city']
+    postal_code = request.form['postal_code']
+    region = request.form['region']
+    interests = json.loads(request.form['interests'])
+    description = request.form['description']
+    project_manager=model.search_manager_by_userid(session['user_id'])
+    model.add_project(project_name,description,start_date,end_date,region,city,postal_code,address,project_manager[0],interests)
+    return render_template('myProjects.html',projet_cree='true')
+
+
+@app.get('/myprojects')
+def display_projects():
+     id=session['user_id']
+     project_manager=model.search_manager_by_userid(id)
+     if project_manager!=None :
+         projects=model.get_projets_with_id(project_manager[0])
+         return render_template('myProjects.html',projects=projects )
+     else :
+        return render_template('HomePage.html',erreur2="you are not a project manager")
+
+@app.get('/contact/<int:id>')
+def contact_volunteer(id):
+    volunteer=model.get_volunteer_by_id(id)
+    print(volunteer)
+    user=model.get_user_by_id(volunteer[1])
+    print(user)
+    return render_template("sendmail.html",destinataire=user[3])
+
+
+
+
+
+
+def create_message(sender, to, subject, message_text):
+    """Create a message for an email."""
+    message = MIMEText(message_text)
+    message['to'] = to
+    message['from'] = sender
+    message['subject'] = subject
+    raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+    return {'raw': raw_message}
+
+def send_message(service, user_id, message):
+    """Send an email message."""
+    try:
+        message = (service.users().messages().send(userId=user_id, body=message)
+                   .execute())
+        print('Message Id: %s' % message['id'])
+        return message
+    except Exception as e:
+        print('An error occurred: %s' % e)
+
+
+
+def get_credentials():
+    flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
+    credentials = flow.run_local_server()
+    return credentials
+
+def send_email(sender, to, subject, message):
+    credentials = get_credentials()
+    service = googleapiclient.discovery.build('gmail', 'v1', credentials=credentials)
+
+    message = create_message(sender, to, subject, message)
+    send_message(service, "me", message)
+
+@app.post("/contact")
+def contact_form():
+    if request.method == 'POST':
+        sender = session['email'] 
+        recipient = request.form['recipient']  # L'adresse e-mail du destinataire
+        subject = request.form['subject']  # L'objet de l'e-mail
+        body = request.form['message']  # Le corps de l'e-mail
+
+        send_email(sender, recipient, subject, body)
+        return jsonify({"message": "Email sent successfully"})
+    else:
+        return jsonify({"message": "Method not allowed"}), 405
 
 
 

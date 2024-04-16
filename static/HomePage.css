@@ -516,6 +516,206 @@ h2 {
 }
 
 
+
+.profile {
+  margin-right: 150px; 
+}
+
+.sub-wrap {
+  position: absolute;
+  top: 120%; 
+  right: 0;
+  width: 320px;
+  background-color: #fff;
+  margin-top: 10px;
+  display: none; 
+  z-index: 999; /* Valeur de z-index pour la placer au-dessus des autres éléments */
+}
+
+
+.profile:hover .sub-wrap {
+  display: block;
+}
+
+
+.navbar nav ul {
+  margin-left: 500px;
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.navbar nav ul li {
+  margin-left: 50px; /* Réduisez la marge pour une meilleure disposition */
+}
+
+.navbar nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  position: relative;
+}
+
+.navbar nav ul li a::after {
+  content: '';
+  height: 3px;
+  width: 0;
+  background: #009688;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  transition: width 0.5s;
+}
+
+.navbar nav ul li a:hover::after {
+  width: 100%;
+}
+
+.navbar nav ul .sub-wrap :hover::after {
+  width: 0%;
+}
+
+
+
+.sub-wrap::after {
+  content: none; /* Cette ligne supprime le contenu généré qui crée la ligne */
+}
+
+
+
+.sub-menu{
+  background-color: #fff;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-info a{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+
+.user-info h3{
+  font-weight: 500;
+  margin: 0;
+  color: #333;
+} 
+
+.sub-menu hr{
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background-color: #ccc;
+  margin: 15px 0 10px;
+}
+.user-info img, .sub-menu-link img{
+  width: 35px;
+  height: 35px;
+  margin-right: 20px;
+
+}
+.sub-menu-link{
+  padding: 10px;
+  width: 100%;
+}
+.sub-menu-link:hover{
+  background-color: #ccc;
+}
+img.doc{
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+img.disconnect{
+  width: 37px;
+  height: 37px;
+  margin-right: 20px;
+}
+.sub-menu-link{
+  display: flex;
+  align-items: flex-start;
+  margin-top: 15px;
+}
+.sub-menu-link span{
+  font-size: 50px;
+}
+.sub-menu-link p{
+  text-decoration: none;
+  color: #333;
+  padding: 5px;
+}
+.sub-menu-link a:hover{
+  background-color: #0c0c0c0c;
+}
+
+.modal-box .submit{
+  background-color: #009688;
+  padding: 10px;
+  margin-top: 18px;
+  border-radius: 8px;
+  color:  #333;
+  font-weight: bold;
+}
+.modal-box .submit:hover{
+  background-color: #fff;
+  color: #333;
+}
+.modal-box {
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #fff;
+    max-width:  400px;
+    border-radius: 24px;
+    width: 100%;
+    font-weight: bold;
+    padding: 30px 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+.modal-box i {
+    font-size: 60px;
+}
+
+.modal-box h2{
+    margin : 18px 0;
+    font-size: 25px;
+    font-weight: 500;
+    
+}
+
+.modal-box h3{
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+}
+
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.back{
+  margin-left: 60px;
+}
+.register{
+  margin-right:60px ;
+}
+
+
   
   
   
