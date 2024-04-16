@@ -6,6 +6,7 @@ from datetime import datetime,timedelta
 JSONFILENAMEUSER = 'users.json'
 JSONFILENAMEVOLUNTEER = 'volunteer.json'
 DBFILENAME = 'Data.sqlite'
+JSONFILENAMEPROJECTREGISTRATION='registration.json'
 
 def db_run(query, args=(),db_name=DBFILENAME):
   with sqlite3.connect(db_name) as conn:
@@ -60,7 +61,7 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
 
 
-    with open(fname, 'r') as fh:
+    with open(fname, 'r', encoding='utf-8') as fh:
         volunteers = json.load(fh)
 
     # Convertir les dates de naissance en format "YYYY-MM-DD"
@@ -75,7 +76,7 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
     with sqlite3.connect(db_name) as conn:
             conn.executemany(insert_query, data_to_insert)
 
-
+load_volunteers()
 
 
 
@@ -199,7 +200,7 @@ def load_project_table(fname="Project.json", db_name="Data.sqlite"):
     insert_query = '''INSERT INTO project (project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
 
-    with open(fname, 'r') as fh:
+    with open(fname, 'r', encoding='utf-8') as fh:
         projects = json.load(fh)
 
     # Convertir les dates de début et de fin du projet en format "YYYY-MM-DD"
@@ -218,7 +219,7 @@ def load_project_table(fname="Project.json", db_name="Data.sqlite"):
 
 
 
-
+load_project_table()
 
 def get_projects(db_name=DBFILENAME):
     select_query = '''SELECT * FROM project'''
@@ -286,6 +287,80 @@ def search_projects_by_period(start_date, end_date, db_name="Data.sqlite"):
     projects = cursor.fetchall()
     conn.close()
     return projects
+
+
+
+
+def load_project_registrations(fname=JSONFILENAMEPROJECTREGISTRATION, db_name=DBFILENAME):
+    # Supprimer la table project_registration si elle existe déjà
+    db_run('DROP TABLE IF EXISTS project_registration')
+
+    # Créer la table project_registration avec les nouvelles colonnes
+    db_run('''CREATE TABLE project_registration (
+                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                 volunteer_id INTEGER,
+                 project_id INTEGER,
+                 registration_date TEXT,
+                 status TEXT
+              )''')
+
+    insert_query = 'INSERT INTO project_registration (volunteer_id, project_id, registration_date, status) \
+                    VALUES (?, ?, ?, ?)'
+
+    with open(fname, 'r', encoding='utf-8') as fh:
+        registrations = json.load(fh)
+
+    # Convertir les dates de format "YYYY-MM-DD"
+    for registration in registrations:
+        registration['registration_date'] = datetime.strptime(registration['registration_date'], '%Y-%m-%d').strftime('%Y-%m-%d')
+
+    # Préparer les données à insérer sous forme de liste de tuples
+    data_to_insert = [(registration['volunteer_id'], registration['project_id'], registration['registration_date'], registration['status']) for registration in registrations]
+
+    # Insérer les données dans la base de données
+    with sqlite3.connect(db_name) as conn:
+            conn.executemany(insert_query, data_to_insert)
+
+# Appel de la fonction pour charger les enregistrements de projets
+load_project_registrations()
+
+
+
+import sqlite3
+import json
+from datetime import datetime
+
+def insert_project_registration(volunteer_id, project_id, registration_date, status, db_name=DBFILENAME, json_fname=JSONFILENAMEPROJECTREGISTRATION):
+    # Requête d'insertion dans la base de données
+    insert_query = 'INSERT INTO project_registration (volunteer_id, project_id, registration_date, status) \
+                    VALUES (?, ?, ?, ?)'
+
+    # Convertir la date en format "YYYY-MM-DD"
+    registration_date = datetime.strptime(registration_date, '%Y-%m-%d').strftime('%Y-%m-%d')
+
+    # Données à insérer dans la base de données
+    data_to_insert = (volunteer_id, project_id, registration_date, status)
+
+    # Insérer les données dans la base de données
+    with sqlite3.connect(db_name) as conn:
+        conn.execute(insert_query, data_to_insert)
+
+    # Insérer les données dans le fichier JSON
+    with open(json_fname, 'r', encoding='utf-8') as f:
+        registrations = json.load(f)
+
+    # Ajouter la nouvelle inscription au fichier JSON
+    new_registration = {
+        "volunteer_id": volunteer_id,
+        "project_id": project_id,
+        "registration_date": registration_date,
+        "status": status
+    }
+    registrations.append(new_registration)
+
+    # Réécrire le fichier JSON avec la nouvelle inscription
+    with open(json_fname, 'w', encoding='utf-8') as f:
+        json.dump(registrations, f, indent=4)
 
 
 

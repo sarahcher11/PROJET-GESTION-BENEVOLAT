@@ -24,6 +24,37 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    var buttons = document.querySelectorAll('.details');
+    var projectDetails = document.getElementById('projectDetails');
+
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var description = this.getAttribute('data-description');
+            showDetails(description);
+        });
+    });
+
+    function showDetails(description) {
+        projectDetails.textContent = description;
+        document.getElementById('detailsPopup').style.display = 'block';
+    }
+
+
+});
+
+
+function closePopup() {
+    var popup = document.getElementById("detailsPopup");
+    popup.style.display = "none";
+  }
+  
+  // Fonction pour s'inscrire au projet
+  function subscribeToProject() {
+    // Inscrire l'utilisateur au projet...
+    alert("Inscription réussie au projet !");
+  }
+
 
 
 
