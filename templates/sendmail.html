@@ -22,9 +22,21 @@
         <textarea id="message" name="message" placeholder="Enter your message" style="height:200px" required></textarea>
 
         <input type="submit" value="Send">
-        <input type="reset" value="Cancel">
+        <a href="/resultatProjet">
+            <input type="reset" value="Cancel">
+        </a>
+        
     </form>
 </div>
-
+{% if sent%}
+<div class="modal-box">
+    <i class="fa-regular fa-circle-check" style="color: #1e9981;"></i>
+    <h2>Successful Contact</h2>
+    <h3>You're email has successfully been sent </h3>
+    <form action="/resultatProjet" method="get">
+        <button class="submit" type="submit"> Continue </button>
+    </form>
+</div>
+{% endif %} 
 </body>
 </html>

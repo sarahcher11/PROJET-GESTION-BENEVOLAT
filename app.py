@@ -17,7 +17,7 @@ app = Flask(__name__)
 app.secret_key = 'gghyednejcn'
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.send']
-CLIENT_SECRET_FILE = 'clint_credential.json'
+CLIENT_SECRET_FILE = 'client_credential.json'
 
 
 
@@ -296,12 +296,8 @@ def contact_volunteer(id):
     print(user)
     return render_template("sendmail.html",destinataire=user[3])
 
-@app.post("/contact")
-def contact_form():
-    pass
 
 
- 
 
 
 
@@ -341,13 +337,13 @@ def send_email(sender, to, subject, message):
 @app.post("/contact")
 def contact_form():
     if request.method == 'POST':
-        sender = request.form['sender']  # L'adresse e-mail de l'expéditeur
-        recipient = request.form['recipient']  # L'adresse e-mail du destinataire
-        subject = request.form['subject']  # L'objet de l'e-mail
-        body = request.form['body']  # Le corps de l'e-mail
+        sender = session['email'] 
+        recipient = request.form['recipient']  
+        subject = request.form['subject']  
+        body = request.form['message']  
 
         send_email(sender, recipient, subject, body)
-        return jsonify({"message": "Email sent successfully"})
+        return  render_template("sendmail.html",sent='true')
     else:
         return jsonify({"message": "Method not allowed"}), 405
 

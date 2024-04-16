@@ -30,3 +30,60 @@ input[type="submit"], input[type="reset"] {
 input[type="submit"]:hover, input[type="reset"]:hover {
     background-color: #45a049;
 }
+
+.modal-box {
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #fff;
+    max-width:  400px;
+    border-radius: 24px;
+    width: 100%;
+    font-weight: bold;
+    padding: 30px 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+.modal-box i {
+    font-size: 60px;
+}
+
+.modal-box h2{
+    margin : 18px 0;
+    font-size: 25px;
+    font-weight: 500;
+    
+}
+
+.modal-box h3{
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+}
+
+
+.modal-box .submit{
+    background-color: #009688;
+    padding: 10px;
+    margin-top: 18px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+}
+.container-ext {
+    padding: 20px;
+    margin-right: 25px;
+}
+
+.modal-box .submit:hover{
+    background-color: #fff;
+    color: #333;
+}
+
+
