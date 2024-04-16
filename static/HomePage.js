@@ -1,7 +1,9 @@
 let number1 =document.getElementById("number1");
+var totalv = number1.textContent;
+console.log(totalv);
 let counter1=0;
 setInterval(()=>{
-    if(counter1==200){
+    if(counter1==totalv){
         clearInterval();
     }else{
         counter1+=1;
@@ -10,9 +12,10 @@ setInterval(()=>{
 },25);
 
 let number2 =document.getElementById("number2");
+var totalp = number2.textContent;
 let counter2=0;
 setInterval(()=>{
-    if(counter2==200){
+    if(counter2==totalp){
         clearInterval();
     }else{
         counter2+=1;
@@ -38,5 +41,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Écouter l'événement de soumission du formulaire de recherche
+    document.getElementById('search-formpro').addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêcher le formulaire d'être soumis normalement
 
+        // Récupérer le terme de recherche
+        var searchQuery = document.getElementById('search-inputpro').value;
+
+        // Effectuer une redirection vers la page de résultats de recherche avec le terme de recherche comme paramètre
+        window.location.href = '/searchpro?name=' + encodeURIComponent(searchQuery);
+    });
+});
 

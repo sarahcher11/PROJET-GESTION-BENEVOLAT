@@ -55,6 +55,10 @@ body{
     color :#143147;
     margin-top: 15px;
 }
+.description input{
+    height: 200px;
+    
+}
 
 .form .column{
     display: flex ;
@@ -134,34 +138,50 @@ body{
     font-size: 1rem;
     color: #143147;
     margin-top: 15px;
+    margin-bottom: 15px;
     display: flex; /* Ajout */
     align-items: center; /* Ajout */
 }
 
+
+.select-btn .arrow-dwn{
+    display: flex;
+    height: 21px;
+    height: 21px;
+    transition: 0.3s;
+    align-items: center;
+    justify-content: center;
+}
 .select-btn .btn-text {
     flex: 1; 
 }
-
-.select-btn .arrow-btn {
-    flex-shrink: 0; 
-}
-
-.select-btn .arrow-btn i {
-    margin-left: auto; 
+.select-btn.open .arrow-dwn{
+    transform: rotate(-180deg);
 }
 .select-btn.open ~  .list-items{
     display: block;
 }
+
 .list-items{
     display: none;
+    border-radius: 6px;
+    border : 1px solid #c0c0c0;
 }
 
-.list-items .item{
+.form :where(.list-items .item,.list-items .item-skills) {
     display: flex;
     align-items: center;
     list-style: none;
+    cursor: pointer;
+    transition: 0.3s;
 }
-.item .checkbox{
+.list-items .item:hover{
+   background-color: #c0c0c0;
+}
+.list-items .item-skills:hover{
+    background-color: #c0c0c0;
+ }
+.form :where(.item .checkbox,.item-skills .checkbox) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -169,22 +189,37 @@ body{
     width: 16px;
     padding: 2px;
     margin-right: 12px;
-    border: 1.5px solid #c0c0c0;
+    border: 1.5px solid #143147;
+    transition: all 0.3s ease-in-out;
 }
-.item{
-    position: relative;
+
+.form :where(.item,.item-skills){
+ position: relative;
     height: 35px;
     width: 100%;
     outline: none;
-    border: 1px solid #ddd;
-    border-radius: 6px;
     padding: 0 15px;
     font-size: 1rem;
     color: #143147;
-    margin-top: 15px;
     display: flex; /* Ajout */
     align-items: center; /* Ajout */
 }
+
+.form :where(.item .item-text,.item .item-skills){
+    font-size: 16px;
+    font-weight: 400px;
+}
+
+.form :where(.item  .check-icon i,.item-skills .check-icon i) {
+    transform: scale(0);
+    font-size: 11px;
+    transition: all 0.3s ease-in-out;
+}
+
+.form :where(.item.checked i, .item-skills.checked i)  {
+    transform: scale(1);
+}
+
 .gender input{
     accent-color: #143147;
 }
@@ -197,3 +232,4 @@ body{
         row-gap: 15px;
     }
 }
+

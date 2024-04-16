@@ -6,22 +6,97 @@
   <title>HomePage</title> 
   <link rel="stylesheet" href="{{ url_for('static', filename='../static/HomePage.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
 </head>
 <body>
     <div class="image-container">
-        <div class="navbar">
-            <img class="logoimg" src="../static/images/logo.svg" alt="image2">
-            <nav>
-                <ul>
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/signup">Signup</a></li>
-                    <li><a href="">Help</a></li>
-                    <li class="FAQ" ><a href="#">FAQ</a></li>
+        <body>
+            <div class="image-container">
+                <div class="navbar">
+                    <img class="logoimg" src="../static/images/logo.svg" alt="image2">
+                    <nav>
+                        <ul>
+                            {% if 'user_id' not in session %}
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/signup">Signup</a></li>
+                            <li><a href="/help">Help</a></li>
+                            <li class="FAQ"><a href="/FAQ">FAQ</a></li>
+                            {% endif %}
+                            {% if 'user_id' in session %}
+                            <li>
+                                <a href="/help">Help</a>
+                            </li>
+                            <li class="FAQ2">
+                                <a href="/FAQ">FAQ</a>
+                            </li>
+                            <li class="logout">
+                                <a href="/logout">Logout</a>
+                            </li>
+                            <li class="profile">
+                                <a id="profile-link" >Profile</a>
+                                <div class="sub-wrap">
+                                    <div class="sub-menu">
+                                        <div class="user-info">
+                                            <a href="/profil"><img src="../static/images/user.png" alt="user-icon">
+                                            <h3>{{ session['username'] }}</h3>
+                                            </a> 
+                                        </div>
+                                        <hr>
+                                        <a href="#" class="sub-menu-link">
+                                            <img src="../static/images/edit.png" alt="">
+                                            <p>Edit profil</p>
+                                            <span>></span>
+                                        </a>
+                                        <a href="/myprojects" class="sub-menu-link">
+                                            <img class="doc" src="../static/images/dossier.png" alt="">
+                                            <p>My projects</p>
+                                            <span>></span>
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <img class="doc" src="../static/images/candidate.png" alt="">
+                                            <p>My candidatures</p>
+                                            <span>></span>
+                                        </a>
+                                        <a  href="/logout" class="sub-menu-link">
+                                            <img class="disconnect" src="../static/images/disconnect.png" alt="">
+                                            <p>Logout</p>
+                                            <span> ></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
                     
-                </ul>
-            </nav>
-        </div>
+                </div>
+                {% if erreur %}
+                <div class="modal-box">
+                    <i class="fa-solid fa-x" style="color:red;"></i>
+                    <h2>Access Denied</h2>
+                    <h3>You should connect to an account</h3>
+                    <form action="/" method="get">
+                        <button class="submit" type="submit"> Back </button>
+                    </form>
+                </div>
+                {% endif %}
+                {% if erreur2 %}
+                <div class="modal-box">
+                    <i class="fa-solid fa-x" style="color: red;"></i>
+                    <h2>Access Denied</h2>
+                    <h3>You are not a project manager</h3>
+                    <div class="buttons">
+                        <form action="/" method="get">
+                            <button class="submit back" type="submit"> Back </button>
+                        </form>
+                        <form action="/inscrProjectManager" method="get">
+                            <button class="submit register" type="submit"> register</button>
+                        </form>
+                    </div>
+                  
+                </div>
+                {% endif %}
     
 
         <div class="content">
@@ -45,18 +120,21 @@
 
             <div class="right">
                 <div class="Description">
-                    <h2>Découvrez des opportunités de bénévolat</h2>
-                    <p>Vous êtes à la recherche d'opportunités de bénévolat qui vous
-                    permettent <br>de faire une différence dans la société ?<br> Explorez nos
-                    projets et trouvez celui qui correspond à vos  intérêts et à <br> votre
-                    emploi du temps. Devenez un bénévole et rejoignez-nous pour avoir <br>
-                    un impact positif  sur votre communauté !</p>
+                    <h2>Recherchez des bénévoles pour vos projets</h2>
+                    <p>Êtes-vous à la recherche de bénévoles pour participer
+                    à vos projets et faire une différence dans la société ?
+                    Explorez nos opportunités de bénévolat et trouvez des 
+                    personnes motivées qui correspondent à vos besoins et à 
+                    la mission de vos projets. 
+                    Rejoignez-nous et travaillez ensemble pour avoir un impact
+                    positif sur votre communauté !</p>
+                    
 
                 </div>
                 <div class="searchBen">
                     <form action="/search" id="search-form" class="search-bar" method="GET">
-                        <input type="text" id="search-input" placeholder="Search projects" name="q">
-                        <button type="submit">Search</button>
+                        <input type="text" id="search-input" placeholder="Search volunteer" name="q">
+                        <button type="submit"><img class="search" src="../static/images/search.svg"></button>
                     </form>
                 </div>
             </div>
@@ -67,16 +145,17 @@
         <div class="RechercheChef">
             <div class="right">
                 <div class="Description">
-                    <h2>Découvrez des opportunités de bénévolat</h2>
-                    <p>Vous êtes à la recherche d'opportunités de bénévolat qui vous
-                    permettent <br>de faire une différence dans la société ?<br> Explorez nos
-                    projets et trouvez celui qui correspond à vos  intérêts et à <br> votre
-                    emploi du temps. Devenez un bénévole et rejoignez-nous pour avoir <br>
-                    un impact positif  sur votre communauté !</p>
+                    <h2>Explorez nos projets de bénévolat</h2>
+                    <p>À la recherche d'opportunités de bénévolat pour faire une
+                    différence dans la société ? Explorez nos projets et trouvez 
+                    celui qui correspond à vos intérêts et à votre emploi du temps.
+                    Devenez un bénévole et rejoignez-nous pour avoir un impact positif 
+                    sur votre communauté !</p>
+
                 </div>
                 <div class="searchProj">
-                    <form action="" class="search-bar">
-                        <input type="text" placeholder="Search projects" name="q">
+                    <form action="/searchpro"  id="search-formpro" class="search-bar" method="GET">
+                        <input type="text" id="search-inputpro" placeholder="Search projects" name="name">
                         <a href="#"> <img class="search" src="../static/images/search.svg"></a>
                    </form>
                 </div>
@@ -98,22 +177,21 @@
 
 
 
-
+    <div class="h11"><h1> Notre site en quelques chiffres </h1></div>
     <div class="statistiques">
-        <div> <img class="title" src="../static/images/statistics.svg"></div>
         <div class="skill1" id="animatedElement1">
             <div class="macilia">
             <div class="outer">
                 <div class="inner">
-                    <div id="number1"></div>
+                    <div id="number1">{{totalp}}</div>
                 </div>
             </div>
             <div class="svg-container">
                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
                     <defs>
                         <linearGradient id="GradientColor">
-                            <stop offset="0%" stop-color="#009688" />
-                             <stop offset="100%" stop-color="#333" />
+                            <stop offset="0%" stop-color="#102C57" />
+                             <stop offset="100%" stop-color="#DAC0A3" />
                         </linearGradient>
                     </defs>
                     <circle cx="80" cy="80" r="70" stroke-linecap="round" fill="none" stroke="url(#GradientColor)" stroke-width="20px" stroke-dasharray="439.82" stroke-dashoffset="439.82" />
@@ -123,12 +201,11 @@
             <div> <p> Nombre de Bénévoles inscrits </p></div>
         </div>
         
-
         <div class="skill2"id="animatedElement2">
         <div class="ines">
             <div class="outer">
                 <div class="inner">
-                    <div id="number2"></div>
+                    <div id="number2"> {{totalv}}</div>
                 </div>
             </div>
             <div class="svg-container">
@@ -148,6 +225,52 @@
 
     </div>
 
+    <div class="h11"><h1> Ce que disent les gens sur nous </h1></div>
+    <section class="avis-section">
+        
+        <div class="avis">
+            <div class="imgg"> <img class="imggg" src="../static/images/volunteer.svg"></div>
+            <div class="avis-content">
+                <p>Excellent service! Je recommande vivement ce site.</p>
+                <span class="author">Jean Dupont</span>
+                <div class="rating">
+                    ★★★★★ <!-- 5 étoiles -->
+                </div>
+            </div>
+        </div>
+        <div class="avis">
+            <div class="imgg"> <img class="imggg" src="../static/images/volunteer.svg"></div>
+            <div class="avis-content">
+                <p>Site très utile pour l'organisation d'événements. Bravo!</p>
+                <span class="author">Marie Martin</span>
+                <div class="rating">
+                    ★★★★☆ <!-- 4 étoiles -->
+                </div>
+            </div>
+        </div>
+        <div class="avis">
+            <div class="imgg"> <img class="imggg" src="../static/images/volunteer.svg"></div>
+            <div class="avis-content">
+                <p>Une expérience exceptionnelle! Je reviendrai sûrement.</p>
+                <span class="author">Pierre Durand</span>
+                <div class="rating">
+                    ★★★★★ <!-- 5 étoiles -->
+                </div>
+            </div>
+        </div>
+        <div class="avis">
+            <div class="imgg"> <img class="imggg" src="../static/images/volunteer.svg"></div>
+            <div class="avis-content">
+                <p>Service client très réactif. Merci pour votre professionnalisme!</p>
+                <span class="author">Sophie Leroy</span>
+                <div class="rating">
+                    ★★★★☆ <!-- 4 étoiles -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <footer>
         <div class="social-icons">
             <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
@@ -157,7 +280,6 @@
         </div>
         <p>&copy; 2024 Voitho. Tous droits réservés.</p>
     </footer>
-      
       
     <script src="{{ url_for('static', filename='HomePage.js') }}"></script>
 </body>

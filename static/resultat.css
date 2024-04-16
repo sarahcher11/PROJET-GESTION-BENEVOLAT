@@ -6,10 +6,9 @@ body {
 }
 
 h1 {
-
     color: #333;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 150px;
 }
 
 
@@ -29,7 +28,9 @@ h1 {
     margin-bottom: 30px;
     position: relative;
     width:300px;
+    height:450px;
     margin: 20px;
+
 
 }
 
@@ -70,40 +71,89 @@ ul{
     background-position: center;
     background-size: cover;
     padding-top: 3%;
+    flex-direction: column;
+    display: flex;
     box-sizing: border-box;
+    position: relative;
   
   }
 
-   .navbar{
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  .navbar{
     height:12%;
     display:flex;
     align-items: center;
 
    }
 
-  .image-container {
-    position: relative;
-    text-align: center;
-}
+  .logoimg{
+    width: 200px;
+    cursor: pointer;
 
-.searchBen {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
+  }
+
+  .logo{
+    margin-right: 400px;
+  }
+  
+  nav{
+    flex:1;
+    text-align: right;
+
+  }
+
+  .FAQ {
+    margin-right: 0px;
+  }
+
+
+
+  nav ul li {
+    list-style: none;
+    display: inline-block;
+    margin-left: 60px ;
+    position: relative;
+  }
 
   
-.search-bar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background-color: #f0f0f0;
-    padding: 5px 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+  nav ul li ::after {
+   content: '';
+   height: 3px;
+   width: 0;
+   background: #102C57;
+   position: absolute;
+   left: 0;
+   bottom:-10px;
+   transition: 0.5s;
+  }
+  nav ul li :hover::after {
+    width: 100%;
+   }
+  nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+  }
+
+
+
 
 .search-bar input[type="text"] {
     border: none;
@@ -121,11 +171,24 @@ ul{
     width: 700px;
     height: 50px;
     background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
 }
 
 
 
 .searchBen {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     position: absolute;
     top: calc(85%);
     left: 50%;
@@ -137,7 +200,7 @@ ul{
     padding: 10px 20px;
     font-size: 16px;
     border: none;
-    background-color: #009688;
+    background-color: #102C57;
     color: #fff;
     border-radius: 0 5px 5px 0; 
     cursor: pointer;
@@ -145,7 +208,7 @@ ul{
 }
 
 .search-bar button:hover {
-    background-color: #009688;
+    background-color: #102C57;
 }
 
 ::placeholder{
@@ -154,25 +217,58 @@ ul{
 }
 
 
-.content{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    color: #fff;
-  }
+.search-bar2 {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+}
+
+.search-bar2 input[type="text"] {
+    border: none;
+    background: none;
+    outline: none;
+    flex: 1;
+   
+}
+
+.search-bar2 button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.search-bar2 .search2 {
+    width: 35px; /* Ajustez la taille de l'image ici */
+    height: 35px; /* Ajustez la taille de l'image ici */
+}
+
+
+
+
+
+
+
+
+
+
+
 
   .content h1 {
     font-size: 30px;
-    margin-top: 100px;
     color: white;
+    margin-top: 100px;
 
   }
 
   .skills{
-    background-color: #adeae4;
+    background-color: #DAC0A3;
     opacity: 0.8;
     border-radius: 5px;
+    width: 300px;
     
   }
 
@@ -197,10 +293,11 @@ ul{
 }
 
 .name{
+    margin-top: 30px;
+    margin-bottom: 20px;
     font-size: large;
     color: black;
-    margin-bottom: 20px;
-    margin-left: 10px;
+    text-align: center;
    
 }
 .namecontainer{
@@ -231,8 +328,352 @@ ul{
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    border: 2px solid #009688;
+    border: 2px solid #102C57;
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+.select-btn {
+    position: relative;
+    margin-right: 20px; 
+    outline: none;
+    font-size: 1rem;
+    padding: 8px; /* Espacement intérieur pour une apparence uniforme */
+    font-size: 16px; /* Taille de police par défaut */
+    border-radius: 5px; /* Coins arrondis pour une apparence plus douce */
+    border: none; /* Bordure de couleur grise */
+    background-color: #fff;
+    margin-top: 15px;
+    display: flex; /* Ajout */
+    align-items: center; /* Ajout */
+    width:130px;
+    height:30px;
+}
+
+.select-btn .btn-text {
+    flex: 1;
+    margin-right: 20px; 
+}
+
+.select-btn .arrow-btn {
+    flex-shrink: 0; 
+    transition: 0.3s;
+}
+
+.select-btn .arrow-btn i {
+    margin-left: auto; 
+}
+.select-btn.open .arrow-btn{
+    transform: rotate(-180deg);
+}
+.select-btn.open ~  .list-items{
+    display: block;
+}
+.list-items{
+    display: none;
+    position: absolute;
+    background-color: white;
+    z-index:1;
+    width: 200px;
+}
+
+.list-items .item{
+   
+}
+.item .checkbox{
+  
+    height: 16px;
+    width: 16px;
+    padding: 2px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+}
+.list-items .item{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.list-items .item:hover{
+   background-color: #c0c0c0;
+}
+.item .checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    padding: 2px;
+    margin-right: 12px;
+    border: 1.5px solid #143147;
+    transition: all 0.3s ease-in-out;
+}
+.item{
+    position: relative;
+    height: 35px;
+    width: 100%;
+    outline: none;
+    padding: 0 15px;
+    font-size: 1rem;
+    color: #143147;
+    display: flex; /* Ajout */
+    align-items: center; /* Ajout */
+}
+.item .item-text{
+    font-size: 16px;
+    font-weight: 400px;
+}
+
+
+.item  .check-icon i {
+    transform: scale(0);
+    font-size: 11px;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.item.checked .check-icon i {
+    transform: scale(1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.select-btnskill {
+    position: relative;
+    margin-right: 20px; 
+    outline: none;
+    font-size: 1rem;
+    padding: 8px; /* Espacement intérieur pour une apparence uniforme */
+    font-size: 16px; /* Taille de police par défaut */
+    border-radius: 5px; /* Coins arrondis pour une apparence plus douce */
+    border: none; /* Bordure de couleur grise */
+    background-color: #fff;
+    margin-top: 15px;
+    display: flex; /* Ajout */
+    align-items: center; /* Ajout */
+    width:130px;
+    height:30px;
+}
+
+.select-btnskill .btn-textskill {
+    flex: 1;
+    margin-right: 20px; 
+}
+
+.select-btnskill .arrow-btnskill {
+    flex-shrink: 0; 
+    transition: 0.3s;
+}
+
+.select-btnskill .arrow-btnskill i {
+    margin-left: auto; 
+}
+.select-btnskill.openskill .arrow-btnskill{
+    transform: rotate(-180deg);
+}
+.select-btnskill.openskill ~  .list-itemsskill{
+    display: block;
+}
+.list-itemsskill{
+    display: none;
+    position: absolute;
+    background-color: white;
+    z-index:1;
+    width: 200px;
+}
+
+.list-itemsskill .itemskill{
+   
+}
+.itemskill .checkboxskill{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    padding: 2px;
+    margin-right: 12px;
+    border: 1.5px solid #c0c0c0;
+}
+.list-itemsskill .itemskill{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.list-itemsskill .itemskill:hover{
+   background-color: #c0c0c0;
+}
+.itemskill .checkboxskill{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 16px;
+    width: 16px;
+    padding: 2px;
+    margin-right: 12px;
+    border: 1.5px solid #143147;
+    transition: all 0.3s ease-in-out;
+}
+.itemskill{
+    position: relative;
+    height: 35px;
+    width: 100%;
+    outline: none;
+    padding: 0 15px;
+    font-size: 1rem;
+    color: #143147;
+    display: flex; /* Ajout */
+    align-items: center; /* Ajout */
+}
+.itemsskill .item-textskill{
+    font-size: 16px;
+    font-weight: 400px;
+}
+
+
+.itemskill  .check-iconskill i {
+    transform: scale(0);
+    font-size: 11px;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.itemskill.checkedskill .check-iconskill i {
+    transform: scale(1);
+}
+
+
+.logo{
+    width: 200px;
+    cursor: pointer;
+
+  }
+
+
+
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 100px;
+}
+
+
+
+
+  select {
+    padding: 8px; 
+    font-size: 16px; 
+    border-radius: 5px; 
+    border: none; 
+    margin-top: 15px;
+    background-color: #fff;
+    margin-right: 20px; 
+    width:200px;
+    height:47px;
+  }
+  
+  
+  select option {
+    padding: 5px; 
+  }
+  
+  select option[selected] {
+    font-weight: bold; 
+    color: #333; 
+  }
+  
+  select option:disabled {
+    color: #999; 
+  }
+
+
+#age{
+    width:280px;
+}
+  
+  .filtrer{
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #102C57;
+    color: #fff;
+    border-radius: 5px 5px 5px 5px; 
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+    width:15%;
+    height: 40px;
+  }
+
+
+
+
+  footer {
+    background-color: #EADBC8;
+    color: black;
+    padding: 20px 0;
+    bottom: 0;
+    width: 100%;
+      display: flex;
+   justify-content: center;
+   justify-items: center;
+   flex-direction: column;
+}
+
+footer p {
+  text-align: center;
+}
+
+.social-icons {
+  margin-top: 20px;
+    margin-left: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    
+
+}
+
+.social-icons a{
+  margin-bottom: 10px;
+}
+
+.insta{
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+
+
+
+.social-icons a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    margin-right: 50px;
+}
+
+.social-icons a:hover {
+    color: #102C57; /* couleur Twitter */
 }

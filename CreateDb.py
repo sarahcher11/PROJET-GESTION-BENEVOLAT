@@ -1,11 +1,14 @@
 import sqlite3
 import json
-from datetime import datetime
+from datetime import datetime,timedelta
 
 
 JSONFILENAMEUSER = 'users.json'
 JSONFILENAMEVOLUNTEER = 'volunteer.json'
 DBFILENAME = 'Data.sqlite'
+JSONFILENAMEPROJECTREGISTRATION='registration.json'
+JSONFILENAMEMANAGER = 'manager.json'
+JSONFILEPHOTOUSER = 'photo_user.json'
 
 def db_run(query, args=(),db_name=DBFILENAME):
   with sqlite3.connect(db_name) as conn:
@@ -13,26 +16,35 @@ def db_run(query, args=(),db_name=DBFILENAME):
     conn.execute
    
 
-def load_users(fname=JSONFILENAMEUSER, db_name=DBFILENAME):
-  # possible improvement: do whole thing as a single transaction
-  db_run('DROP TABLE IF EXISTS user')
-  db_run('DROP TABLE IF EXISTS volunteer')
-  db_run('DROP TABLE IF EXISTS project_manager')
-  db_run('DROP TABLE IF EXISTS project_registration')
-  db_run('DROP TABLE IF EXISTS project')
-
-  #la table user 
-  db_run('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT, registration_date TEXT)')
-  insert1 = 'INSERT INTO user VALUES (:id,:username, :password, :email, :registration_date)'
-  with open('users.json', 'r') as fh:
-     users = json.load(fh)
-  for id, user in enumerate(users):
-    user['id'] = id
-    db_run(insert1, user)
+def load_users(fname='users.json', db_name='your_database.db'):
+    # Assume you have your database setup functions db_run(), db_fetch(), db_insert() etc.
+    db_run('DROP TABLE IF EXISTS user')
+    db_run('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, email TEXT, registration_date TEXT)')
+    
+    insert_query = 'INSERT INTO user (username, password, email, registration_date) VALUES (?, ?, ?, ?)'
+    
+    with open(fname, 'r',encoding='utf-8') as fh:
+        users = json.load(fh)
+    
+    for user in users:
+        user['password_hash'] = generate_password_hash(user['password'])
+        db_run(insert_query, (user['username'], user['password_hash'], user['email'], user['registration_date']))
 
 
 
+def load_photo_user(fname=JSONFILEPHOTOUSER, db_name=DBFILENAME):
+    db_run('DROP TABLE IF EXISTS image')
+    db_run('CREATE TABLE image (user_id INTEGER, img TEXT)')
+    insert_query = 'INSERT INTO image VALUES (:user_id, :img)'
 
+    with open(fname, 'r',encoding='utf-8') as fh:
+        images = json.load(fh)
+
+    for id, image in enumerate(images, start=1):  # Commence à l'index 1
+        db_run(insert_query, {'user_id': id, 'img': image['img']})
+
+
+load_photo_user()
 def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
     # Supprimer la table volunteer s'il existe déjà
     db_run('DROP TABLE IF EXISTS volunteer')
@@ -60,7 +72,7 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
 
 
-    with open(fname, 'r') as fh:
+    with open(fname, 'r', encoding='utf-8') as fh:
         volunteers = json.load(fh)
 
     # Convertir les dates de naissance en format "YYYY-MM-DD"
@@ -75,10 +87,7 @@ def load_volunteers(fname=JSONFILENAMEVOLUNTEER, db_name=DBFILENAME):
     with sqlite3.connect(db_name) as conn:
             conn.executemany(insert_query, data_to_insert)
 
-
-
-
-
+load_volunteers()
 
 
 
@@ -97,11 +106,7 @@ def get_volunteers(db_name=DBFILENAME):
     return volunteers
 
 
-'''
-#test
-load_users()
-load_volunteers()
-'''
+
 
 def search_volunteer_by_name(name, db_name=DBFILENAME):
     select_query = '''SELECT * FROM volunteer WHERE first_name LIKE ? OR last_name LIKE ?'''
@@ -118,102 +123,109 @@ def search_volunteer_by_name(name, db_name=DBFILENAME):
 
 
 
-def calculate_age(born):
-    today = datetime.today()
-    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+def search_volunteer_by_location_keyword(keyword, db_name=DBFILENAME):
+    select_query = '''SELECT * FROM volunteer WHERE region LIKE ? OR city LIKE ? OR address LIKE ? OR country LIKE? OR post_code LIKE ?'''
+    try:
+        with sqlite3.connect(db_name) as conn:
+            cursor = conn.cursor()
+            cursor.execute(select_query, ('%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%', '%' + keyword + '%','%' + keyword + '%'))
+            matching_volunteerf = cursor.fetchall()
+    except sqlite3.Error as e:
+        print("Erreur lors de la recherche de projet dans la base de données:", e)
+        return None
 
-def search_volunteers_by_filter(first_name=None, last_name=None, age=None, address=None, country=None, city=None, region=None, post_code=None, skills=None, sexe=None, interests=None, db_name="Data.sqlite"):
+    return matching_volunteerf
+
+
+
+def search_volunteers_by_filter(age=None, skills=None, sexe=None, interests=None, db_name="Data.sqlite"):
+    # Connexion à la base de données
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
 
-    # Construction de la requête SQL dynamiquement en fonction des filtres fournis
+    # Construction de la requête SQL
     query = "SELECT * FROM volunteer WHERE 1=1"
     parameters = []
 
-    if first_name:
-        query += " AND first_name LIKE ?"
-        parameters.append('%' + first_name + '%')
+    if age is not None:
+        age = int(age)
+        query += " AND DATE('now') - DATE(date_of_birth) >= ?"
+        parameters.append(age)
 
-    if last_name:
-        query += " AND last_name LIKE ?"
-        parameters.append('%' + last_name + '%')
-
-    if age:
-        # Calculer la date de naissance à partir de l'âge spécifié
-        birth_date = datetime.today() - timedelta(days=age*365)
-        # Utiliser l'âge calculé pour filtrer les bénévoles
-        query += " AND date_of_birth <= ?"
-        parameters.append(birth_date.strftime('%Y-%m-%d'))
-
-    if address:
-        query += " AND address LIKE ?"
-        parameters.append('%' + address + '%')
-
-
-    if country:
-        query += " AND country LIKE ?"
-        parameters.append('%' + country + '%')
-
-    if city:
-        query += " AND city LIKE ?"
-        parameters.append('%' + city + '%')
-
-    if region:
-        query += " AND region LIKE ?"
-        parameters.append('%' + region + '%')
-
-    if post_code:
-        query += " AND post_code LIKE ?"
-        parameters.append('%' + post_code + '%')
-
-    if skills:
-        query += " AND skills LIKE ?"
-        parameters.append('%' + skills + '%')
-
-
-    if sexe:
-        query += " AND sexe LIKE ?"
-        parameters.append('%' + sexe + '%')
-
-    if interests:
-        # Utilisation de l'opérateur logique OR pour rechercher des bénévoles qui correspondent à au moins un intérêt
-        interests_filters = ["interests LIKE ?" for _ in interests]
-        query += " AND (" + " OR ".join(interests_filters) + ")"
-        for interest in interests:
+    if skills is not None and len(skills) > 0:
+        skills_conditions = skills.split(', ')
+        for skill in skills_conditions:
+            query += " AND skills LIKE ?"
+            parameters.append('%' + skill + '%')
+    if interests is not None and len(interests) > 0:
+        interests_conditions = interests.split(', ')
+        for interest in interests_conditions:
+            query += " AND interests LIKE ?"
             parameters.append('%' + interest + '%')
+    if sexe is not None:
+        query += " AND sexe = ?"
+        parameters.append(sexe)
 
+    # Exécution de la requête
     cursor.execute(query, parameters)
-    volunteers = cursor.fetchall()
+    volunteersf = cursor.fetchall()
 
+    # Fermeture de la connexion à la base de données
     conn.close()
 
-    return volunteers
+    return volunteersf
 
 
 
 
 
-'''
-#Test get_volunteers
-volunteers = get_volunteers()
-if volunteers:
-    print("Liste des bénévoles disponibles:")
-    for volunteer in volunteers:
-        print(volunteer)
-else:
-    print("Erreur lors de la récupération des bénévoles.")
-'''
 
 
-'''
-#Test search_volunteer_by_name
-search_name = "so"
-volunteer = search_volunteer_by_name(search_name)
-if volunteer:
-    print(f"Bénévole trouvé avec le nom '{search_name}': {volunteer}")
-else:
-    print(f"Aucun bénévole trouvé avec le nom '{search_name}'.")
-'''
+
+
+def load_projectmanagers(fname=JSONFILENAMEMANAGER, db_name=DBFILENAME):
+    # Supprimer la table volunteer s'il existe déjà
+    db_run('DROP TABLE IF EXISTS project_manager')
+
+    # Créer la table volunteer avec les nouvelles colonnes
+    db_run('''CREATE TABLE project_manager (
+                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                 user_id INTEGER,
+                 first_name TEXT,
+                 last_name TEXT,
+                 date_of_birth TEXT,
+                 address TEXT,
+                 adress_line2 TEXT,
+                 country TEXT,
+                 city TEXT,
+                 region TEXT,
+                 post_code TEXT,
+                 phone_number TEXT,
+                 sexe TEXT
+              )''')
+
+    insert_query = 'INSERT INTO  project_manager(user_id, first_name, last_name, date_of_birth, address, adress_line2, country, city, region, post_code, phone_number, sexe) \
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+
+    with open(fname, 'r',encoding='utf-8') as fh:
+       managers = json.load(fh)
+
+    # Convertir les dates de naissance en format "YYYY-MM-DD"
+    for manager in managers:
+        manager['date_of_birth'] = datetime.strptime(manager['date_of_birth'], '%Y-%m-%d').strftime('%Y-%m-%d')
+
+      
+
+    # Préparer les données à insérer sous forme de liste de tuples
+    data_to_insert = [(manager['user_id'], manager['first_name'], manager['last_name'], manager['date_of_birth'], manager['address'],
+                       manager['adress_line2'], manager['country'], manager['city'], manager['region'], manager['post_code'],
+                        manager['phone_number'], manager['sexe']) for manager in managers]
+
+    with sqlite3.connect(db_name) as conn:
+        conn.executemany(insert_query, data_to_insert)
+
+
+
 
 
 
@@ -241,7 +253,7 @@ def load_project_table(fname="Project.json", db_name="Data.sqlite"):
     insert_query = '''INSERT INTO project (project_name, description, start_date, end_date, region, ville, code_postal, adresse, project_manager_id, interests)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
 
-    with open(fname, 'r') as fh:
+    with open(fname, 'r', encoding='utf-8') as fh:
         projects = json.load(fh)
 
     # Convertir les dates de début et de fin du projet en format "YYYY-MM-DD"
@@ -260,7 +272,7 @@ def load_project_table(fname="Project.json", db_name="Data.sqlite"):
 
 
 
-
+load_project_table()
 
 def get_projects(db_name=DBFILENAME):
     select_query = '''SELECT * FROM project'''
@@ -274,6 +286,8 @@ def get_projects(db_name=DBFILENAME):
         return None
     
     return projects
+
+print(len(get_projects()))
 
 
 def search_project_by_keyword(keyword, db_name=DBFILENAME):
@@ -291,7 +305,8 @@ def search_project_by_keyword(keyword, db_name=DBFILENAME):
 
 
 
-
+matching_projects=search_project_by_keyword("programme")
+print(matching_projects)
 
 def search_project_by_location_keyword(keyword, db_name=DBFILENAME):
     select_query = '''SELECT * FROM project WHERE region LIKE ? OR ville LIKE ? OR adresse LIKE ? OR code_postal LIKE ?'''
@@ -329,62 +344,82 @@ def search_projects_by_period(start_date, end_date, db_name="Data.sqlite"):
 
 
 
-def search_projects_by_filter(region=None, ville=None, start_date=None, end_date=None, code_postal=None, adresse=None, interests=None, db_name="Data.sqlite"):
-    conn = sqlite3.connect(db_name)
-    cursor = conn.cursor()
+def load_project_registrations(fname=JSONFILENAMEPROJECTREGISTRATION, db_name=DBFILENAME):
+    # Supprimer la table project_registration si elle existe déjà
+    db_run('DROP TABLE IF EXISTS project_registration')
 
-    # Construction de la requête SQL dynamiquement en fonction des filtres fournis
-    query = "SELECT * FROM project WHERE 1=1"
-    parameters = []
+    # Créer la table project_registration avec les nouvelles colonnes
+    db_run('''CREATE TABLE project_registration (
+                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                 volunteer_id INTEGER,
+                 project_id INTEGER,
+                 registration_date TEXT,
+                 status TEXT
+              )''')
 
-    if region:
-        query += " AND region LIKE ?"
-        parameters.append('%' + region + '%')
+    insert_query = 'INSERT INTO project_registration (volunteer_id, project_id, registration_date, status) \
+                    VALUES (?, ?, ?, ?)'
 
-    if ville:
-        query += " AND ville LIKE ?"
-        parameters.append('%' + ville + '%')
+    with open(fname, 'r', encoding='utf-8') as fh:
+        registrations = json.load(fh)
 
-    if start_date:
-        query += " AND start_date >= ?"
-        parameters.append(start_date.strftime('%Y-%m-%d'))
+    # Convertir les dates de format "YYYY-MM-DD"
+    for registration in registrations:
+        registration['registration_date'] = datetime.strptime(registration['registration_date'], '%Y-%m-%d').strftime('%Y-%m-%d')
 
-    if end_date:
-        query += " AND end_date <= ?"
-        parameters.append(end_date.strftime('%Y-%m-%d'))
+    # Préparer les données à insérer sous forme de liste de tuples
+    data_to_insert = [(registration['volunteer_id'], registration['project_id'], registration['registration_date'], registration['status']) for registration in registrations]
 
-    if code_postal:
-        query += " AND code_postal LIKE ?"
-        parameters.append('%' + code_postal + '%')
+    # Insérer les données dans la base de données
+    with sqlite3.connect(db_name) as conn:
+            conn.executemany(insert_query, data_to_insert)
 
-    if adresse:
-        query += " AND adresse LIKE ?"
-        parameters.append('%' + adresse + '%')
-
-    if interests:
-        # Utilisation de l'opérateur logique OR pour rechercher des projets qui correspondent à au moins un intérêt
-        interests_filters = ["interests LIKE ?" for _ in interests]
-        query += " AND (" + " OR ".join(interests_filters) + ")"
-        for interest in interests:
-            parameters.append('%' + interest + '%')
-
-    cursor.execute(query, parameters)
-    projects = cursor.fetchall()
-
-    conn.close()
-
-    return projects
+# Appel de la fonction pour charger les enregistrements de projets
+load_project_registrations()
 
 
 
 
-load_project_table()
+def insert_project_registration(volunteer_id, project_id, registration_date, status, db_name=DBFILENAME, json_fname=JSONFILENAMEPROJECTREGISTRATION):
+    # Requête d'insertion dans la base de données
+    insert_query = 'INSERT INTO project_registration (volunteer_id, project_id, registration_date, status) \
+                    VALUES (?, ?, ?, ?)'
 
-projects_in_perio = search_projects_by_filter(None,"toul")
+    # Convertir la date en format "YYYY-MM-DD"
+    registration_date = datetime.strptime(registration_date, '%Y-%m-%d').strftime('%Y-%m-%d')
 
-# Affichage des projets trouvés
-for project in projects_in_perio:
-    print(project)
+    # Données à insérer dans la base de données
+    data_to_insert = (volunteer_id, project_id, registration_date, status)
+
+    # Insérer les données dans la base de données
+    with sqlite3.connect(db_name) as conn:
+        conn.execute(insert_query, data_to_insert)
+
+    # Insérer les données dans le fichier JSON
+    with open(json_fname, 'r', encoding='utf-8') as f:
+        registrations = json.load(f)
+
+    # Ajouter la nouvelle inscription au fichier JSON
+    new_registration = {
+        "volunteer_id": volunteer_id,
+        "project_id": project_id,
+        "registration_date": registration_date,
+        "status": status
+    }
+    registrations.append(new_registration)
+
+    # Réécrire le fichier JSON avec la nouvelle inscription
+    with open(json_fname, 'w', encoding='utf-8') as f:
+        json.dump(registrations, f, indent=4)
+
+
+
+
+
+
+
+
+
 
 
 

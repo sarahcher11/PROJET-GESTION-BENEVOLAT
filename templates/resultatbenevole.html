@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats de la recherche</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/resultat.css') }}">
+</head>
+
+<body>
+    <div class="image-container">
+        <div class="navbar">
+            <img class="logo" src="../static/images/logo.svg" alt="image2">
+            <nav>
+                <ul>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/signup">Signup</a></li>
+                    <li><a href="/help">Help</a></li>
+                    <li class="FAQ" ><a href="/FAQ">FAQ</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+        
+            <div class="content">
+                <h1> Retrouvez des benevoles partout en France ! </h1>
+            </div>
+            <div class="searchBen">
+                <form action="/search"  id="search-form1" class="search-bar" method="GET">
+                    <input type="text" id="search-input1" placeholder="Search projects" name="name">
+                    <button class="search-btn" type="submit">Je recherche</button>
+                </form>
+                <form action="/search1" id="search-form2" class="search-bar2" method="GET">
+                    <input type="text" id="search-input2" placeholder="Ville" name="name">
+                    <button type="submit"><img class="search2" src="../static/images/search.svg"></button>
+                </form>
+               
+    </div>            
+    <form class="form" action="/filtrer" id="myForm"  method="GET">
+                   <div class=" input-boxskill checkskill">
+                        <div name="country" class="select-btnskill">
+                            <span class="btn-textskill">Skills</span>  
+                            <span class="arrow-btnskill"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <ul class="list-itemsskill">
+                            {% for skill in skills %}
+                            <li class="itemskill">
+                                <span class="checkboxskill check-iconskill">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                               
+                                <span class="item-textskill"> {{skill}}</span>
+                               
+                            </li>
+                            {% endfor %}
+                        </ul>
+            
+                    </div>
+                    
+                    
+                    <div class=" input-box check">
+                        <div name="country" class="select-btn">
+                            <span class="btn-text">Interests</span>  
+                            <span class="arrow-btn"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <ul class="list-items">
+                            {% for interest in interests %}
+                            <li class="item">
+                                <span class="checkbox check-icon">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+                               
+                                <span class="item-text"> {{interest}}</span>
+                               
+                            </li>
+                            {% endfor %}
+                        </ul>
+            
+                    </div> 
+
+
+
+                    <select id="sexe" name="sexe">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    </select>
+
+
+
+
+                    <select id="age" name="age">
+                        <div class="option">
+                           <option  value="">-- Sélectionnez un âge minimum --</option>
+                        </div>
+                    {% for i in range(18, 51) %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                    </select>
+
+
+
+                    <button class="filtrer" type="submit">Filtrer</button>
+
+                </form>
+            </div>
+
+
+           
+                
+          
+
+   
+
+
+
+       <h1>{{size}} missions correspondant à votre recherche</h1>    
+       <ul>
+        {% for volunteer in volunteers %}
+
+
+
+        <div class="fiche">
+
+            <div class="container1">
+                <div class="entete">
+                    <div class="skills">
+                        <p> {{ volunteer[11] }}</p>
+                    </div>
+                    <div class="trait-horizontal"><br></div>
+                </div>
+
+                <div class="namecontainer">
+                    <div class="name">{{ volunteer[3]}} {{volunteer[2]}}<br></div>
+                    <div class="ines"> <img class="logoimg" src="../static/images/volunteer.svg" alt="image2"></div>
+                </div>
+
+                <div class="container">
+                    <p>
+                            <strong>Date de naissance:</strong> {{ volunteer[4] }}<br>
+                            <strong>Adresse:</strong> {{ volunteer[5] }}<br>
+                            <strong>Numéro de téléphone:</strong> {{ volunteer[12] }}<br>
+                            <strong>Sexe:</strong> {{ volunteer[13] }}<br>
+                            <strong>Intérêts:</strong> {{ volunteer[14] }}<br>
+                    </p>
+                </div>
+                <div class="btn"> <button type="button">contacter</button> </div>
+
+            </div>
+        
+        </div>
+        {% endfor %}
+    </ul>
+
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p>&copy; 2024 Voitho. Tous droits réservés.</p>
+    </footer>
+      
+
+
+    <script src="../static/resultat.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'aide</title>
+    <link rel="stylesheet" href="/static/help.css">
+</head>
+<body>
+
+
+    <div class="logo">
+        <div class="logo1"> <img class="logoimg" src="../static/images/logo.svg"> </div>
+   </div>
+    <section class="contact-form">
+        <h2>Contactez-nous</h2>
+        <form action="/help/envoyer_message" class="form" method="POST" >
+            <label for="email">Votre adresse e-mail :</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Votre message :</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p>&copy; 2024 Voitho. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

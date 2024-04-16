@@ -38,6 +38,12 @@
 
   }
 
+
+  .right{
+    width:600px;
+  }
+
+ 
   .FAQ {
     margin-right: 150px;
   }
@@ -59,7 +65,7 @@
    content: '';
    height: 3px;
    width: 0;
-   background: #009688;
+   background: #102C57;
    position: absolute;
    left: 0;
    bottom:-10px;
@@ -103,7 +109,7 @@
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    border: 2px solid #009688;
+    border: 2px solid #102C57;
     background: transparent;
     color:#fff;
     cursor: pointer;
@@ -111,7 +117,7 @@
     overflow: hidden;
   }
   span{
-    background:#009688 ;
+    background:#102C57 ;
     height: 100%;
     width: 0;
     border-radius: 25px;
@@ -129,30 +135,46 @@
   }
 
   footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
+    background-color: #EADBC8;
+    color: black;
     padding: 20px 0;
     bottom: 0;
     width: 100%;
+      display: flex;
+   justify-content: center;
+   justify-items: center;
+   flex-direction: column;
+}
+
+footer p {
+  text-align: center;
 }
 
 .social-icons {
-    margin-bottom: 40px;
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    justify-items: center;
+  margin-top: 20px;
     margin-left: 40px;
-}
-
-
-
-footer p{
     display: flex;
+    align-items: center;
     justify-content: center;
-    justify-items: center;
+    margin-bottom: 20px;
+    
+
 }
+
+.social-icons a{
+  margin-bottom: 10px;
+}
+
+.insta{
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+
+
+
 .social-icons a {
     color: #fff;
     text-decoration: none;
@@ -161,14 +183,13 @@ footer p{
 }
 
 .social-icons a:hover {
-    color: #55acee; /* couleur Twitter */
+    color: #102C57; /* couleur Twitter */
 }
 
 .statistiques {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 80px;
     margin-bottom: 80px;
 }
 
@@ -181,6 +202,7 @@ footer p{
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Ajoute une ombre douce */
     margin-right: 100px;
+    background-color: #FEFAF6;
     margin-bottom: 40px;
     display: inline-block;
 }
@@ -189,6 +211,7 @@ footer p{
 .skill2 {
     width: 300px;
     height: 300px;
+    background-color: #FEFAF6;
     border-radius: 10px;
     position: relative;
     margin-top: 30px;
@@ -255,8 +278,8 @@ footer p{
 }
 
 circle {
+  stroke: url(#GradientColor);
     fill: none;
-    stroke: url(#GradientColor);
     stroke-dasharray: 472;
     stroke-dashoffset: 472;
     animation: anim 7s linear forwards;
@@ -287,6 +310,7 @@ svg {
 .RechercheChef .Description{
     display: flex;
     flex-direction: column;
+   
 }
 
 .RechercheBenevole{
@@ -294,28 +318,42 @@ svg {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin-top: 40px;
+    background-color:#DAC0A3;
+    margin-bottom: 40px;
+    background: -webkit-linear-gradient(90deg, #102c57,#dac0a3,#eadbc8);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */                                             ;
 }
 .RechercheChef{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    background-color: #DAC0A3;
+    margin-bottom: 100px;
     margin-top: 40px;
+    background: -webkit-linear-gradient(90deg, #102c57,#dac0a3,#eadbc8);
+
 }
 
 .BenImageimg{
-    width: 450px;
+   
     margin-top: 30px;
     border-radius: 50%;
-    height: auto;
+    width: 400px;
+    height: 350px; 
+    margin-bottom: 30px;
+    object-fit: cover; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); 
 
 }
 .ProjImageimg {
-    width: 450px;
-    margin-top: 40px;
-    margin-left: 40px;
-    border-radius: 50%; 
+    margin-top: 30px;
+    border-radius: 50%;
+    width: 400px;
+    height: 350px; 
+    object-fit: cover; 
+    margin-bottom: 30px;
+    margin-left: 30px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); 
 }
 
@@ -373,7 +411,7 @@ h2 {
 
 .Description p {
     font-size: 16px;
-    color: #666;
+    color: rgba(62, 55, 55, 0.726);
     line-height: 1.5;
     margin-top: 20px;
 }
@@ -383,14 +421,299 @@ h2 {
     margin-right: 30px;
 }
 
+.description{
+  width: 600px;
+}
 
+
+
+
+.contact-info{
+  text-align:justify;
+  line-height: 1.5;
+  margin-right: 20px;
+}
   
+.p{
+  text-align:justify;
+  line-height: 1.5;
+}
+
+.entete{
+  display: flex;
+ 
+  margin-bottom: 10px;
+}
+
+.trait-horizontal {
+  width: 65%;
+  height: 1px; /* épaisseur du trait */
+  background-color: white; /* couleur du trait */
+  margin-left: 20px;
+  margin-top: 10px;
   
+}
+
+
+.bas{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+
+.avis-section {
+  display: flex;
+  justify-content: center;
+  height: 300px;
+  margin-bottom: 100px;
+}
+
+.avis {
+  background-color: #102C57;
+  border-radius: 10px;
+  color: white;
+  margin: 10px;
+  padding: 20px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+.imggg{
+  width:100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+
+}
+
+.h11{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.imgg{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avis-content {
+  text-align: center;
+}
+
+.author {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.rating {
+  font-size: 24px;
+  margin-top: 10px;
+}
 
 
 
+.profile {
+  margin-right: 150px; 
+}
+
+.sub-wrap {
+  position: absolute;
+  top: 120%; 
+  right: 0;
+  width: 320px;
+  background-color: #fff;
+  margin-top: 10px;
+  display: none; 
+  z-index: 999; /* Valeur de z-index pour la placer au-dessus des autres éléments */
+}
 
 
+.profile:hover .sub-wrap {
+  display: block;
+}
+
+
+.navbar nav ul {
+  margin-left: 500px;
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.navbar nav ul li {
+  margin-left: 50px; /* Réduisez la marge pour une meilleure disposition */
+}
+
+.navbar nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  position: relative;
+}
+
+.navbar nav ul li a::after {
+  content: '';
+  height: 3px;
+  width: 0;
+  background: #009688;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  transition: width 0.5s;
+}
+
+.navbar nav ul li a:hover::after {
+  width: 100%;
+}
+
+.navbar nav ul .sub-wrap :hover::after {
+  width: 0%;
+}
+
+
+
+.sub-wrap::after {
+  content: none; /* Cette ligne supprime le contenu généré qui crée la ligne */
+}
+
+
+
+.sub-menu{
+  background-color: #fff;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-info a{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+
+.user-info h3{
+  font-weight: 500;
+  margin: 0;
+  color: #333;
+} 
+
+.sub-menu hr{
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background-color: #ccc;
+  margin: 15px 0 10px;
+}
+.user-info img, .sub-menu-link img{
+  width: 35px;
+  height: 35px;
+  margin-right: 20px;
+
+}
+.sub-menu-link{
+  padding: 10px;
+  width: 100%;
+}
+.sub-menu-link:hover{
+  background-color: #ccc;
+}
+img.doc{
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+
+img.disconnect{
+  width: 37px;
+  height: 37px;
+  margin-right: 20px;
+}
+.sub-menu-link{
+  display: flex;
+  align-items: flex-start;
+  margin-top: 15px;
+}
+.sub-menu-link span{
+  font-size: 50px;
+}
+.sub-menu-link p{
+  text-decoration: none;
+  color: #333;
+  padding: 5px;
+}
+.sub-menu-link a:hover{
+  background-color: #0c0c0c0c;
+}
+
+.modal-box .submit{
+  background-color: #009688;
+  padding: 10px;
+  margin-top: 18px;
+  border-radius: 8px;
+  color:  #333;
+  font-weight: bold;
+}
+.modal-box .submit:hover{
+  background-color: #fff;
+  color: #333;
+}
+.modal-box {
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #fff;
+    max-width:  400px;
+    border-radius: 24px;
+    width: 100%;
+    font-weight: bold;
+    padding: 30px 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+.modal-box i {
+    font-size: 60px;
+}
+
+.modal-box h2{
+    margin : 18px 0;
+    font-size: 25px;
+    font-weight: 500;
+    
+}
+
+.modal-box h3{
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+}
+
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.back{
+  margin-left: 60px;
+}
+.register{
+  margin-right:60px ;
+}
 
 
   
